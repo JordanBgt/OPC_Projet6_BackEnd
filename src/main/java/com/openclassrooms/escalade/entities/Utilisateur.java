@@ -3,14 +3,15 @@ package com.openclassrooms.escalade.entities;
 import com.openclassrooms.escalade.model.ERole;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "utilisateur")
 public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "nom_utilisateur")
     private String nomUtilisateur;
@@ -22,11 +23,17 @@ public class Utilisateur {
 
     private ERole role;
 
-    public Integer getId() {
+    @OneToMany(mappedBy = "createurTopo")
+    private List<Topo> toposCrees;
+
+    @OneToMany(mappedBy = "reservantTopo")
+    private List<Topo> toposReserves;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
