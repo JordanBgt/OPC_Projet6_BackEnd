@@ -25,11 +25,9 @@ public class Topo {
     @ManyToMany
     private List<Spot> spots;
 
-    @Column(name = "createur_topo")
     @ManyToOne
     private Utilisateur createurTopo;
 
-    @Column(name = "reservant_topo")
     @ManyToOne
     private Utilisateur reservantTopo;
 
@@ -122,5 +120,13 @@ public class Topo {
 
     public void setDateParution(Date dateParution) {
         this.dateParution = dateParution;
+    }
+
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
     }
 }

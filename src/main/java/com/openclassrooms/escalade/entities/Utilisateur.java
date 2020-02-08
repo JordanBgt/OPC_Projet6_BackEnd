@@ -68,4 +68,20 @@ public class Utilisateur {
     public void setRole(ERole role) {
         this.role = role;
     }
+
+    public List<Topo> getToposCrees() {
+        return toposCrees;
+    }
+
+    public void setToposCrees(List<Topo> toposCrees) {
+        this.toposCrees = toposCrees;
+    }
+
+    public List<Topo> getToposReserves() {
+        return toposReserves;
+    }
+
+    public void setToposReserves(List<Topo> toposReserves) {
+        this.toposReserves = toposReserves;
+    }
 }

@@ -30,4 +30,12 @@ public class Photo {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public Spot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
+    }
 }
