@@ -4,8 +4,8 @@ import com.openclassrooms.escalade.entities.Topo;
 import com.openclassrooms.escalade.repositories.TopoRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TopoService {
@@ -16,7 +16,7 @@ public class TopoService {
         this.topoRepository = topoRepository;
     }
 
-    public Topo save(Topo topo){
+    public Topo create(Topo topo){
         return topoRepository.save(topo);
     }
 
@@ -24,8 +24,17 @@ public class TopoService {
         return topoRepository.findAll();
     }
 
-    public Optional<Topo> findById(Long id){
-        return topoRepository.findById(id);
+    public Topo findById(Long id){
+        return topoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Le topo n'a pas été trouvé"));
+    }
+
+    public Topo update(Topo topo) {
+        return topoRepository.save(topo);
+    }
+
+    public void delete(Long id) {
+        Topo topo = this.findById(id);
+        topoRepository.delete(topo);
     }
 
 }

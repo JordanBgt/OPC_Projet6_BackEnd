@@ -34,6 +34,9 @@ public class Topo {
     @Column(name = "date_parution")
     private Date dateParution;
 
+    @OneToOne
+    private Photo photo;
+
     public Long getId() {
         return Id;
     }
@@ -129,4 +132,6 @@ public class Topo {
     public void setSpots(List<Spot> spots) {
         this.spots = spots;
     }
+
+
 }

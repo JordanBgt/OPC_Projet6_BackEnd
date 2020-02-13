@@ -15,6 +15,10 @@ public class Spot {
 
     private String ville;
 
+    private String description;
+
+    private boolean estOfficiel;
+
     @ManyToMany(mappedBy = "spots")
     private List<Topo> topos;
 
@@ -81,5 +85,21 @@ public class Spot {
 
     public void setSecteurs(List<Secteur> secteurs) {
         this.secteurs = secteurs;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isEstOfficiel() {
+        return estOfficiel;
+    }
+
+    public void setEstOfficiel(boolean estOfficiel) {
+        this.estOfficiel = estOfficiel;
     }
 }
