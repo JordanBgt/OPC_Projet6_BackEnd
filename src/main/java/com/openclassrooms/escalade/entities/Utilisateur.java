@@ -1,26 +1,30 @@
 package com.openclassrooms.escalade.entities;
 
 import com.openclassrooms.escalade.model.ERole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "utilisateur")
-public class Utilisateur {
+public class Utilisateur implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nom_utilisateur")
-    private String nomUtilisateur;
+    private String username;
 
     @Column(name = "mot_de_passe")
-    private String motDePasse;
+    private String password;
 
     private String email;
 
+    @Enumerated(EnumType.STRING)
     private ERole role;
 
     @OneToMany(mappedBy = "createurTopo")
@@ -28,6 +32,8 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "reservantTopo")
     private List<Topo> toposReserves;
+
+
 
     public Long getId() {
         return id;
@@ -37,20 +43,20 @@ public class Utilisateur {
         this.id = id;
     }
 
-    public String getNomUtilisateur() {
-        return nomUtilisateur;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNomUtilisateur(String nomUtilisateur) {
-        this.nomUtilisateur = nomUtilisateur;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMotDePasse() {
-        return motDePasse;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -83,5 +89,30 @@ public class Utilisateur {
 
     public void setToposReserves(List<Topo> toposReserves) {
         this.toposReserves = toposReserves;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 }
