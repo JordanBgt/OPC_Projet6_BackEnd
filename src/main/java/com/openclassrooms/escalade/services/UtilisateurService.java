@@ -1,14 +1,15 @@
 package com.openclassrooms.escalade.services;
 
-import com.openclassrooms.escalade.entities.Utilisateur;
 import com.openclassrooms.escalade.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Service
 public class UtilisateurService implements UserDetailsService {
 
     private final UtilisateurRepository utilisateurRepository;
