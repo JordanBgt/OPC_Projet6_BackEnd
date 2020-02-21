@@ -33,6 +33,8 @@ public class Utilisateur implements UserDetails {
     @OneToMany(mappedBy = "reservantTopo")
     private List<Topo> toposReserves;
 
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Spot> spotCrees;
 
 
     public Long getId() {
@@ -114,5 +116,13 @@ public class Utilisateur implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    public List<Spot> getSpotCrees() {
+        return spotCrees;
+    }
+
+    public void setSpotCrees(List<Spot> spotCrees) {
+        this.spotCrees = spotCrees;
     }
 }

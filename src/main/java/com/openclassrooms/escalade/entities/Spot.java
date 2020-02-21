@@ -19,10 +19,10 @@ public class Spot {
 
     private boolean estOfficiel;
 
-    @ManyToMany(mappedBy = "spots")
-    private List<Topo> topos;
+    @ManyToOne
+    private Topo topo;
 
-    @OneToMany
+    @OneToMany(mappedBy = "spot")
     private List<Commentaire> commentaires;
 
     @OneToMany
@@ -30,6 +30,9 @@ public class Spot {
 
     @OneToMany(mappedBy = "spot")
     private List<Secteur> secteurs;
+
+    @ManyToOne
+    private Utilisateur utilisateur;
 
     public Long getId() {
         return Id;
@@ -55,12 +58,12 @@ public class Spot {
         this.ville = ville;
     }
 
-    public List<Topo> getTopos() {
-        return topos;
+    public Topo getTopos() {
+        return topo;
     }
 
-    public void setTopos(List<Topo> topos) {
-        this.topos = topos;
+    public void setTopos(Topo topo) {
+        this.topo = topo;
     }
 
     public List<Commentaire> getCommentaires() {
@@ -101,5 +104,21 @@ public class Spot {
 
     public void setEstOfficiel(boolean estOfficiel) {
         this.estOfficiel = estOfficiel;
+    }
+
+    public Topo getTopo() {
+        return topo;
+    }
+
+    public void setTopo(Topo topo) {
+        this.topo = topo;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

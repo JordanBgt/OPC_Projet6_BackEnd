@@ -12,9 +12,6 @@ public class Photo {
 
     private String nom;
 
-    @ManyToOne
-    private Spot spot;
-
     public Integer getId() {
         return id;
     }
@@ -29,13 +26,5 @@ public class Photo {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Spot getSpot() {
-        return spot;
-    }
-
-    public void setSpot(Spot spot) {
-        this.spot = spot;
     }
 }

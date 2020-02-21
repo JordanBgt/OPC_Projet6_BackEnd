@@ -17,6 +17,9 @@ public class Commentaire {
     @ManyToOne
     private Utilisateur utilisateur;
 
+    @ManyToOne
+    private Spot spot;
+
     public Long getId() {
         return id;
     }
@@ -47,5 +50,13 @@ public class Commentaire {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public Spot getSpot() {
+        return spot;
+    }
+
+    public void setSpot(Spot spot) {
+        this.spot = spot;
     }
 }

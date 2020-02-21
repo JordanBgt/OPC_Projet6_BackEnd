@@ -9,7 +9,6 @@ public class Longueur {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-
     private String nom;
     private String cotation;
 

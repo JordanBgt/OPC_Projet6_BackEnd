@@ -22,7 +22,7 @@ public class Topo {
     private String pays;
     private String region;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "topo")
     private List<Spot> spots;
 
     @ManyToOne
@@ -133,5 +133,11 @@ public class Topo {
         this.spots = spots;
     }
 
+    public Photo getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
 }
