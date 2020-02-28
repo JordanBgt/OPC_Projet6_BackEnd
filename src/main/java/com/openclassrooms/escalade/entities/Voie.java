@@ -11,7 +11,7 @@ public class Voie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    private String nom;
+    private String name;
     private String cotation;
 
     @ManyToOne
@@ -28,12 +28,12 @@ public class Voie {
         Id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCotation() {

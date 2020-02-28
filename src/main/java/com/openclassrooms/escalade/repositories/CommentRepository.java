@@ -1,12 +1,9 @@
 package com.openclassrooms.escalade.repositories;
 
-import com.openclassrooms.escalade.entities.Spot;
+import com.openclassrooms.escalade.entities.Comment;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
-public interface SpotRepository extends CrudRepository<Spot, Long> {
-
-    List<Spot> findAll();
+public interface CommentRepository extends CrudRepository<Comment, Long> {
 }

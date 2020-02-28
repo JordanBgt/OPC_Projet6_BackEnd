@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.config;
 
-import com.openclassrooms.escalade.services.UtilisateurService;
+import com.openclassrooms.escalade.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UtilisateurService userDetailsService;
+    UserService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

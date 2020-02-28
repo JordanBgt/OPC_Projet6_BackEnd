@@ -11,19 +11,19 @@ public class Spot {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    private String pays;
+    private String country;
 
-    private String ville;
+    private String city;
 
     private String description;
 
-    private boolean estOfficiel;
+    private boolean isOfficial;
 
     @ManyToOne
     private Topo topo;
 
     @OneToMany(mappedBy = "spot")
-    private List<Commentaire> commentaires;
+    private List<Comment> comments;
 
     @OneToMany
     private List<Photo> photos;
@@ -32,7 +32,7 @@ public class Spot {
     private List<Secteur> secteurs;
 
     @ManyToOne
-    private Utilisateur utilisateur;
+    private User user;
 
     public Long getId() {
         return Id;
@@ -42,20 +42,20 @@ public class Spot {
         Id = id;
     }
 
-    public String getPays() {
-        return pays;
+    public String getCountry() {
+        return country;
     }
 
-    public void setPays(String pays) {
-        this.pays = pays;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getVille() {
-        return ville;
+    public String getCity() {
+        return city;
     }
 
-    public void setVille(String ville) {
-        this.ville = ville;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Topo getTopos() {
@@ -66,12 +66,12 @@ public class Spot {
         this.topo = topo;
     }
 
-    public List<Commentaire> getCommentaires() {
-        return commentaires;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentaires(List<Commentaire> commentaires) {
-        this.commentaires = commentaires;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public List<Photo> getPhotos() {
@@ -98,12 +98,12 @@ public class Spot {
         this.description = description;
     }
 
-    public boolean isEstOfficiel() {
-        return estOfficiel;
+    public boolean isIsOfficial() {
+        return isOfficial;
     }
 
-    public void setEstOfficiel(boolean estOfficiel) {
-        this.estOfficiel = estOfficiel;
+    public void setIsOfficial(boolean isOfficial) {
+        this.isOfficial = isOfficial;
     }
 
     public Topo getTopo() {
@@ -114,11 +114,11 @@ public class Spot {
         this.topo = topo;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
+    public User getUser() {
+        return user;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

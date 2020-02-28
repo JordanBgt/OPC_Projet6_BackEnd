@@ -1,6 +1,5 @@
 package com.openclassrooms.escalade.entities;
 
-import com.openclassrooms.escalade.model.ERole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,32 +8,32 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "utilisateur")
-public class Utilisateur implements UserDetails {
+@Table(name = "user")
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nom_utilisateur")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "mot_de_passe")
+    @Column(name = "password")
     private String password;
 
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    private ERole role;
+    @ManyToMany
+    private List<Role> roles;
 
-    @OneToMany(mappedBy = "createurTopo")
-    private List<Topo> toposCrees;
+    @OneToMany(mappedBy = "topoCreator")
+    private List<Topo> toposCreated;
 
-    @OneToMany(mappedBy = "reservantTopo")
-    private List<Topo> toposReserves;
+    @OneToMany(mappedBy = "topoTenant")
+    private List<Topo> toposRent;
 
-    @OneToMany(mappedBy = "utilisateur")
-    private List<Spot> spotCrees;
+    @OneToMany(mappedBy = "user")
+    private List<Spot> spotsCreated;
 
 
     public Long getId() {
@@ -69,28 +68,36 @@ public class Utilisateur implements UserDetails {
         this.email = email;
     }
 
-    public ERole getRole() {
-        return role;
+    public List<Topo> getToposCreated() {
+        return toposCreated;
     }
 
-    public void setRole(ERole role) {
-        this.role = role;
+    public void setToposCreated(List<Topo> toposCreated) {
+        this.toposCreated = toposCreated;
     }
 
-    public List<Topo> getToposCrees() {
-        return toposCrees;
+    public List<Topo> getToposRent() {
+        return toposRent;
     }
 
-    public void setToposCrees(List<Topo> toposCrees) {
-        this.toposCrees = toposCrees;
+    public void setToposRent(List<Topo> toposRent) {
+        this.toposRent = toposRent;
     }
 
-    public List<Topo> getToposReserves() {
-        return toposReserves;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setToposReserves(List<Topo> toposReserves) {
-        this.toposReserves = toposReserves;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Spot> getSpotsCreated() {
+        return spotsCreated;
+    }
+
+    public void setSpotsCreated(List<Spot> spotsCreated) {
+        this.spotsCreated = spotsCreated;
     }
 
     @Override
@@ -116,13 +123,5 @@ public class Utilisateur implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    public List<Spot> getSpotCrees() {
-        return spotCrees;
-    }
-
-    public void setSpotCrees(List<Spot> spotCrees) {
-        this.spotCrees = spotCrees;
     }
 }

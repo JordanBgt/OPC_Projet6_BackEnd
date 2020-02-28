@@ -1,12 +1,11 @@
 package com.openclassrooms.escalade.repositories;
 
-import com.openclassrooms.escalade.entities.Spot;
+import com.openclassrooms.escalade.entities.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
-public interface SpotRepository extends CrudRepository<Spot, Long> {
+public interface RoleRepository extends CrudRepository<Role, Long> {
 
-    List<Spot> findAll();
+    Role findByName(String name);
 }

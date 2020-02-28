@@ -10,7 +10,7 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String nom;
+    private String name;
 
     public Integer getId() {
         return id;
@@ -20,11 +20,11 @@ public class Photo {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 }

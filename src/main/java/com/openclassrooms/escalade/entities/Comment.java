@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "commentaire")
-public class Commentaire {
+@Table(name = "comment")
+public class Comment {
 
     @Id
     private Long id;
@@ -15,7 +15,7 @@ public class Commentaire {
     private Date date;
 
     @ManyToOne
-    private Utilisateur utilisateur;
+    private User user;
 
     @ManyToOne
     private Spot spot;
@@ -44,12 +44,12 @@ public class Commentaire {
         this.date = date;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
+    public User getUser() {
+        return user;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Spot getSpot() {

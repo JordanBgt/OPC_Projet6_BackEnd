@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.services;
 
-import com.openclassrooms.escalade.repositories.UtilisateurRepository;
+import com.openclassrooms.escalade.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class UtilisateurService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
-    private final UtilisateurRepository utilisateurRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UtilisateurService(UtilisateurRepository utilisateurRepository) {
-        this.utilisateurRepository = utilisateurRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Objects.requireNonNull(username);
-        return utilisateurRepository.findUtilisateurByUsername(username)
+        return userRepository.findUtilisateurByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
     }
 }

@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.controllers;
 
-import com.openclassrooms.escalade.entities.Utilisateur;
+import com.openclassrooms.escalade.entities.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class UtilisateurController {
+public class UserController {
 
     @GetMapping("/user")
     @ResponseBody
-    public ResponseEntity<Utilisateur> getUser() {
-        Utilisateur user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ResponseEntity<Utilisateur>(user, HttpStatus.OK);
+    public ResponseEntity<User> getUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 }

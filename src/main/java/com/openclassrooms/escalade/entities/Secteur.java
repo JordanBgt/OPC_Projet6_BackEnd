@@ -11,7 +11,7 @@ public class Secteur {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    private String nom;
+    private String name;
 
     @ManyToOne
     private Spot spot;
@@ -27,12 +27,12 @@ public class Secteur {
         Id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Spot getSpot() {
