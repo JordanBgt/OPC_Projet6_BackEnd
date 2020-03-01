@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -35,27 +37,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf()
-                .disable()
+        http
+                .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint(){})
                 .and()
                 .authenticationProvider(getProvider())
                 .formLogin()
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/api/login")
                 .successHandler(new AuthentificationLoginSuccessHandler())
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/api/logout")
                 .logoutSuccessHandler(new AuthenticationLogoutSuccessHandler())
                 .invalidateHttpSession(true)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/logout").permitAll()
-                .antMatchers("/user").authenticated()
-                .anyRequest().permitAll();
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/logout").permitAll()
+                .antMatchers("/api/user").authenticated()
+                .anyRequest().authenticated();
     }
 
     private class AuthentificationLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -83,5 +85,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         AppAuthProvider provider = new AppAuthProvider();
         provider.setUserDetailsService(userDetailsService);
         return provider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
