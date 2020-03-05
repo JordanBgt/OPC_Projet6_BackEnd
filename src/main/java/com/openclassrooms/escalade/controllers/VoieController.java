@@ -27,7 +27,7 @@ public class VoieController {
     @GetMapping("/voie/{id}")
     @ResponseBody
     public Voie getVoie(@PathVariable Long id) {
-        return voieService.findOne(id);
+        return voieService.findById(id);
     }
 
     @PostMapping("/voie")

@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.config;
 
-import com.openclassrooms.escalade.services.UserService;
+import com.openclassrooms.escalade.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class AppAuthProvider extends DaoAuthenticationProvider {
 
     @Autowired
-    UserService userDetailsService;
+    UserServiceImpl userDetailsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

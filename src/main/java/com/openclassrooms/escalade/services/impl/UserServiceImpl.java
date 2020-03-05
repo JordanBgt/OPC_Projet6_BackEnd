@@ -1,4 +1,4 @@
-package com.openclassrooms.escalade.services;
+package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,7 +1,6 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.entities.Longueur;
-import com.openclassrooms.escalade.repositories.LongueurRepository;
 import com.openclassrooms.escalade.services.LongueurService;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ public class LongueurController {
     @GetMapping("/longueur/{id}")
     @ResponseBody
     public Longueur getLongueur(@PathVariable Long id) {
-        return longueurService.findOne(id);
+        return longueurService.findById(id);
     }
 
     @PostMapping("/longueur")
