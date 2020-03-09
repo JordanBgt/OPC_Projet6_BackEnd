@@ -18,7 +18,7 @@ public class Spot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private String country;
 

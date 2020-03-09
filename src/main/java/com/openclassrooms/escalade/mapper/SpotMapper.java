@@ -10,5 +10,5 @@ import java.util.List;
 public interface SpotMapper {
 
     SpotDto toSpotDto(Spot spot);
-    List<SpotDto> toSpotDto(List<Spot> spot);
+    List<SpotDto> toSpotListDto(List<Spot> spot);
 }

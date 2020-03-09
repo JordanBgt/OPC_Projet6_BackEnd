@@ -19,8 +19,7 @@ public class Topo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long Id;
+    private Long id;
     private String name;
     private String description;
     private String cotation;

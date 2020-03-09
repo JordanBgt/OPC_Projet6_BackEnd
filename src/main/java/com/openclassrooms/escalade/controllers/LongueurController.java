@@ -1,6 +1,8 @@
 package com.openclassrooms.escalade.controllers;
 
+import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.entities.Longueur;
+import com.openclassrooms.escalade.mapper.LongueurMapper;
 import com.openclassrooms.escalade.services.LongueurService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,25 +20,25 @@ public class LongueurController {
 
     @GetMapping("/longueurs")
     @ResponseBody
-    public List<Longueur> getAllLongueurs() {
+    public List<LongueurDto> getAllLongueurs() {
         return longueurService.findAll();
     }
 
     @GetMapping("/longueur/{id}")
     @ResponseBody
-    public Longueur getLongueur(@PathVariable Long id) {
+    public LongueurDto getLongueur(@PathVariable Long id) {
         return longueurService.findById(id);
     }
 
     @PostMapping("/longueur")
     @ResponseBody
-    public Longueur createLongueur(@RequestBody Longueur longueur) {
+    public LongueurDto createLongueur(@RequestBody Longueur longueur) {
         return longueurService.create(longueur);
     }
 
     @PutMapping("/longueur")
     @ResponseBody
-    public Longueur updateLongueur(@RequestBody Longueur longueur) {
+    public LongueurDto updateLongueur(@RequestBody Longueur longueur) {
         return longueurService.update(longueur);
     }
 

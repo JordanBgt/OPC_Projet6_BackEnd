@@ -1,5 +1,6 @@
 package com.openclassrooms.escalade.controllers;
 
+import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.services.VoieService;
 import org.springframework.http.ResponseEntity;
@@ -20,25 +21,25 @@ public class VoieController {
 
     @GetMapping("/voies")
     @ResponseBody
-    public List<Voie> getAllVoies() {
+    public List<VoieDto> getAllVoies() {
         return voieService.findAll();
     }
 
     @GetMapping("/voie/{id}")
     @ResponseBody
-    public Voie getVoie(@PathVariable Long id) {
+    public VoieDto getVoie(@PathVariable Long id) {
         return voieService.findById(id);
     }
 
     @PostMapping("/voie")
     @ResponseBody
-    public Voie createVoie(@RequestBody Voie voie) {
+    public VoieDto createVoie(@RequestBody Voie voie) {
         return voieService.create(voie);
     }
 
     @PutMapping("/voie")
     @ResponseBody
-    public Voie updateVoie(@RequestBody Voie voie) {
+    public VoieDto updateVoie(@RequestBody Voie voie) {
         return voieService.update(voie);
     }
 

@@ -1,14 +1,15 @@
 package com.openclassrooms.escalade.services;
 
+import com.openclassrooms.escalade.dto.SpotDto;
 import com.openclassrooms.escalade.entities.Spot;
 
 import java.util.List;
 
 public interface SpotService {
 
-    List<Spot> findAll();
-    Spot findById(Long id);
-    Spot create(Spot spot);
-    Spot update(Spot spot);
+    List<SpotDto> findAll();
+    SpotDto findById(Long id);
+    SpotDto create(Spot spot);
+    SpotDto update(Spot spot);
     void delete(Long id);
 }

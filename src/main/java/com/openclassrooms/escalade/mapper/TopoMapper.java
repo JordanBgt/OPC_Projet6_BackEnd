@@ -4,14 +4,17 @@ import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.entities.Topo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = SpotMapper.class)
 public interface TopoMapper {
 
-    @Mapping(source = "topoCreator.id", target = "creatorId")
-    @Mapping(source = "topoTenant.id", target = "tenantId")
+    @Mappings({
+            @Mapping(source = "topoCreator.id", target = "creatorId"),
+            @Mapping(source = "topoTenant.id", target = "tenantId")
+    })
     TopoDto toTopoDto(Topo topo);
     List<TopoDto> toListTopoDto(List<Topo> topos);
 }

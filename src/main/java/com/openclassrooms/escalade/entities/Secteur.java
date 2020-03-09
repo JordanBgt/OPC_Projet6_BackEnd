@@ -18,7 +18,7 @@ public class Secteur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private String name;
 
