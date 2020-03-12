@@ -1,8 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.LongueurDto;
-import com.openclassrooms.escalade.entities.Longueur;
-import com.openclassrooms.escalade.mapper.LongueurMapper;
+import com.openclassrooms.escalade.dto.LongueurSaveDto;
 import com.openclassrooms.escalade.services.LongueurService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,14 +31,15 @@ public class LongueurController {
 
     @PostMapping("/longueur")
     @ResponseBody
-    public LongueurDto createLongueur(@RequestBody Longueur longueur) {
+    public LongueurDto createLongueur(@RequestBody LongueurSaveDto longueur) {
         return longueurService.create(longueur);
     }
 
-    @PutMapping("/longueur")
+    @PutMapping("/longueur/{id}")
     @ResponseBody
-    public LongueurDto updateLongueur(@RequestBody Longueur longueur) {
-        return longueurService.update(longueur);
+    public LongueurDto updateLongueur(@RequestBody LongueurSaveDto longueur,
+                                      @PathVariable Long id) {
+        return longueurService.update(longueur, id);
     }
 
     @DeleteMapping("/longueur/{id}")

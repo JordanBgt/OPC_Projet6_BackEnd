@@ -9,7 +9,7 @@ public interface VoieService {
 
     List<VoieDto> findAll();
     VoieDto findById(Long id);
-    VoieDto create(Voie voie);
-    VoieDto update(Voie voie);
+    VoieDto create(VoieDto voie);
+    VoieDto update(VoieDto voie, Long id);
     void delete(Long id);
 }

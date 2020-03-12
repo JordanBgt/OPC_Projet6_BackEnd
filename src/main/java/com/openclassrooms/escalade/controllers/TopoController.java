@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.TopoDto;
+import com.openclassrooms.escalade.dto.TopoSaveDto;
 import com.openclassrooms.escalade.entities.Topo;
 import com.openclassrooms.escalade.services.TopoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,14 @@ public class TopoController {
 
     @PostMapping("/topo")
     @ResponseBody
-    public TopoDto createTopo(@RequestBody Topo topo) {
+    public TopoDto createTopo(@RequestBody TopoSaveDto topo) {
         return topoService.create(topo);
     }
 
     @PutMapping("/topo/{id}")
     @ResponseBody
-    public TopoDto updateTop(@RequestBody Topo topo) {
-        return topoService.update(topo);
+    public TopoDto updateTop(@RequestBody TopoSaveDto topo, Long id) {
+        return topoService.update(topo, id);
     }
 
     @DeleteMapping("/topo/{id}")

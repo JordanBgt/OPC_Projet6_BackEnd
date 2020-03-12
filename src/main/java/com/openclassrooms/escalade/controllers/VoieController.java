@@ -33,14 +33,15 @@ public class VoieController {
 
     @PostMapping("/voie")
     @ResponseBody
-    public VoieDto createVoie(@RequestBody Voie voie) {
+    public VoieDto createVoie(@RequestBody VoieDto voie) {
         return voieService.create(voie);
     }
 
-    @PutMapping("/voie")
+    @PutMapping("/voie/{id}")
     @ResponseBody
-    public VoieDto updateVoie(@RequestBody Voie voie) {
-        return voieService.update(voie);
+    public VoieDto updateVoie(@RequestBody VoieDto voie,
+                              @PathVariable Long id) {
+        return voieService.update(voie, id);
     }
 
     @DeleteMapping("/voie/{id}")

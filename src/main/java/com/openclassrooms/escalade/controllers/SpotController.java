@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.SpotDto;
+import com.openclassrooms.escalade.dto.SpotSaveDto;
 import com.openclassrooms.escalade.entities.Spot;
 import com.openclassrooms.escalade.services.SpotService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,15 @@ public class SpotController {
 
     @PostMapping("/spot")
     @ResponseBody
-    public SpotDto createSpot(@RequestBody Spot spot) {
+    public SpotDto createSpot(@RequestBody SpotSaveDto spot) {
         return spotService.create(spot);
     }
 
     @PutMapping("/spot/{id}")
     @ResponseBody
-    public SpotDto updateSpot(@RequestBody Spot spot) {
-        return spotService.update(spot);
+    public SpotDto updateSpot(@RequestBody SpotSaveDto spot,
+                              @PathVariable Long id) {
+        return spotService.update(spot, id);
     }
 
     @DeleteMapping("/spot/{id}")

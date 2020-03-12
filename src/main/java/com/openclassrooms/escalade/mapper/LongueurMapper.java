@@ -11,4 +11,5 @@ public interface LongueurMapper {
 
     LongueurDto toLongueurDto(Longueur longueur);
     List<LongueurDto> toListLongueurDto(List<Longueur> longueurs);
+    List<Longueur> toListLongueur(List<LongueurDto> longueursDto);
 }

@@ -25,6 +25,6 @@ public class TopoDto {
     private Date publicationDate;
     private String region;
     private List<SpotDto> spots;
-    private Long cretaorId;
+    private Long creatorId;
     private Long tenantId;
 }

@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.SecteurDto;
+import com.openclassrooms.escalade.dto.SecteurSaveDTto;
 import com.openclassrooms.escalade.entities.Secteur;
 import com.openclassrooms.escalade.services.SecteurService;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +34,15 @@ public class SecteurController {
 
     @PostMapping("/secteur")
     @ResponseBody
-    public SecteurDto createSecteur(@RequestBody Secteur secteur) {
+    public SecteurDto createSecteur(@RequestBody SecteurSaveDTto secteur) {
         return secteurService.create(secteur);
     }
 
-    @PutMapping("/secteur")
+    @PutMapping("/secteur/{id}")
     @ResponseBody
-    public SecteurDto updateSecteur(@RequestBody Secteur secteur) {
-        return secteurService.update(secteur);
+    public SecteurDto updateSecteur(@RequestBody SecteurSaveDTto secteur,
+                                    @PathVariable Long id) {
+        return secteurService.update(secteur, id);
     }
 
     @DeleteMapping("/secteur/{id}")
