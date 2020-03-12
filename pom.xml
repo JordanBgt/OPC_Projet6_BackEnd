@@ -16,7 +16,10 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<mapstruct.version>1.3.1.Final</mapstruct.version>
+		<sonar.projectKey>JordanBgt_OPC_Projet6_BackEnd</sonar.projectKey>
+		<sonar.organization>jordanbgt-github</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>708055cac8f313b9e3801bc333dfd139a0e1c4f1</sonar.login>
 	</properties>
 
 	<dependencies>
@@ -72,12 +75,12 @@
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<version>${mapstruct.version}</version>
+			<version>1.2.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
-			<version>${mapstruct.version}</version>
+			<version>1.2.0.Final</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
