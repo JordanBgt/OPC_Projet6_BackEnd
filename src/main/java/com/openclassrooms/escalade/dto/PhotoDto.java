@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PhotoDto {
 
+    private Long id;
     private String name;
 }

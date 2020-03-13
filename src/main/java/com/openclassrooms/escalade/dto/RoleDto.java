@@ -7,12 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class LongueurDto {
+@NoArgsConstructor
+public class RoleDto {
 
-    private String cotation;
     private Long id;
     private String name;
-    private VoieDto voie;
 }

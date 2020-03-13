@@ -13,7 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class CommentDto {
 
+    private Long id;
     private Date date;
     private String description;
-    private Long userId;
+    private UserDto user;
 }

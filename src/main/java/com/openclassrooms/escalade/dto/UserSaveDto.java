@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class LongueurDto {
+@NoArgsConstructor
+public class UserSaveDto {
 
-    private String cotation;
-    private Long id;
-    private String name;
-    private VoieDto voie;
+    private String username;
+    private String password;
+    private String email;
 }
