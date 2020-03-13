@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "topo")
-public class Topo {
+public class Topo implements Serializable {
+
+    private static final long serialVersionUID = -6148715300769658435L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

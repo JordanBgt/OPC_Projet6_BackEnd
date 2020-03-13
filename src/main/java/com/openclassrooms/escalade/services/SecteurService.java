@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dto.SecteurDto;
 import com.openclassrooms.escalade.dto.SecteurSaveDTto;
-import com.openclassrooms.escalade.entities.Secteur;
 
 import java.util.List;
 

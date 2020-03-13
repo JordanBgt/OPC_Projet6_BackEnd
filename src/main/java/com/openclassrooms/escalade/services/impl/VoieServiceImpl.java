@@ -4,7 +4,6 @@ import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.entities.Secteur;
 import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.mapper.LongueurMapper;
-import com.openclassrooms.escalade.mapper.SecteurMapper;
 import com.openclassrooms.escalade.mapper.VoieMapper;
 import com.openclassrooms.escalade.repositories.SecteurRepository;
 import com.openclassrooms.escalade.repositories.VoieRepository;

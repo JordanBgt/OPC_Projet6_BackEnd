@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.SecteurDto;
 import com.openclassrooms.escalade.dto.SecteurSaveDTto;
-import com.openclassrooms.escalade.entities.Secteur;
 import com.openclassrooms.escalade.services.SecteurService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

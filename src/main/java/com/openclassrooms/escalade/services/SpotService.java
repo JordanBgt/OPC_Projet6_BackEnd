@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dto.SpotDto;
 import com.openclassrooms.escalade.dto.SpotSaveDto;
-import com.openclassrooms.escalade.entities.Spot;
 
 import java.util.List;
 

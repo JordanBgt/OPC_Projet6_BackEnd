@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.SpotDto;
 import com.openclassrooms.escalade.dto.SpotSaveDto;
-import com.openclassrooms.escalade.entities.Spot;
 import com.openclassrooms.escalade.services.SpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -17,6 +17,6 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<User> getUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

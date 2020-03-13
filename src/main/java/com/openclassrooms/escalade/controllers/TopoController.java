@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
-import com.openclassrooms.escalade.entities.Topo;
 import com.openclassrooms.escalade.services.TopoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

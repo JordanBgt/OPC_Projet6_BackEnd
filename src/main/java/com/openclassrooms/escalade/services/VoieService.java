@@ -1,7 +1,6 @@
 package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dto.VoieDto;
-import com.openclassrooms.escalade.entities.Voie;
 
 import java.util.List;
 

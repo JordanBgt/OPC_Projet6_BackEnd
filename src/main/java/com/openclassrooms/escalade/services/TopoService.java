@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
-import com.openclassrooms.escalade.entities.Topo;
 
 import java.util.List;
 

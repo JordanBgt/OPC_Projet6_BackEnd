@@ -1,7 +1,6 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.VoieDto;
-import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.services.VoieService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

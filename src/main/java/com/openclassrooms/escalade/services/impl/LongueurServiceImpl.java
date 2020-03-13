@@ -1,6 +1,5 @@
 package com.openclassrooms.escalade.services.impl;
 
-import antlr.RecognitionException;
 import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.dto.LongueurSaveDto;
 import com.openclassrooms.escalade.entities.Longueur;
