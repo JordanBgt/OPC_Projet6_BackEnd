@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("topos")
 public class TopoController {
 
     private final TopoService topoService;
@@ -21,31 +21,31 @@ public class TopoController {
         this.topoService = topoService;
     }
 
-    @GetMapping("/topos")
+    @GetMapping
     @ResponseBody
     public List<TopoDto> getAllTopos() {
         return topoService.findAll();
     }
 
-    @GetMapping("/topo/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public TopoDto getTopo(@PathVariable Long id) {
         return topoService.findById(id);
     }
 
-    @PostMapping("/topo")
+    @PostMapping
     @ResponseBody
     public TopoDto createTopo(@RequestBody TopoSaveDto topo) {
         return topoService.create(topo);
     }
 
-    @PutMapping("/topo/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public TopoDto updateTop(@RequestBody TopoSaveDto topo, Long id) {
         return topoService.update(topo, id);
     }
 
-    @DeleteMapping("/topo/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTopo(@PathVariable Long id) {
         try {
             topoService.delete(id);

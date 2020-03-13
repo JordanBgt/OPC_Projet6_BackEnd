@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/longueurs")
 public class LongueurController {
 
     private final LongueurService longueurService;
@@ -17,32 +17,32 @@ public class LongueurController {
         this.longueurService = longueurService;
     }
 
-    @GetMapping("/longueurs")
+    @GetMapping
     @ResponseBody
     public List<LongueurDto> getAllLongueurs() {
         return longueurService.findAll();
     }
 
-    @GetMapping("/longueur/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public LongueurDto getLongueur(@PathVariable Long id) {
         return longueurService.findById(id);
     }
 
-    @PostMapping("/longueur")
+    @PostMapping
     @ResponseBody
     public LongueurDto createLongueur(@RequestBody LongueurSaveDto longueur) {
         return longueurService.create(longueur);
     }
 
-    @PutMapping("/longueur/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public LongueurDto updateLongueur(@RequestBody LongueurSaveDto longueur,
                                       @PathVariable Long id) {
         return longueurService.update(longueur, id);
     }
 
-    @DeleteMapping("/longueur/{id}")
+    @DeleteMapping("/{id}")
     public void deleteLongueur(@PathVariable Long id) {
         longueurService.delete(id);
     }

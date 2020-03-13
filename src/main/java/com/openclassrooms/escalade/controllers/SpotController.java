@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/spots")
 public class SpotController {
 
     private final SpotService spotService;
@@ -21,32 +21,32 @@ public class SpotController {
         this.spotService = spotService;
     }
 
-    @GetMapping("/spots")
+    @GetMapping
     @ResponseBody
     public List<SpotDto> getAllSpots() {
         return spotService.findAll();
     }
 
-    @GetMapping("/spot/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public SpotDto getSpot(@PathVariable Long id) {
         return spotService.findById(id);
     }
 
-    @PostMapping("/spot")
+    @PostMapping
     @ResponseBody
     public SpotDto createSpot(@RequestBody SpotSaveDto spot) {
         return spotService.create(spot);
     }
 
-    @PutMapping("/spot/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public SpotDto updateSpot(@RequestBody SpotSaveDto spot,
                               @PathVariable Long id) {
         return spotService.update(spot, id);
     }
 
-    @DeleteMapping("/spot/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSpot(@PathVariable Long id) {
         try {
             spotService.delete(id);

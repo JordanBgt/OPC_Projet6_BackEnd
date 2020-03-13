@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserController {
 
-    @GetMapping("/user")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<User> getUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

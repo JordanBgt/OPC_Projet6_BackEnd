@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/secteurs")
 public class SecteurController {
 
     private final SecteurService secteurService;
@@ -19,32 +19,32 @@ public class SecteurController {
         this.secteurService = secteurService;
     }
 
-    @GetMapping("/secteurs")
+    @GetMapping
     @ResponseBody
     public List<SecteurDto> getAllSecteurs() {
         return secteurService.findAll();
     }
 
-    @GetMapping("/secteur/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public SecteurDto getSecteur(@PathVariable Long id) {
         return secteurService.findById(id);
     }
 
-    @PostMapping("/secteur")
+    @PostMapping
     @ResponseBody
     public SecteurDto createSecteur(@RequestBody SecteurSaveDTto secteur) {
         return secteurService.create(secteur);
     }
 
-    @PutMapping("/secteur/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public SecteurDto updateSecteur(@RequestBody SecteurSaveDTto secteur,
                                     @PathVariable Long id) {
         return secteurService.update(secteur, id);
     }
 
-    @DeleteMapping("/secteur/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSecteur(@PathVariable Long id) {
         try {
             secteurService.delete(id);

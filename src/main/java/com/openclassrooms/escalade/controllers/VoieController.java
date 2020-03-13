@@ -9,7 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/voies")
 public class VoieController {
 
     private final VoieService voieService;
@@ -18,32 +18,32 @@ public class VoieController {
         this.voieService = voieService;
     }
 
-    @GetMapping("/voies")
+    @GetMapping
     @ResponseBody
     public List<VoieDto> getAllVoies() {
         return voieService.findAll();
     }
 
-    @GetMapping("/voie/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public VoieDto getVoie(@PathVariable Long id) {
         return voieService.findById(id);
     }
 
-    @PostMapping("/voie")
+    @PostMapping
     @ResponseBody
     public VoieDto createVoie(@RequestBody VoieDto voie) {
         return voieService.create(voie);
     }
 
-    @PutMapping("/voie/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public VoieDto updateVoie(@RequestBody VoieDto voie,
                               @PathVariable Long id) {
         return voieService.update(voie, id);
     }
 
-    @DeleteMapping("/voie/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVoie(@PathVariable Long id) {
         try {
             voieService.delete(id);
