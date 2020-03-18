@@ -11,7 +11,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/spots")
+@RequestMapping("/api/spots")
+@CrossOrigin(origins = "*")
 public class SpotController {
 
     private final SpotService spotService;

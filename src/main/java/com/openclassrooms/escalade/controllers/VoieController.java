@@ -9,7 +9,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/voies")
+@RequestMapping("/api/voies")
+@CrossOrigin(origins = "*")
 public class VoieController {
 
     private final VoieService voieService;

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/longueurs")
+@RequestMapping("/api/longueurs")
+@CrossOrigin(origins = "*")
 public class LongueurController {
 
     private final LongueurService longueurService;

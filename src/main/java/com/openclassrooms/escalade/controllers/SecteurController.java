@@ -10,7 +10,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/secteurs")
+@RequestMapping("/api/secteurs")
+@CrossOrigin(origins = "*")
 public class SecteurController {
 
     private final SecteurService secteurService;

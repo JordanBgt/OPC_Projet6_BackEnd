@@ -11,7 +11,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("topos")
+@RequestMapping("/api/topos")
+@CrossOrigin(origins = "*")
 public class TopoController {
 
     private final TopoService topoService;
