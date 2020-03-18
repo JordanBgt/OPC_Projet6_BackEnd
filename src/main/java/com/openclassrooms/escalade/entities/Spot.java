@@ -27,6 +27,11 @@ public class Spot implements Serializable {
 
     private String city;
 
+    private String name;
+
+    private String cotation;
+
+    @Lob
     private String description;
 
     private boolean isOfficial = false;

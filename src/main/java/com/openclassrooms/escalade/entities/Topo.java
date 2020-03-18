@@ -24,7 +24,10 @@ public class Topo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
+    @Lob
     private String description;
+
     private String cotation;
     private String duration;
 
