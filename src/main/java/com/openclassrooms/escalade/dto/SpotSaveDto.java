@@ -15,4 +15,6 @@ public class SpotSaveDto {
     private String country;
     private String description;
     private Long userId;
+    private String name;
+    private String cotation;
 }

@@ -14,5 +14,5 @@ public class LongueurDto {
     private String cotation;
     private Long id;
     private String name;
-    private VoieDto voie;
+    private Long voieId;
 }

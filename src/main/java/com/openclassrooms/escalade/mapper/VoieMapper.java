@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = LongueurMapper.class)
 public interface VoieMapper {
 
     @Mapping(source = "secteur.id", target = "secteurId")

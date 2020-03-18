@@ -16,5 +16,5 @@ public class SecteurDto {
     private String name;
     private List<VoieDto> voies;
     private Long id;
-    private SpotDto spot;
+    private Long spotId;
 }

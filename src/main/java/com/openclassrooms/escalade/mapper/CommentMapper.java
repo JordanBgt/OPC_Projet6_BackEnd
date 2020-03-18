@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CommentMapper {
 
-    @Mapping(source = "user.id", target = "userId")
     CommentDto toCommentDto(Comment comment);
     List<CommentDto> toListCommentDto(List<Comment> comments);
 }
