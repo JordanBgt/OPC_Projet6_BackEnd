@@ -18,7 +18,6 @@ public class TopoDto {
     private String cotation;
     private String country;
     private String description;
-    private String duration;
     private Long id;
     private String name;
     private PhotoDto photo;

@@ -14,7 +14,6 @@ public class TopoSaveDto {
     private String cotation;
     private String country;
     private String description;
-    private String duration;
     private String name;
     private String region;
     private Long userId;

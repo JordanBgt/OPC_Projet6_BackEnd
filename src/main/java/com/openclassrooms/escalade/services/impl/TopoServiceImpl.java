@@ -28,7 +28,6 @@ public class TopoServiceImpl implements TopoService {
                 .cotation(topoSaveDto.getCotation())
                 .country(topoSaveDto.getCountry())
                 .description(topoSaveDto.getDescription())
-                .duration(topoSaveDto.getDuration())
                 .name(topoSaveDto.getName())
                 .region(topoSaveDto.getRegion())
                 .topoCreator(user)
@@ -49,7 +48,6 @@ public class TopoServiceImpl implements TopoService {
         topo.setCotation(topoSaveDto.getCotation());
         topo.setCountry(topoSaveDto.getCountry());
         topo.setDescription(topoSaveDto.getDescription());
-        topo.setDuration(topoSaveDto.getDuration());
         topo.setName(topoSaveDto.getName());
         topo.setRegion(topoSaveDto.getRegion());
         return topoMapper.toTopoDto(topoRepository.save(topo));

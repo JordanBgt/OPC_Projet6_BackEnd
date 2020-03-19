@@ -29,7 +29,6 @@ public class Topo implements Serializable {
     private String description;
 
     private String cotation;
-    private String duration;
 
     @Column(name = "available")
     private boolean available;
