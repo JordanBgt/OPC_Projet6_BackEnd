@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TopoSaveDto {
 
-    private String cotation;
+    private CotationDto cotationMin;
+    private CotationDto cotationMax;
     private String country;
     private String description;
     private String name;

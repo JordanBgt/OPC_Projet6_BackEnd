@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LongueurSaveDto {
 
-    private String cotation;
+    private CotationDto cotationMin;
+    private CotationDto cotationMax;
     private String name;
     private Long voieId;
 }

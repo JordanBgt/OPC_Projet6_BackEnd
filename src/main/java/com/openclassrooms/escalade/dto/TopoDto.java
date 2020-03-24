@@ -15,7 +15,8 @@ import java.util.List;
 public class TopoDto {
 
     private boolean available;
-    private String cotation;
+    private String cotationMin;
+    private String cotationMax;
     private String country;
     private String description;
     private Long id;

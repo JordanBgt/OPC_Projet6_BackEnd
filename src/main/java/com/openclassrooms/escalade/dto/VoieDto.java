@@ -13,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class VoieDto {
 
-    private String cotation;
+    private String cotationMin;
+    private String cotationMax;
     private Long id;
     private List<LongueurDto> longueurs;
     private String name;

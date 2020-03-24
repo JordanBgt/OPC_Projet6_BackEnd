@@ -8,12 +8,14 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = SpotMapper.class)
+@Mapper(componentModel = "spring", uses = {SpotMapper.class, CotationMapper.class})
 public interface TopoMapper {
 
     @Mappings({
             @Mapping(source = "topoCreator.id", target = "creatorId"),
-            @Mapping(source = "topoTenant.id", target = "tenantId")
+            @Mapping(source = "topoTenant.id", target = "tenantId"),
+            @Mapping(source = "cotationMin.label", target = "cotationMin"),
+            @Mapping(source = "cotationMax.label", target = "cotationMax")
     })
     TopoDto toTopoDto(Topo topo);
     List<TopoDto> toListTopoDto(List<Topo> topos);

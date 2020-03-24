@@ -24,7 +24,14 @@ public class Voie implements Serializable {
     private Long id;
 
     private String name;
-    private String cotation;
+
+    @ManyToOne
+    @JoinColumn(name = "cotation_min_id")
+    private Cotation cotationMin;
+
+    @ManyToOne
+    @JoinColumn(name = "cotation_max_id")
+    private Cotation cotationMax;
 
     @ManyToOne
     private Secteur secteur;

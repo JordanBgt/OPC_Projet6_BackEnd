@@ -1,10 +1,13 @@
 package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.dto.VoieDto;
+import com.openclassrooms.escalade.dto.VoieSaveDto;
+import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Secteur;
 import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.mapper.LongueurMapper;
 import com.openclassrooms.escalade.mapper.VoieMapper;
+import com.openclassrooms.escalade.repositories.CotationRepository;
 import com.openclassrooms.escalade.repositories.SecteurRepository;
 import com.openclassrooms.escalade.repositories.VoieRepository;
 import com.openclassrooms.escalade.services.VoieService;
@@ -22,6 +25,7 @@ public class VoieServiceImpl implements VoieService {
     private final VoieMapper voieMapper;
     private final LongueurMapper longueurMapper;
     private final SecteurRepository secteurRepository;
+    private final CotationRepository cotationRepository;
 
     public List<VoieDto> findAll() {
         return voieMapper.toListVoieDto(voieRepository.findAll());
@@ -31,20 +35,27 @@ public class VoieServiceImpl implements VoieService {
         return voieMapper.toVoieDto(voieRepository.findById(id).orElseThrow(EntityNotFoundException::new));
     }
 
-    public VoieDto create(VoieDto voieDto) {
+    public VoieDto create(VoieSaveDto voieSaveDto) {
+        Cotation cotationMin = cotationRepository.findById(voieSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMax = cotationRepository.findById(voieSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+        Secteur secteur = secteurRepository.findById(voieSaveDto.getSecteurId()).orElseThrow(EntityNotFoundException::new);
         Voie voie = Voie.builder()
-                .cotation(voieDto.getCotation())
-                .name(voieDto.getName())
+                .cotationMin(cotationMin)
+                .cotationMax(cotationMax)
+                .name(voieSaveDto.getName())
+                .secteur(secteur)
                 .build();
         return voieMapper.toVoieDto(voieRepository.save(voie));
     }
 
-    public VoieDto update(VoieDto voieDto, Long id) {
+    public VoieDto update(VoieSaveDto voieSaveDto, Long id) {
         Voie voie = voieRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        Secteur secteur = secteurRepository.findById(voieDto.getSecteurId()).orElseThrow(EntityNotFoundException::new);
-        voie.setName(voieDto.getName());
-        voie.setCotation(voieDto.getCotation());
-        voie.setLongueurs(longueurMapper.toListLongueur(voieDto.getLongueurs()));
+        Secteur secteur = secteurRepository.findById(voieSaveDto.getSecteurId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMin = cotationRepository.findById(voieSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMax = cotationRepository.findById(voieSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+        voie.setName(voieSaveDto.getName());
+        voie.setCotationMin(cotationMin);
+        voie.setCotationMax(cotationMax);
         voie.setSecteur(secteur);
         return voieMapper.toVoieDto(voieRepository.save(voie));
     }

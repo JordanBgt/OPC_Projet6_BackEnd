@@ -29,7 +29,13 @@ public class Spot implements Serializable {
 
     private String name;
 
-    private String cotation;
+    @ManyToOne
+    @JoinColumn(name = "cotation_min_id")
+    private Cotation cotationMin;
+
+    @ManyToOne
+    @JoinColumn(name = "cotation_max_id")
+    private Cotation cotationMax;
 
     @Lob
     private String description;

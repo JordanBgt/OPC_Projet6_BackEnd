@@ -21,8 +21,16 @@ public class Longueur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
-    private String cotation;
+
+    @ManyToOne
+    @JoinColumn(name = "cotation_min_id")
+    private Cotation cotationMin;
+
+    @ManyToOne
+    @JoinColumn(name = "cotation_max_id")
+    private Cotation cotationMax;
 
     @ManyToOne
     private Voie voie;

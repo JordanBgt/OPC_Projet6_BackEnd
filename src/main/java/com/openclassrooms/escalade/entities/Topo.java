@@ -28,7 +28,13 @@ public class Topo implements Serializable {
     @Lob
     private String description;
 
-    private String cotation;
+    @ManyToOne
+    @JoinColumn(name = "cotation_min_id")
+    private Cotation cotationMin;
+
+    @ManyToOne
+    @JoinColumn(name = "cotation_max_id")
+    private Cotation cotationMax;
 
     @Column(name = "available")
     private boolean available;

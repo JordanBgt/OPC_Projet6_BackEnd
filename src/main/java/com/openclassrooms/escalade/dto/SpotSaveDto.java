@@ -16,5 +16,6 @@ public class SpotSaveDto {
     private String description;
     private Long userId;
     private String name;
-    private String cotation;
+    private CotationDto cotationMin;
+    private CotationDto cotationMax;
 }

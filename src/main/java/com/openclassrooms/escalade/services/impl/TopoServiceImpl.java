@@ -2,9 +2,11 @@ package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
+import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Topo;
 import com.openclassrooms.escalade.entities.User;
 import com.openclassrooms.escalade.mapper.TopoMapper;
+import com.openclassrooms.escalade.repositories.CotationRepository;
 import com.openclassrooms.escalade.repositories.TopoRepository;
 import com.openclassrooms.escalade.repositories.UserRepository;
 import com.openclassrooms.escalade.services.TopoService;
@@ -21,12 +23,16 @@ public class TopoServiceImpl implements TopoService {
     public final TopoRepository topoRepository;
     private final TopoMapper topoMapper;
     private final UserRepository userRepository;
+    private final CotationRepository cotationRepository;
 
     public TopoDto create(TopoSaveDto topoSaveDto){
         //User user = userRepository.findById(topoSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new); //TODO : voir comment récupérer l'utilisateur
         User user = userRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMin = cotationRepository.findById(topoSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMax = cotationRepository.findById(topoSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         Topo topo = Topo.builder()
-                .cotation(topoSaveDto.getCotation())
+                .cotationMin(cotationMin)
+                .cotationMax(cotationMax)
                 .country(topoSaveDto.getCountry())
                 .description(topoSaveDto.getDescription())
                 .name(topoSaveDto.getName())
@@ -46,7 +52,10 @@ public class TopoServiceImpl implements TopoService {
 
     public TopoDto update(TopoSaveDto topoSaveDto, Long id) {
         Topo topo = topoRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        topo.setCotation(topoSaveDto.getCotation());
+        Cotation cotationMin = cotationRepository.findById(topoSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMax = cotationRepository.findById(topoSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+        topo.setCotationMin(cotationMin);
+        topo.setCotationMax(cotationMax);
         topo.setCountry(topoSaveDto.getCountry());
         topo.setDescription(topoSaveDto.getDescription());
         topo.setName(topoSaveDto.getName());

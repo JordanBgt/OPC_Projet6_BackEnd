@@ -24,5 +24,6 @@ public class SpotDto {
     private List<SecteurDto> secteurs;
     private Long userId;
     private String name;
-    private String cotation;
+    private String cotationMin;
+    private String cotationMax;
 }
