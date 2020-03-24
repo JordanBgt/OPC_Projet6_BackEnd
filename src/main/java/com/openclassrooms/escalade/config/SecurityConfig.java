@@ -12,15 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration
@@ -37,12 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+       // http.authorizeRequests().antMatchers("/").permitAll();
+
         http
                 .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new Http403ForbiddenEntryPoint(){})
+                .authorizeRequests()
+                .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/logout").permitAll()
+                //.anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
-                .authenticationProvider(getProvider())
                 .formLogin()
                 .loginProcessingUrl("/api/login")
                 .successHandler(new AuthentificationLoginSuccessHandler())
@@ -50,32 +56,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/api/logout")
-                .logoutSuccessHandler(new AuthenticationLogoutSuccessHandler())
-                .invalidateHttpSession(true)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers("/api/logout").permitAll()
-                .antMatchers("/api/user").authenticated()
-                .anyRequest().authenticated();
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessHandler(new AuthenticationLogoutSuccessHandler());
     }
 
-    private class AuthentificationLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    private static class AuthentificationLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request,
                                             HttpServletResponse response,
-                                            Authentication authentication) throws IOException, ServletException {
+                                            Authentication authentication) {
             response.setStatus(HttpServletResponse.SC_OK);
         }
     }
 
-    private class AuthenticationLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
+    private static class AuthenticationLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
         @Override
         public void onLogoutSuccess(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    Authentication authentication) throws IOException, ServletException {
+                                    Authentication authentication) {
             response.setStatus(HttpServletResponse.SC_OK);
         }
     }
@@ -90,5 +90,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
