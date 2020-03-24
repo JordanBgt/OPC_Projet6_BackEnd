@@ -23,7 +23,8 @@ public class TopoServiceImpl implements TopoService {
     private final UserRepository userRepository;
 
     public TopoDto create(TopoSaveDto topoSaveDto){
-        User user = userRepository.findById(topoSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new);
+        //User user = userRepository.findById(topoSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new); //TODO : voir comment récupérer l'utilisateur
+        User user = userRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
         Topo topo = Topo.builder()
                 .cotation(topoSaveDto.getCotation())
                 .country(topoSaveDto.getCountry())
