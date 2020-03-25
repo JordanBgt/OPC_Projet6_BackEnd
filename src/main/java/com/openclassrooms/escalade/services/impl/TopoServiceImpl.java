@@ -1,16 +1,20 @@
 package com.openclassrooms.escalade.services.impl;
 
+import com.openclassrooms.escalade.dao.TopoPredicateBuilder;
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Topo;
 import com.openclassrooms.escalade.entities.User;
 import com.openclassrooms.escalade.mapper.TopoMapper;
-import com.openclassrooms.escalade.repositories.CotationRepository;
-import com.openclassrooms.escalade.repositories.TopoRepository;
-import com.openclassrooms.escalade.repositories.UserRepository;
+import com.openclassrooms.escalade.dao.CotationRepository;
+import com.openclassrooms.escalade.dao.TopoRepository;
+import com.openclassrooms.escalade.dao.UserRepository;
+import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.TopoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -42,8 +46,8 @@ public class TopoServiceImpl implements TopoService {
         return topoMapper.toTopoDto(topoRepository.save(topo));
     }
 
-    public List<TopoDto> findAll(){
-        return topoMapper.toListTopoDto(topoRepository.findAll());
+    public Page<TopoDto> findAll(TopoSearch searchCriteria, Pageable page){
+        return topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page).map(topoMapper::toTopoDto);
     }
 
     public TopoDto findById(Long id){
