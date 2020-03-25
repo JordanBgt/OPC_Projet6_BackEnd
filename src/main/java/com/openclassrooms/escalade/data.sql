@@ -1,38 +1,70 @@
+##INSERTION COTATION##
+INSERT INTO escalade.cotation(id, label)
+VALUES
+(1, '3'),
+(2, '3+'),
+(3, '4a'),
+(4, '4b'),
+(5, '4c'),
+(6, '5a'),
+(7, '5b'),
+(8, '5c'),
+(9, '6a'),
+(10, '6a+'),
+(11, '6b'),
+(12, '6b+'),
+(13, '6c'),
+(14, '6c+'),
+(15, '7a'),
+(16, '7a+'),
+(17, '7b'),
+(18, '7b+'),
+(19, '7c'),
+(20, '7c+'),
+(21, '8a'),
+(22, '8a+'),
+(23, '8b'),
+(24, '8b+'),
+(25, '8c'),
+(26, '8c+'),
+(27, '9a'),
+(28, '9a+');
+
 ##INSERTION TOPO##
-INSERT INTO escalade.topo(id, available, cotation, country, description, duration, name, publication_date, region, topoCreator_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id)
 VALUES (
            1,
            true,
-           '6a - 8a',
+           9,
+           21,
            'France',
            'L\'ouvrage présente les voies d\'escalade des Gorges de la Jonte, situées sur les grandes parois des communes du Rozier et de Saint-Pierre-des-Tripiers.',
-           '4h',
            'Les gorges de la Jonte',
            CURRENT_DATE,
            'Lozère',
            1
        );
-INSERT INTO escalade.topo(id, available, cotation, country, description, duration, name, publication_date, region, topoCreator_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id)
 VALUES (
            2,
            true,
-           '4a - 7b+',
+           3,
+           18,
            'France',
            'La Grande Tête de l''Obiou, ou plus communément l''Obiou, est un sommet situé dans les Préalpes françaises, à peu près à égale distance de Grenoble (Isère) et de Gap (Hautes-Alpes). Avec ses 2 789 mètres d''altitude, c''est le point culminant du massif du Dévoluy',
-           '4h',
            'Guide de l\'Obiou',
            CURRENT_DATE,
            'Isère',
            2
        );
-INSERT INTO escalade.topo(id, available, cotation, country, description, duration, name, publication_date, region, topoCreator_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id)
 VALUES (
            3,
            true,
-           '3c - 6a',
+           2,
+           9,
            'France',
            'Ce topo regroupe les 6 sites de grimpe de Mayenne : Changé, Entrammes, Moulay; St-Berthevin, Saulges et Toyères.',
-           '4h à 6h',
            'Escalade en Mayenne',
            CURRENT_DATE,
            'Pays de la Loire',
@@ -40,7 +72,7 @@ VALUES (
        );
 
 ##INSERTION SPOT##
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            1,
            'Jonte',
@@ -50,9 +82,10 @@ VALUES (
            1,
            1,
            'La Jonte - Cirque des vases : Biotone',
-           'TD- 6a+ I P1'
+           10,
+           20
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            2,
            'Jonte',
@@ -62,9 +95,10 @@ VALUES (
            1,
            1,
            'La Jonte - Cirque des vases : Plume',
-           'TD- 6a+>5c I P1'
+           8,
+           10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            3,
            'Jonte',
@@ -74,9 +108,10 @@ VALUES (
            1,
            1,
            'La Jonte - Cirque des vases : L\'arête',
-           'D- 6a+>4c A0 I P1'
+           5,
+           10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            4,
            'Dévoluy',
@@ -87,9 +122,10 @@ VALUES (
            2,
            2,
            'Obiou : Site Marie-Thérèse',
-           'TD- 6a+ I P1'
+           5,
+           10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            5,
            'Dévoluy',
@@ -100,9 +136,10 @@ VALUES (
            2,
            2,
            'Obiou : Par le Petit Obiou et les Feuillets',
-           'PD 3c>3c '
+           2,
+           2
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            6,
            'Moulay',
@@ -112,9 +149,10 @@ VALUES (
            3,
            1,
            'Site de Moulay',
-           '3c au 6a '
+           2,
+           10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            7,
            'Changé',
@@ -124,7 +162,8 @@ VALUES (
            3,
            1,
            'Site de Moulay',
-           '3b au 4a '
+           2,
+           3
        );
 
 ##INSERTION SECTEUR##
@@ -148,26 +187,29 @@ VALUES (
        );
 
 ##INSERTION VOIES##
-INSERT INTO escalade.voie(id, cotation, name, secteur_id)
+INSERT INTO escalade.voie(id, cotation_min_id, cotation_max_id, name, secteur_id)
 VALUES (
            1,
-           '3c',
+           2,
+           2,
            'Voie de la marmite',
            1
        );
-INSERT INTO escalade.voie(id, cotation, name, secteur_id)
+INSERT INTO escalade.voie(id, cotation_min_id, cotation_max_id, name, secteur_id)
 VALUES (
            2,
-           '5a',
+           6,
+           6,
            'Voie de java',
            1
        );
 
 ##INSERTION LONGUEUR##
-INSERT INTO escalade.longueur(id, cotation, name, voie_id)
+INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name, voie_id)
 VALUES (
            1,
-           '3c',
+           2,
+           3,
            'Voie de la marmite : longueur 1',
            1
        );
