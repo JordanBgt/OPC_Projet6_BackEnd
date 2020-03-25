@@ -3,6 +3,7 @@ package com.openclassrooms.escalade.controllers;
 import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.dto.LongueurSaveDto;
 import com.openclassrooms.escalade.services.LongueurService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,13 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/longueurs")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class LongueurController {
 
     private final LongueurService longueurService;
-
-    public LongueurController(LongueurService longueurService) {
-        this.longueurService = longueurService;
-    }
 
     @GetMapping
     @ResponseBody

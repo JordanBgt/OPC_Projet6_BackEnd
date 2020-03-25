@@ -3,6 +3,7 @@ package com.openclassrooms.escalade.controllers;
 import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.dto.VoieSaveDto;
 import com.openclassrooms.escalade.services.VoieService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/voies")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class VoieController {
 
     private final VoieService voieService;
-
-    public VoieController(VoieService voieService) {
-        this.voieService = voieService;
-    }
 
     @GetMapping
     @ResponseBody

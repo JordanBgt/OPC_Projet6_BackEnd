@@ -3,6 +3,7 @@ package com.openclassrooms.escalade.controllers;
 import com.openclassrooms.escalade.dto.SpotDto;
 import com.openclassrooms.escalade.dto.SpotSaveDto;
 import com.openclassrooms.escalade.services.SpotService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/spots")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class SpotController {
 
     private final SpotService spotService;
-
-    @Autowired
-    public SpotController(SpotService spotService) {
-        this.spotService = spotService;
-    }
 
     @GetMapping
     @ResponseBody

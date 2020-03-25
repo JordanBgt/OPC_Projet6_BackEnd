@@ -3,6 +3,7 @@ package com.openclassrooms.escalade.controllers;
 import com.openclassrooms.escalade.dto.SecteurDto;
 import com.openclassrooms.escalade.dto.SecteurSaveDTto;
 import com.openclassrooms.escalade.services.SecteurService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/secteurs")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class SecteurController {
 
     private final SecteurService secteurService;
-
-    public SecteurController(SecteurService secteurService) {
-        this.secteurService = secteurService;
-    }
 
     @GetMapping
     @ResponseBody
