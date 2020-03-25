@@ -2,8 +2,8 @@ package com.openclassrooms.escalade.config;
 
 import com.openclassrooms.escalade.entities.Role;
 import com.openclassrooms.escalade.entities.User;
-import com.openclassrooms.escalade.repositories.RoleRepository;
-import com.openclassrooms.escalade.repositories.UserRepository;
+import com.openclassrooms.escalade.dao.RoleRepository;
+import com.openclassrooms.escalade.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

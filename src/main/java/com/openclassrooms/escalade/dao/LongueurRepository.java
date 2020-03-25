@@ -1,4 +1,4 @@
-package com.openclassrooms.escalade.repositories;
+package com.openclassrooms.escalade.dao;
 
 import com.openclassrooms.escalade.entities.Longueur;
 import org.springframework.data.repository.CrudRepository;

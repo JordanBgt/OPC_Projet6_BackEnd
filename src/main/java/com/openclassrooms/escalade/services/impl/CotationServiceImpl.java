@@ -2,7 +2,7 @@ package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.dto.CotationDto;
 import com.openclassrooms.escalade.mapper.CotationMapper;
-import com.openclassrooms.escalade.repositories.CotationRepository;
+import com.openclassrooms.escalade.dao.CotationRepository;
 import com.openclassrooms.escalade.services.CotationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

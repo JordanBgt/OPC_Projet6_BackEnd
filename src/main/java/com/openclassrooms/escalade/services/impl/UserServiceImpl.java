@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.services.impl;
 
-import com.openclassrooms.escalade.repositories.UserRepository;
+import com.openclassrooms.escalade.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
