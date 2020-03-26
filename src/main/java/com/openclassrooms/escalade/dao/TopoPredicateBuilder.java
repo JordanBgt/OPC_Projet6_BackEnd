@@ -1,6 +1,5 @@
 package com.openclassrooms.escalade.dao;
 
-import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.QTopo;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.querydsl.core.BooleanBuilder;
@@ -16,8 +15,8 @@ public class TopoPredicateBuilder {
                 .and(isCountry(topoSearch.getCountry()))
                 .and(isName(topoSearch.getName()))
                 .and(isAvailable(topoSearch.isAvailable()))
-                .and(isCotationMin(topoSearch.getCotationMin()))
-                .and(isCotationMax(topoSearch.getCotationMax()));
+                .and(isCotationMin(topoSearch.getCotationMinId()))
+                .and(isCotationMax(topoSearch.getCotationMaxId()));
     }
 
     private static BooleanExpression isCountry(String country) {
@@ -32,11 +31,11 @@ public class TopoPredicateBuilder {
         return isAvailable ? topo.available.eq(isAvailable) : null;
     }
 
-    private static BooleanExpression isCotationMin(Cotation cotationMin){
-        return cotationMin != null ? topo.cotationMin.eq(cotationMin) : null;
+    private static BooleanExpression isCotationMin(Long cotationMin){
+        return cotationMin != null ? topo.cotationMin.id.goe(cotationMin) : null;
     }
 
-    private static BooleanExpression isCotationMax(Cotation cotationMax){
-        return cotationMax != null ? topo.cotationMax.eq(cotationMax) : null;
+    private static BooleanExpression isCotationMax(Long cotationMax){
+        return cotationMax != null ? topo.cotationMax.id.loe(cotationMax) : null;
     }
 }
