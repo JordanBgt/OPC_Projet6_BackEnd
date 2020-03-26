@@ -10,10 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/topos")
 @CrossOrigin(origins = "*")
@@ -24,19 +27,22 @@ public class TopoController {
 
     @GetMapping
     @ResponseBody
-    public Page<TopoDto> getAllTopos(@RequestParam(required = false) String country,
-                                     @RequestParam(required = false) String name,
-                                     @RequestParam(required = false) boolean isAvailable,
-                                     @RequestParam(required = false) Long cotationMin,
-                                     @RequestParam(required = false) Long cotationMax,
-                                     @RequestParam(defaultValue = "0") Integer page,
-                                     @RequestParam(defaultValue = "20") Integer size,
-                                     @RequestParam(defaultValue = "name") String sortBy,
-                                     @RequestParam(defaultValue = "ASC") Sort.Direction direction,
-                                     @RequestParam(defaultValue = "false") boolean unpaged) {
+    public ResponseEntity<List<TopoDto>> getAllTopos(@RequestParam(required = false) String country,
+                                                     @RequestParam(required = false) String name,
+                                                     @RequestParam(required = false) boolean isAvailable,
+                                                     @RequestParam(required = false) Long cotationMin,
+                                                     @RequestParam(required = false) Long cotationMax,
+                                                     @RequestParam(defaultValue = "0") Integer page,
+                                                     @RequestParam(defaultValue = "20") Integer size,
+                                                     @RequestParam(defaultValue = "name") String sortBy,
+                                                     @RequestParam(defaultValue = "ASC") Sort.Direction direction,
+                                                     @RequestParam(defaultValue = "false") boolean unpaged) {
         TopoSearch searchCriteria = new TopoSearch(country, name, isAvailable, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
-        return topoService.findAll(searchCriteria, pageable);
+        Page<TopoDto> topos = topoService.findAll(searchCriteria, pageable);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("lastPage", String.valueOf(topos.isLast()));
+        return ResponseEntity.ok().headers(headers).body(topos.getContent());
     }
 
     @GetMapping("/{id}")
