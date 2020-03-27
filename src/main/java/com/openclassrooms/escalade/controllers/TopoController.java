@@ -2,10 +2,10 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
-import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.TopoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +21,14 @@ import java.util.List;
 @RequestMapping("/api/topos")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class TopoController {
 
     private final TopoService topoService;
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<TopoDto>> getAllTopos(@RequestParam(required = false) String country,
+    public Page<TopoDto> getAllTopos(@RequestParam(required = false) String country,
                                                      @RequestParam(required = false) String name,
                                                      @RequestParam(required = false) boolean isAvailable,
                                                      @RequestParam(required = false) Long cotationMin,
@@ -39,10 +40,7 @@ public class TopoController {
                                                      @RequestParam(defaultValue = "false") boolean unpaged) {
         TopoSearch searchCriteria = new TopoSearch(country, name, isAvailable, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
-        Page<TopoDto> topos = topoService.findAll(searchCriteria, pageable);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("lastPage", String.valueOf(topos.isLast()));
-        return ResponseEntity.ok().headers(headers).body(topos.getContent());
+        return topoService.findAll(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
