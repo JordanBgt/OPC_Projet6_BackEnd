@@ -24,7 +24,7 @@ public class TopoPredicateBuilder {
     }
 
     private static BooleanExpression isName(String name) {
-        return name != null ? topo.name.eq(name) : null;
+        return name != null ? topo.name.containsIgnoreCase(name) : null;
     }
 
     private static BooleanExpression isAvailable(boolean isAvailable){
