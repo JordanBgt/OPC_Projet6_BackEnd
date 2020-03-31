@@ -13,9 +13,7 @@ public interface TopoMapper {
 
     @Mappings({
             @Mapping(source = "topoCreator.id", target = "creatorId"),
-            @Mapping(source = "topoTenant.id", target = "tenantId"),
-            @Mapping(source = "cotationMin.label", target = "cotationMin"),
-            @Mapping(source = "cotationMax.label", target = "cotationMax")
+            @Mapping(source = "topoTenant.id", target = "tenantId")
     })
     TopoDto toTopoDto(Topo topo);
     List<TopoDto> toListTopoDto(List<Topo> topos);
