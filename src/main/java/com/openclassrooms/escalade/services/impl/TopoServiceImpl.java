@@ -2,6 +2,7 @@ package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.dao.TopoPredicateBuilder;
 import com.openclassrooms.escalade.dto.TopoDto;
+import com.openclassrooms.escalade.dto.TopoLightDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Topo;
@@ -46,8 +47,8 @@ public class TopoServiceImpl implements TopoService {
         return topoMapper.toTopoDto(topoRepository.save(topo));
     }
 
-    public Page<TopoDto> findAll(TopoSearch searchCriteria, Pageable page){
-        return topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page).map(topoMapper::toTopoDto);
+    public Page<TopoLightDto> findAll(TopoSearch searchCriteria, Pageable page){
+        return topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page).map(topoMapper::toTopoLightDto);
     }
 
     public TopoDto findById(Long id){

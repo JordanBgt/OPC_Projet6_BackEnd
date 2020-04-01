@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.TopoDto;
+import com.openclassrooms.escalade.dto.TopoLightDto;
 import com.openclassrooms.escalade.dto.TopoSaveDto;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.TopoService;
@@ -28,16 +29,16 @@ public class TopoController {
 
     @GetMapping
     @ResponseBody
-    public Page<TopoDto> getAllTopos(@RequestParam(required = false) String country,
-                                                     @RequestParam(required = false) String name,
-                                                     @RequestParam(required = false) boolean isAvailable,
-                                                     @RequestParam(required = false) Long cotationMin,
-                                                     @RequestParam(required = false) Long cotationMax,
-                                                     @RequestParam(defaultValue = "0") Integer page,
-                                                     @RequestParam(defaultValue = "20") Integer size,
-                                                     @RequestParam(defaultValue = "name") String sortBy,
-                                                     @RequestParam(defaultValue = "ASC") Sort.Direction direction,
-                                                     @RequestParam(defaultValue = "false") boolean unpaged) {
+    public Page<TopoLightDto> getAllTopos(@RequestParam(required = false) String country,
+                                          @RequestParam(required = false) String name,
+                                          @RequestParam(required = false) boolean isAvailable,
+                                          @RequestParam(required = false) Long cotationMin,
+                                          @RequestParam(required = false) Long cotationMax,
+                                          @RequestParam(defaultValue = "0") Integer page,
+                                          @RequestParam(defaultValue = "20") Integer size,
+                                          @RequestParam(defaultValue = "name") String sortBy,
+                                          @RequestParam(defaultValue = "ASC") Sort.Direction direction,
+                                          @RequestParam(defaultValue = "false") boolean unpaged) {
         TopoSearch searchCriteria = new TopoSearch(country, name, isAvailable, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return topoService.findAll(searchCriteria, pageable);

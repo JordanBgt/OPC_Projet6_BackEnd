@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.TopoDto;
+import com.openclassrooms.escalade.dto.TopoLightDto;
 import com.openclassrooms.escalade.entities.Topo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,5 +17,9 @@ public interface TopoMapper {
             @Mapping(source = "topoTenant.id", target = "tenantId")
     })
     TopoDto toTopoDto(Topo topo);
+
+    TopoLightDto toTopoLightDto(Topo topo);
+
     List<TopoDto> toListTopoDto(List<Topo> topos);
+
 }
