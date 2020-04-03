@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.SpotDto;
+import com.openclassrooms.escalade.dto.SpotLightDto;
 import com.openclassrooms.escalade.entities.Spot;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,9 +14,15 @@ public interface SpotMapper {
 
     @Mappings({
             @Mapping(source = "topo.id", target="topoId"),
-            @Mapping(source = "cotationMin.label", target = "cotationMin"),
-            @Mapping(source = "cotationMax.label", target = "cotationMax")
+            @Mapping(source = "user.id", target="userId")
     })
     SpotDto toSpotDto(Spot spot);
+
+    @Mappings({
+            @Mapping(source = "topo.id", target="topoId"),
+            @Mapping(source = "user.id", target="userId")
+    })
+    SpotLightDto toSpotLightDto(Spot spot);
+
     List<SpotDto> toSpotListDto(List<Spot> spot);
 }
