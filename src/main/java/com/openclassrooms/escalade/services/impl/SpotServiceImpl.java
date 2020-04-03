@@ -1,6 +1,8 @@
 package com.openclassrooms.escalade.services.impl;
 
+import com.openclassrooms.escalade.dao.SpotPredicateBuilder;
 import com.openclassrooms.escalade.dto.SpotDto;
+import com.openclassrooms.escalade.dto.SpotLightDto;
 import com.openclassrooms.escalade.dto.SpotSaveDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Spot;
@@ -9,8 +11,11 @@ import com.openclassrooms.escalade.mapper.SpotMapper;
 import com.openclassrooms.escalade.dao.CotationRepository;
 import com.openclassrooms.escalade.dao.SpotRepository;
 import com.openclassrooms.escalade.dao.UserRepository;
+import com.openclassrooms.escalade.model.SpotSearch;
 import com.openclassrooms.escalade.services.SpotService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,8 +30,8 @@ public class SpotServiceImpl implements SpotService {
     private final UserRepository userRepository;
     private final CotationRepository cotationRepository;
 
-    public List<SpotDto> findAll () {
-        return spotMapper.toSpotListDto(spotRepository.findAll());
+    public Page<SpotLightDto> findAll (SpotSearch searchCriteria, Pageable page) {
+        return spotRepository.findAll(SpotPredicateBuilder.buildSearch(searchCriteria), page).map(spotMapper::toSpotLightDto);
     }
 
     public SpotDto findById(Long id) {

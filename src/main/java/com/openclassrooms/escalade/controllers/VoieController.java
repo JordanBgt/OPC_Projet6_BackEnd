@@ -1,9 +1,16 @@
 package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.VoieDto;
+import com.openclassrooms.escalade.dto.VoieLightDto;
 import com.openclassrooms.escalade.dto.VoieSaveDto;
+import com.openclassrooms.escalade.entities.Voie;
+import com.openclassrooms.escalade.model.VoieSearch;
 import com.openclassrooms.escalade.services.VoieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +27,17 @@ public class VoieController {
 
     @GetMapping
     @ResponseBody
-    public List<VoieDto> getAllVoies() {
-        return voieService.findAll();
+    public Page<VoieLightDto> getAllVoies(@RequestParam(required = false) String name,
+                                          @RequestParam(required = false) Long cotationMinId,
+                                          @RequestParam(required = false) Long cotationMaxId,
+                                          @RequestParam(defaultValue = "0") Integer page,
+                                          @RequestParam(defaultValue = "20") Integer size,
+                                          @RequestParam(defaultValue = "name") String sortBy,
+                                          @RequestParam(defaultValue = "ASC") Sort.Direction direction,
+                                          @RequestParam(defaultValue = "false") boolean unpaged) {
+        VoieSearch searchCriteria = new VoieSearch(name, cotationMinId, cotationMaxId);
+        Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
+        return voieService.findAll(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,8 @@
 package com.openclassrooms.escalade.services.impl;
 
+import com.openclassrooms.escalade.dao.VoiePredicateBuilder;
 import com.openclassrooms.escalade.dto.VoieDto;
+import com.openclassrooms.escalade.dto.VoieLightDto;
 import com.openclassrooms.escalade.dto.VoieSaveDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Secteur;
@@ -10,8 +12,11 @@ import com.openclassrooms.escalade.mapper.VoieMapper;
 import com.openclassrooms.escalade.dao.CotationRepository;
 import com.openclassrooms.escalade.dao.SecteurRepository;
 import com.openclassrooms.escalade.dao.VoieRepository;
+import com.openclassrooms.escalade.model.VoieSearch;
 import com.openclassrooms.escalade.services.VoieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,8 +32,8 @@ public class VoieServiceImpl implements VoieService {
     private final SecteurRepository secteurRepository;
     private final CotationRepository cotationRepository;
 
-    public List<VoieDto> findAll() {
-        return voieMapper.toListVoieDto(voieRepository.findAll());
+    public Page<VoieLightDto> findAll(VoieSearch searchCriteria, Pageable page) {
+        return voieRepository.findAll(VoiePredicateBuilder.buildSearch(searchCriteria), page).map(voieMapper::toVoieLightDto);
     }
 
     public VoieDto findById(Long id) {
