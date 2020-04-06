@@ -1,3 +1,10 @@
+##INSERTION PHOTO##
+INSERT INTO escalade.photo(id, name)
+VALUES
+(1, "gorges-jonte.jpg"),
+(2, "guide-obiou.jpg"),
+(3, "escalade-mayenne.jpg");
+
 ##INSERTION COTATION##
 INSERT INTO escalade.cotation(id, label)
 VALUES
@@ -31,7 +38,7 @@ VALUES
 (28, '9a+');
 
 ##INSERTION TOPO##
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
 VALUES (
            1,
            true,
@@ -42,9 +49,10 @@ VALUES (
            'Les gorges de la Jonte',
            CURRENT_DATE,
            'Lozère',
+           1,
            1
        );
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
 VALUES (
            2,
            true,
@@ -55,9 +63,10 @@ VALUES (
            'Guide de l\'Obiou',
            CURRENT_DATE,
            'Isère',
+           2,
            2
        );
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
 VALUES (
            3,
            true,
@@ -68,11 +77,12 @@ VALUES (
            'Escalade en Mayenne',
            CURRENT_DATE,
            'Pays de la Loire',
-           1
+           1,
+           3
        );
 
 ##INSERTION SPOT##
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            1,
            'Jonte',
@@ -80,12 +90,11 @@ VALUES (
            'Encore un des beaux sites de la Jonte, à l''équipement plutôt proche au regard des grandes classiques du site.',
            true,
            1,
-           1,
            'La Jonte - Cirque des vases : Biotone',
            10,
            20
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            2,
            'Jonte',
@@ -93,12 +102,11 @@ VALUES (
            'Site équipé par Médéric Tabart en 1987.',
            true,
            1,
-           1,
            'La Jonte - Cirque des vases : Plume',
            8,
            10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            3,
            'Jonte',
@@ -106,12 +114,11 @@ VALUES (
            'Itinéraire très esthétique, qui se déroule sur le fil de l''arête. Rocher magnifique dans ce registre de difficulté, un vrai régal',
            true,
            1,
-           1,
            'La Jonte - Cirque des vases : L\'arête',
            5,
            10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            4,
            'Dévoluy',
@@ -120,12 +127,11 @@ VALUES (
             L''attaque de la voie Marie-Thérèse est située 20 m à droite d''une petite tour (10 m de haut) au pied la facette sommitale E de l''Obiou. Cette tour est aussi appelée le Campanile. La voie attaque dans un mur compact stratifié 50 m à gauche d''un grand dièdre caractéristique rayant la facette E de haut en bas.',
            false,
            2,
-           2,
            'Obiou : Site Marie-Thérèse',
            5,
            10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            5,
            'Dévoluy',
@@ -134,37 +140,45 @@ VALUES (
             Cet itinéraire contourne le Petit Obiou. La traversée du Petit Obiou est plus compliquée et nécessite un rappel.',
            false,
            2,
-           2,
            'Obiou : Par le Petit Obiou et les Feuillets',
            2,
            2
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            6,
            'Moulay',
            'France',
            'Entre 25 et 50 voies réparties sur plusieurs falaises. Equipement sportif. Rocher : granite.',
            true,
-           3,
            1,
            'Site de Moulay',
            2,
            10
        );
-INSERT INTO escalade.spot(id, city, country, description, isOfficial, topo_id, user_id, name, cotation_min_id, cotation_max_id)
+INSERT INTO escalade.spot(id, city, country, description, isOfficial, user_id, name, cotation_min_id, cotation_max_id)
 VALUES (
            7,
            'Changé',
            'France',
            '10 à 15 voies. Equipement sportif. Rocher : calcaire',
            true,
-           3,
            1,
            'Site de Moulay',
            2,
            3
        );
+
+##INSERTION TOPO_SPOTS##
+INSERT INTO escalade.topo_spots(topos_id, spots_Id)
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(3, 6),
+(3, 7);
 
 ##INSERTION SECTEUR##
 INSERT INTO escalade.secteur(id, name, spot_id)
