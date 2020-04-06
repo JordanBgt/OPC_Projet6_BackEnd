@@ -14,6 +14,6 @@ public interface TopoService {
     Page<TopoLightDto> findAll(TopoSearch searchCriteria, Pageable page);
     TopoDto findById(Long id);
     TopoDto create(TopoSaveDto topo);
-    TopoDto update(TopoSaveDto topo, Long id);
+    TopoDto update(TopoDto topo);
     void delete(Long id);
 }

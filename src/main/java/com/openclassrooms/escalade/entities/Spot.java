@@ -42,8 +42,8 @@ public class Spot implements Serializable {
 
     private boolean isOfficial = false;
 
-    @ManyToOne
-    private Topo topo;
+    @ManyToMany(mappedBy = "spots")
+    private List<Topo> topos;
 
     @OneToMany(mappedBy = "spot")
     private List<Comment> comments;

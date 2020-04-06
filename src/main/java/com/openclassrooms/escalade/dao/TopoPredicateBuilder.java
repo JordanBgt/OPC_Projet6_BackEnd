@@ -28,7 +28,7 @@ public class TopoPredicateBuilder {
     }
 
     private static BooleanExpression isAvailable(boolean isAvailable){
-        return isAvailable ? topo.available.eq(isAvailable) : null;
+        return isAvailable ? topo.available.eq(true) : null;
     }
 
     private static BooleanExpression isCotationMin(Long cotationMin){

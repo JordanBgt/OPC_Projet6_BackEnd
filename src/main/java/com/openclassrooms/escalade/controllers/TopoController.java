@@ -11,12 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/topos")
@@ -58,8 +56,8 @@ public class TopoController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public TopoDto updateTop(@RequestBody TopoSaveDto topo, Long id) {
-        return topoService.update(topo, id);
+    public TopoDto updateTopo(@RequestBody TopoDto topo) {
+        return topoService.update(topo);
     }
 
     @DeleteMapping("/{id}")

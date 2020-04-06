@@ -14,7 +14,6 @@ public class SpotLightDto {
     private String city;
     private String country;
     private boolean isOfficial;
-    private Long topoId;
     private Long userId;
     private CotationDto cotationMin;
     private CotationDto cotationMax;

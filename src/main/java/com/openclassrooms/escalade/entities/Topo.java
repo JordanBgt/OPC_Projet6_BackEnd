@@ -42,7 +42,7 @@ public class Topo implements Serializable {
     private String country;
     private String region;
 
-    @OneToMany(mappedBy = "topo")
+    @ManyToMany
     private List<Spot> spots;
 
     @ManyToOne
