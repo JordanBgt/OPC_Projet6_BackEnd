@@ -18,7 +18,7 @@ public class VoiePredicateBuilder {
     }
 
     private static BooleanExpression isName(String name) {
-        return name != null ? voie.name.eq(name) : null;
+        return name != null ? voie.name.containsIgnoreCase(name) : null;
     }
 
     private static BooleanExpression isCotationMin(Long cotationMinId) {

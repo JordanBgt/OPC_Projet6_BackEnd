@@ -21,7 +21,7 @@ public class SpotPredicateBuilder {
     }
 
     private static BooleanExpression isName(String name) {
-        return name != null ? spot.country.eq(name) : null;
+        return name != null ? spot.name.containsIgnoreCase(name) : null;
     }
 
     private static BooleanExpression isCountry(String country) {

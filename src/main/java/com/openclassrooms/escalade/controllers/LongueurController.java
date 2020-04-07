@@ -25,14 +25,14 @@ public class LongueurController {
     @GetMapping
     @ResponseBody
     public Page<LongueurLightDto> getAllLongueurs(@RequestParam(required = false) String name,
-                                                  @RequestParam(required = false) Long cotationMinId,
-                                                  @RequestParam(required = false) Long cotationMaxId,
+                                                  @RequestParam(required = false) Long cotationMin,
+                                                  @RequestParam(required = false) Long cotationMax,
                                                   @RequestParam(defaultValue = "0") Integer page,
                                                   @RequestParam(defaultValue = "20") Integer size,
                                                   @RequestParam(defaultValue = "name") String sortBy,
                                                   @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                                   @RequestParam(defaultValue = "false") boolean unpaged) {
-        LongueurSearch searchCriteria = new LongueurSearch(name, cotationMinId, cotationMaxId);
+        LongueurSearch searchCriteria = new LongueurSearch(name, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return longueurService.findAll(searchCriteria, pageable);
     }

@@ -17,7 +17,7 @@ public class SecteurPredicateBuilder {
     }
 
     private static BooleanExpression isName(String name) {
-        return name != null ? secteur.name.eq(name) : null;
+        return name != null ? secteur.name.containsIgnoreCase(name) : null;
     }
 
 }

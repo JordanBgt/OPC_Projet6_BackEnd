@@ -31,14 +31,14 @@ public class SpotController {
                                           @RequestParam(required = false) String country,
                                           @RequestParam(required = false) String city,
                                           @RequestParam(required = false) boolean isOfficial,
-                                          @RequestParam(required = false) Long cotationMinId,
-                                          @RequestParam(required = false) Long cotationMaxId,
+                                          @RequestParam(required = false) Long cotationMin,
+                                          @RequestParam(required = false) Long cotationMax,
                                           @RequestParam(defaultValue = "0") Integer page,
                                           @RequestParam(defaultValue = "20") Integer size,
                                           @RequestParam(defaultValue = "name") String sortBy,
                                           @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                           @RequestParam(defaultValue = "false") boolean unpaged) {
-        SpotSearch searchCriteria = new SpotSearch(name, country, city, isOfficial, cotationMinId, cotationMaxId);
+        SpotSearch searchCriteria = new SpotSearch(name, country, city, isOfficial, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return spotService.findAll(searchCriteria, pageable);
     }

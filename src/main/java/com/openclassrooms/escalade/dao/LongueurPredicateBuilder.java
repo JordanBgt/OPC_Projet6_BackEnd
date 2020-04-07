@@ -18,7 +18,7 @@ public class LongueurPredicateBuilder {
     }
 
     private static BooleanExpression isName(String name) {
-        return name != null ? longueur.name.eq(name) : null;
+        return name != null ? longueur.name.containsIgnoreCase(name) : null;
     }
 
     private static BooleanExpression isCotationMin(Long cotationMinId) {
