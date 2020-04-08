@@ -12,6 +12,6 @@ public interface SpotService {
     Page<SpotLightDto> findAll(SpotSearch spotSearch, Pageable page);
     SpotDto findById(Long id);
     SpotDto create(SpotSaveDto spot);
-    SpotDto update(SpotSaveDto spot, Long id);
+    SpotDto update(SpotDto spot);
     void delete(Long id);
 }

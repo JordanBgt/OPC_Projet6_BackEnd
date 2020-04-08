@@ -57,9 +57,8 @@ public class SpotController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public SpotDto updateSpot(@RequestBody SpotSaveDto spot,
-                              @PathVariable Long id) {
-        return spotService.update(spot, id);
+    public SpotDto updateSpot(@RequestBody SpotDto spot) {
+        return spotService.update(spot);
     }
 
     @DeleteMapping("/{id}")

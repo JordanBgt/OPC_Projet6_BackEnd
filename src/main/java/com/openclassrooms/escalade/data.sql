@@ -181,23 +181,20 @@ VALUES
 (3, 7);
 
 ##INSERTION SECTEUR##
-INSERT INTO escalade.secteur(id, name, spot_id)
+INSERT INTO escalade.secteur(id, name)
 VALUES (
            1,
-           'Site Moulay : secteur 1',
-           6
+           'Site Moulay : secteur 1'
        );
-INSERT INTO escalade.secteur(id, name, spot_id)
+INSERT INTO escalade.secteur(id, name)
 VALUES (
            2,
-           'Site Moulay : secteur 2',
-           6
+           'Site Moulay : secteur 2'
        );
-INSERT INTO escalade.secteur(id, name, spot_id)
+INSERT INTO escalade.secteur(id, name)
 VALUES (
            3,
-           'Secteur du site de Changé',
-           6
+           'Secteur du site de Changé'
        );
 
 ##INSERTION VOIES##
@@ -227,3 +224,10 @@ VALUES (
            'Voie de la marmite : longueur 1',
            1
        );
+
+##INSERTION SPOT_SECTEURS##
+INSERT INTO escalade.spot_secteurs(Spot_id, secteurs_id)
+VALUES
+(6, 1),
+(6, 2),
+(6, 3);

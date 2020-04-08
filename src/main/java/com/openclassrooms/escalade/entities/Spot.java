@@ -51,7 +51,7 @@ public class Spot implements Serializable {
     @OneToMany
     private List<Photo> photos;
 
-    @OneToMany(mappedBy = "spot")
+    @OneToMany
     private List<Secteur> secteurs;
 
     @ManyToOne

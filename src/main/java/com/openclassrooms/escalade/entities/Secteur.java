@@ -25,9 +25,6 @@ public class Secteur implements Serializable {
 
     private String name;
 
-    @ManyToOne
-    private Spot spot;
-
     @OneToMany(mappedBy = "secteur")
     private List<Voie> voies;
 }
