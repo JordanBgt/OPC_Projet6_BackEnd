@@ -27,4 +27,7 @@ public class Secteur implements Serializable {
 
     @OneToMany(mappedBy = "secteur")
     private List<Voie> voies;
+
+    @Lob
+    private String description;
 }
