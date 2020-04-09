@@ -1,9 +1,9 @@
 ##INSERTION PHOTO##
 INSERT INTO escalade.photo(id, name)
 VALUES
-(1, "gorges-jonte.jpg"),
-(2, "guide-obiou.jpg"),
-(3, "escalade-mayenne.jpg");
+(1, 'gorges-jonte.jpg'),
+(2, 'guide-obiou.jpg'),
+(3, 'escalade-mayenne.jpg');
 
 ##INSERTION COTATION##
 INSERT INTO escalade.cotation(id, label)
@@ -198,21 +198,19 @@ VALUES (
        );
 
 ##INSERTION VOIES##
-INSERT INTO escalade.voie(id, cotation_min_id, cotation_max_id, name, secteur_id)
+INSERT INTO escalade.voie(id, cotation_min_id, cotation_max_id, name)
 VALUES (
            1,
            2,
            2,
-           'Voie de la marmite',
-           1
+           'Voie de la marmite'
        );
-INSERT INTO escalade.voie(id, cotation_min_id, cotation_max_id, name, secteur_id)
+INSERT INTO escalade.voie(id, cotation_min_id, cotation_max_id, name)
 VALUES (
            2,
            6,
            6,
-           'Voie de java',
-           1
+           'Voie de java'
        );
 
 ##INSERTION LONGUEUR##

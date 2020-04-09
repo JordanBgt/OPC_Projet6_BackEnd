@@ -52,9 +52,8 @@ public class SecteurController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public SecteurDto updateSecteur(@RequestBody SecteurSaveDTto secteur,
-                                    @PathVariable Long id) {
-        return secteurService.update(secteur, id);
+    public SecteurDto updateSecteur(@RequestBody SecteurDto secteur) {
+        return secteurService.update(secteur);
     }
 
     @DeleteMapping("/{id}")
