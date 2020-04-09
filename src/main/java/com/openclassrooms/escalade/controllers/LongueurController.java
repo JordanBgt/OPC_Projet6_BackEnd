@@ -51,9 +51,8 @@ public class LongueurController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public LongueurDto updateLongueur(@RequestBody LongueurSaveDto longueur,
-                                      @PathVariable Long id) {
-        return longueurService.update(longueur, id);
+    public LongueurDto updateLongueur(@RequestBody LongueurDto longueur) {
+        return longueurService.update(longueur);
     }
 
     @DeleteMapping("/{id}")

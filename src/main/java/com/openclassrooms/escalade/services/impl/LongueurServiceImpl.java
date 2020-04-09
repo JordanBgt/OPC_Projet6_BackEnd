@@ -49,13 +49,14 @@ public class LongueurServiceImpl implements LongueurService {
         return longueurMapper.toLongueurDto(longueurRepository.save(longueur));
     }
 
-    public LongueurDto update(LongueurSaveDto longueurSaveDto, Long id) {
-        Longueur longueur = longueurRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        Cotation cotationMin = cotationRepository.findById(longueurSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
-        Cotation cotationMax = cotationRepository.findById(longueurSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+    public LongueurDto update(LongueurDto longueurDto) {
+        Longueur longueur = longueurRepository.findById(longueurDto.getId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMin = cotationRepository.findById(longueurDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
+        Cotation cotationMax = cotationRepository.findById(longueurDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         longueur.setCotationMin(cotationMin);
         longueur.setCotationMax(cotationMax);
-        longueur.setName(longueurSaveDto.getName());
+        longueur.setName(longueurDto.getName());
+        longueur.setDescription(longueurDto.getDescription());
         return longueurMapper.toLongueurDto(longueurRepository.save(longueur));
     }
 

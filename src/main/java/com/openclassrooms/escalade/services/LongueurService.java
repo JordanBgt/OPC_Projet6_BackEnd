@@ -14,6 +14,6 @@ public interface LongueurService {
     Page<LongueurLightDto> findAll(LongueurSearch searchCriteria, Pageable page);
     LongueurDto findById(Long id);
     LongueurDto create(LongueurSaveDto longueur);
-    LongueurDto update(LongueurSaveDto longueur, Long id);
+    LongueurDto update(LongueurDto longueur);
     void delete(Long id);
 }
