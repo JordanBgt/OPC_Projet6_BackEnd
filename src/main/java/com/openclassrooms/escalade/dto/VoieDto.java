@@ -18,4 +18,5 @@ public class VoieDto {
     private Long id;
     private List<LongueurDto> longueurs;
     private String name;
+    private String description;
 }

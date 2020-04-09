@@ -14,4 +14,5 @@ public class VoieSaveDto {
     private CotationDto cotationMin;
     private CotationDto cotationMax;
     private String name;
+    private String description;
 }
