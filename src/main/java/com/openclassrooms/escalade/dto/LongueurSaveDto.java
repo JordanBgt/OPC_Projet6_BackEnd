@@ -14,5 +14,5 @@ public class LongueurSaveDto {
     private CotationDto cotationMin;
     private CotationDto cotationMax;
     private String name;
-    private Long voieId;
+    private String description;
 }

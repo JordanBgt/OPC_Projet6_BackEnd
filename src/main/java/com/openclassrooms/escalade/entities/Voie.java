@@ -33,6 +33,6 @@ public class Voie implements Serializable {
     @JoinColumn(name = "cotation_max_id")
     private Cotation cotationMax;
 
-    @OneToMany(mappedBy = "voie")
+    @OneToMany
     private List<Longueur> longueurs;
 }

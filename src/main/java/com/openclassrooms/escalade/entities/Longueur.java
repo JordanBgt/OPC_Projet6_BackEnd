@@ -24,6 +24,9 @@ public class Longueur implements Serializable {
 
     private String name;
 
+    @Lob
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "cotation_min_id")
     private Cotation cotationMin;
@@ -31,7 +34,4 @@ public class Longueur implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cotation_max_id")
     private Cotation cotationMax;
-
-    @ManyToOne
-    private Voie voie;
 }

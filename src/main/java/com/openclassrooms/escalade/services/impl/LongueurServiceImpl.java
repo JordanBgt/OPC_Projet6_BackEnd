@@ -39,27 +39,23 @@ public class LongueurServiceImpl implements LongueurService {
     }
 
     public LongueurDto create(LongueurSaveDto longueurSaveDto) {
-        Voie voie = voieRepository.findById(longueurSaveDto.getVoieId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMin = cotationRepository.findById(longueurSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(longueurSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         Longueur longueur = Longueur.builder()
                 .cotationMin(cotationMin)
                 .cotationMax(cotationMax)
                 .name(longueurSaveDto.getName())
-                .voie(voie)
                 .build();
         return longueurMapper.toLongueurDto(longueurRepository.save(longueur));
     }
 
     public LongueurDto update(LongueurSaveDto longueurSaveDto, Long id) {
         Longueur longueur = longueurRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        Voie voie = voieRepository.findById(longueurSaveDto.getVoieId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMin = cotationRepository.findById(longueurSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(longueurSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         longueur.setCotationMin(cotationMin);
         longueur.setCotationMax(cotationMax);
         longueur.setName(longueurSaveDto.getName());
-        longueur.setVoie(voie);
         return longueurMapper.toLongueurDto(longueurRepository.save(longueur));
     }
 

@@ -9,10 +9,9 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {VoieMapper.class, CotationMapper.class})
+@Mapper(componentModel = "spring", uses = {CotationMapper.class})
 public interface LongueurMapper {
 
-    @Mapping(source = "voie.id", target = "voieId")
     LongueurDto toLongueurDto(Longueur longueur);
 
     LongueurLightDto toLongueurLightDto(Longueur longueur);
