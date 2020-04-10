@@ -214,13 +214,12 @@ VALUES (
        );
 
 ##INSERTION LONGUEUR##
-INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name, voie_id)
+INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name)
 VALUES (
            1,
            2,
            3,
-           'Voie de la marmite : longueur 1',
-           1
+           'Voie de la marmite : longueur 1'
        );
 
 ##INSERTION SPOT_SECTEURS##
