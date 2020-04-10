@@ -54,9 +54,8 @@ public class VoieController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public VoieDto updateVoie(@RequestBody VoieSaveDto voie,
-                              @PathVariable Long id) {
-        return voieService.update(voie, id);
+    public VoieDto updateVoie(@RequestBody VoieDto voie) {
+        return voieService.update(voie);
     }
 
     @DeleteMapping("/{id}")

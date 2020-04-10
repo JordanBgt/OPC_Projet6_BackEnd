@@ -14,6 +14,6 @@ public interface VoieService {
     Page<VoieLightDto> findAll(VoieSearch searchCriteria, Pageable page);
     VoieDto findById(Long id);
     VoieDto create(VoieSaveDto voie);
-    VoieDto update(VoieSaveDto voie, Long id);
+    VoieDto update(VoieDto voie);
     void delete(Long id);
 }
