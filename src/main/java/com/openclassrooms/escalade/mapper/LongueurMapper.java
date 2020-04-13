@@ -9,7 +9,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CotationMapper.class})
+@Mapper(componentModel = "spring", uses = CotationMapper.class)
 public interface LongueurMapper {
 
     LongueurDto toLongueurDto(Longueur longueur);

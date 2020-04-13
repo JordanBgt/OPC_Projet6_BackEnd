@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -22,9 +22,10 @@ public class Comment implements Serializable {
     @Id
     private Long id;
 
-    private String description;
+    @Lob
+    private String content;
 
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne
     private User user;

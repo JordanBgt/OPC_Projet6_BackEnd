@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -14,7 +14,8 @@ import java.util.Date;
 public class CommentDto {
 
     private Long id;
-    private Date date;
-    private String description;
-    private UserDto user;
+    private LocalDateTime date;
+    private String content;
+    private UserLightDto user;
+    private Long spotId;
 }

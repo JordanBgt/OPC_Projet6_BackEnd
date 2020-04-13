@@ -9,7 +9,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CommentMapper.class, PhotoMapper.class, SecteurMapper.class, CotationMapper.class, TopoMapper.class})
+@Mapper(componentModel = "spring", uses = {PhotoMapper.class, SecteurMapper.class, CotationMapper.class, TopoMapper.class})
 public interface SpotMapper {
 
     @Mapping(source = "user.id", target="userId")
