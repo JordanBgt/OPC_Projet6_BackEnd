@@ -55,10 +55,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDto update(CommentDto commentDto) {
         Comment comment = commentRepository.findById(commentDto.getId()).orElseThrow(EntityNotFoundException::new);
-        Spot spot = spotRepository.findById(commentDto.getSpotId()).orElseThrow(EntityNotFoundException::new);
         comment.setContent(commentDto.getContent());
-        comment.setDate(LocalDateTime.now());
-        comment.setSpot(spot);
         return commentMapper.toCommentDto(commentRepository.save(comment));
     }
 
