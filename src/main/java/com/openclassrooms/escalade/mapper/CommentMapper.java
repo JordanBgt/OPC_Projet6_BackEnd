@@ -5,11 +5,9 @@ import com.openclassrooms.escalade.entities.Comment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-
-@Mapper(componentModel = "spring", uses = UserMapper.class)
+@Mapper(componentModel = "spring", uses = SpotMapper.class)
 public interface CommentMapper {
 
+    @Mapping(source = "spot.id", target = "spotId")
     CommentDto toCommentDto(Comment comment);
-    List<CommentDto> toListCommentDto(List<Comment> comments);
 }

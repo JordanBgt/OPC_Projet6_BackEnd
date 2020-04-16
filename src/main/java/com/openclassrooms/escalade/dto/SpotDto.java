@@ -19,7 +19,6 @@ public class SpotDto {
     private String description;
     private boolean isOfficial;
     private List<TopoLightDto> topos;
-    private List<CommentDto> comments;
     private List<PhotoDto> photos;
     private List<SecteurLightDto> secteurs;
     private Long userId;

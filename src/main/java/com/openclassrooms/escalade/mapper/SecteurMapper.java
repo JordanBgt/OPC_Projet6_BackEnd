@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {VoieMapper.class})
+@Mapper(componentModel = "spring", uses = VoieMapper.class)
 public interface SecteurMapper {
 
     SecteurDto toSecteurDto(Secteur secteur);

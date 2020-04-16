@@ -45,9 +45,6 @@ public class Spot implements Serializable {
     @ManyToMany(mappedBy = "spots")
     private List<Topo> topos;
 
-    @OneToMany(mappedBy = "spot")
-    private List<Comment> comments;
-
     @OneToMany
     private List<Photo> photos;
 
