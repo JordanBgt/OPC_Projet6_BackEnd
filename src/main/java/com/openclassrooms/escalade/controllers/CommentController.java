@@ -27,7 +27,7 @@ public class CommentController {
                                                  @RequestParam(defaultValue = "0") Integer page,
                                                  @RequestParam(defaultValue = "20") Integer size,
                                                  @RequestParam(defaultValue = "date") String sortBy,
-                                                 @RequestParam(defaultValue = "ASC") Sort.Direction direction,
+                                                 @RequestParam(defaultValue = "DESC") Sort.Direction direction,
                                                  @RequestParam(defaultValue = "false") boolean unpaged) {
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return commentService.findAllBySpotId(spotId, pageable);
