@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,4 +19,5 @@ public class SpotLightDto {
     private Long userId;
     private CotationDto cotationMin;
     private CotationDto cotationMax;
+    private List<PhotoDto> photos;
 }
