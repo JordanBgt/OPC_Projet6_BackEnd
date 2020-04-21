@@ -8,34 +8,41 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
-public class User implements UserDetails {
-
-    private static final long serialVersionUID = 5174698266456922740L;
+@Table(name = "user",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = "username"),
+            @UniqueConstraint(columnNames = "email")
+        })
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @NotBlank
     private String username;
 
-    @Column(name = "password")
+    @NotBlank
     private String password;
 
+    @NotBlank
+    @Email
     private String email;
 
-    @ManyToMany
-    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "topoCreator")
     private List<Topo> toposCreated;
@@ -46,28 +53,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Spot> spotsCreated;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+    public User (String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 }

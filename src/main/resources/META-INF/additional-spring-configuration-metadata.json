@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "escalade.app.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Jwt secret"
+    },
+    {
+      "name": "escalade.app.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Time, in milli seconds, after which the token will expire"
+    }
+  ] }
