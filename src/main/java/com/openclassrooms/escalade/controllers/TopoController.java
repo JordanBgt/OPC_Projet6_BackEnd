@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -44,12 +45,14 @@ public class TopoController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto getTopo(@PathVariable Long id) {
         return topoService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto createTopo(@RequestBody TopoSaveDto topo) {
         return topoService.create(topo);
     }
@@ -61,6 +64,7 @@ public class TopoController {
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteTopo(@PathVariable Long id) {
         try {
             topoService.delete(id);

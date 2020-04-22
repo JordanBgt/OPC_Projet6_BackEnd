@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -23,6 +24,7 @@ public class CommentController {
 
     @GetMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public Page<CommentDto> getAllCommentsBySpot(@RequestParam Long spotId,
                                                  @RequestParam(defaultValue = "0") Integer page,
                                                  @RequestParam(defaultValue = "20") Integer size,
@@ -35,12 +37,14 @@ public class CommentController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public CommentDto getComment(@PathVariable Long id) {
         return commentService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public CommentDto createComment(@RequestBody CommentSaveDto comment) {
         return commentService.create(comment);
     }
@@ -52,6 +56,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         try {
             commentService.delete(id);

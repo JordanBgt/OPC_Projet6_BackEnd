@@ -13,8 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
@@ -45,12 +48,14 @@ public class SpotController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto getSpot(@PathVariable Long id) {
         return spotService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto createSpot(@RequestBody SpotSaveDto spot) {
         return spotService.create(spot);
     }
@@ -62,6 +67,7 @@ public class SpotController {
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteSpot(@PathVariable Long id) {
         try {
             spotService.delete(id);

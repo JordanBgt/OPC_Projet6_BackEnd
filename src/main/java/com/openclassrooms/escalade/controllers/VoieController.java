@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -42,12 +43,14 @@ public class VoieController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public VoieDto getVoie(@PathVariable Long id) {
         return voieService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public VoieDto createVoie(@RequestBody VoieSaveDto voie) {
         return voieService.create(voie);
     }
@@ -59,6 +62,7 @@ public class VoieController {
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteVoie(@PathVariable Long id) {
         try {
             voieService.delete(id);
