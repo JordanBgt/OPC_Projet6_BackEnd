@@ -70,6 +70,7 @@ public class SpotServiceImpl implements SpotService {
         spot.setCotationMin(cotationMin);
         spot.setCotationMax(cotationMax);
         spot.setSecteurs(secteurs);
+        spot.setOfficial(spotDto.isOfficial());
         return spotMapper.toSpotDto(spotRepository.save(spot));
     }
 
