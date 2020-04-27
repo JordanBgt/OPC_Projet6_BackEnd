@@ -17,4 +17,5 @@ public class SecteurDto {
     private List<VoieDto> voies;
     private Long id;
     private String description;
+    private Long userId;
 }

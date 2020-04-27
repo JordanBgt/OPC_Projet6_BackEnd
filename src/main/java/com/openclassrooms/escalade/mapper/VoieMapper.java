@@ -12,6 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {LongueurMapper.class, CotationMapper.class})
 public interface VoieMapper {
 
+    @Mapping(target = "userId", source = "user.id")
     VoieDto toVoieDto(Voie voie);
 
     VoieLightDto toVoieLightDto(Voie voie);

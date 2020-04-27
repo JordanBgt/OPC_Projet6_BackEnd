@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,23 +41,27 @@ public class LongueurController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public LongueurDto getLongueur(@PathVariable Long id) {
         return longueurService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public LongueurDto createLongueur(@RequestBody LongueurSaveDto longueur) {
         return longueurService.create(longueur);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public LongueurDto updateLongueur(@RequestBody LongueurDto longueur) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #longueur.userId == #userId")
+    public LongueurDto updateLongueur(@RequestBody LongueurDto longueur, @RequestParam Long userId) {
         return longueurService.update(longueur);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public void deleteLongueur(@PathVariable Long id) {
         longueurService.delete(id);
     }

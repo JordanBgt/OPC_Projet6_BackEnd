@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -40,23 +42,27 @@ public class SecteurController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SecteurDto getSecteur(@PathVariable Long id) {
         return secteurService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SecteurDto createSecteur(@RequestBody SecteurSaveDTto secteur) {
         return secteurService.create(secteur);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public SecteurDto updateSecteur(@RequestBody SecteurDto secteur) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #secteur.userId == #userId")
+    public SecteurDto updateSecteur(@RequestBody SecteurDto secteur, @RequestParam Long userId) {
         return secteurService.update(secteur);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteSecteur(@PathVariable Long id) {
         try {
             secteurService.delete(id);

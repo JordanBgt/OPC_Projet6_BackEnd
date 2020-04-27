@@ -38,4 +38,7 @@ public class Voie implements Serializable {
 
     @OneToMany
     private List<Longueur> longueurs;
+
+    @ManyToOne
+    private User user;
 }

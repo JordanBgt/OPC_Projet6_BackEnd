@@ -1,17 +1,15 @@
 package com.openclassrooms.escalade.services.impl;
 
-import com.openclassrooms.escalade.dao.LongueurRepository;
-import com.openclassrooms.escalade.dao.VoiePredicateBuilder;
+import com.openclassrooms.escalade.dao.*;
 import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.dto.VoieLightDto;
 import com.openclassrooms.escalade.dto.VoieSaveDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Longueur;
+import com.openclassrooms.escalade.entities.User;
 import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.mapper.VoieMapper;
-import com.openclassrooms.escalade.dao.CotationRepository;
-import com.openclassrooms.escalade.dao.VoieRepository;
 import com.openclassrooms.escalade.model.VoieSearch;
 import com.openclassrooms.escalade.services.VoieService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +29,7 @@ public class VoieServiceImpl implements VoieService {
     private final VoieMapper voieMapper;
     private final CotationRepository cotationRepository;
     private final LongueurRepository longueurRepository;
+    private final UserRepository userRepository;
 
     public Page<VoieLightDto> findAll(VoieSearch searchCriteria, Pageable page) {
         return voieRepository.findAll(VoiePredicateBuilder.buildSearch(searchCriteria), page).map(voieMapper::toVoieLightDto);
@@ -43,6 +42,7 @@ public class VoieServiceImpl implements VoieService {
     public VoieDto create(VoieSaveDto voieSaveDto) {
         Cotation cotationMin = cotationRepository.findById(voieSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(voieSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+        User user = userRepository.findById(voieSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Voie voie = Voie.builder()
                 .cotationMin(cotationMin)
                 .cotationMax(cotationMax)

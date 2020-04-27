@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -42,23 +44,27 @@ public class VoieController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public VoieDto getVoie(@PathVariable Long id) {
         return voieService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public VoieDto createVoie(@RequestBody VoieSaveDto voie) {
         return voieService.create(voie);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public VoieDto updateVoie(@RequestBody VoieDto voie) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #voie.userId == #userId")
+    public VoieDto updateVoie(@RequestBody VoieDto voie, @RequestParam Long userId) {
         return voieService.update(voie);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteVoie(@PathVariable Long id) {
         try {
             voieService.delete(id);

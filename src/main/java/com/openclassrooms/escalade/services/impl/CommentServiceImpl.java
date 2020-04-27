@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto create(CommentSaveDto commentSaveDto) {
-        User user = userRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
+        User user = userRepository.findById(commentSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Spot spot = spotRepository.findById(commentSaveDto.getSpotId()).orElseThrow(EntityNotFoundException::new);
         LocalDateTime date = LocalDateTime.now();
         Comment comment = Comment.builder()

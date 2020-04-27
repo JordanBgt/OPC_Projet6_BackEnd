@@ -40,8 +40,7 @@ public class SpotServiceImpl implements SpotService {
     }
 
     public SpotDto create(SpotSaveDto spotSaveDto) {
-        //User user = userRepository.findById(spotSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new); // TODO : récupérer l'utilisateur courant
-        User user = userRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
+        User user = userRepository.findById(spotSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMin = cotationRepository.findById(spotSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(spotSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         Spot spot = Spot.builder()
@@ -71,6 +70,7 @@ public class SpotServiceImpl implements SpotService {
         spot.setCotationMin(cotationMin);
         spot.setCotationMax(cotationMax);
         spot.setSecteurs(secteurs);
+        spot.setOfficial(spotDto.isOfficial());
         return spotMapper.toSpotDto(spotRepository.save(spot));
     }
 

@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.entities;
 
 
+import com.openclassrooms.escalade.model.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,15 +22,17 @@ public class Role implements Serializable {
     private static final long serialVersionUID = -8649388117887928774L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ERole name;
 
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     private List<User> users;
 
-    public Role(String name) {
+    public Role(ERole name) {
         this.name = name;
     }
 }

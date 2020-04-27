@@ -13,4 +13,5 @@ public class SecteurSaveDTto {
 
     private String name;
     private String description;
+    private Long userId;
 }

@@ -1,13 +1,11 @@
 package com.openclassrooms.escalade.services.impl;
 
-import com.openclassrooms.escalade.dao.SecteurPredicateBuilder;
-import com.openclassrooms.escalade.dao.VoieRepository;
+import com.openclassrooms.escalade.dao.*;
 import com.openclassrooms.escalade.dto.*;
 import com.openclassrooms.escalade.entities.Secteur;
+import com.openclassrooms.escalade.entities.User;
 import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.mapper.SecteurMapper;
-import com.openclassrooms.escalade.dao.SecteurRepository;
-import com.openclassrooms.escalade.dao.SpotRepository;
 import com.openclassrooms.escalade.model.SecteurSearch;
 import com.openclassrooms.escalade.services.SecteurService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +24,7 @@ public class SecteurServiceImpl implements SecteurService {
     private final SecteurRepository secteurRepository;
     private final SecteurMapper secteurMapper;
     private final VoieRepository voieRepository;
+    private final UserRepository userRepository;
 
     public Page<SecteurLightDto> findAll(SecteurSearch searchCriteria, Pageable page) {
         return secteurRepository.findAll(SecteurPredicateBuilder.buildSearch(searchCriteria), page).map(secteurMapper::toSecteurLightDto);
@@ -36,7 +35,9 @@ public class SecteurServiceImpl implements SecteurService {
     }
 
     public SecteurDto create(SecteurSaveDTto secteurSaveDTto) {
+        User user = userRepository.findById(secteurSaveDTto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Secteur secteur = Secteur.builder()
+                .user(user)
                 .name(secteurSaveDTto.getName())
                 .description(secteurSaveDTto.getDescription())
                 .build();

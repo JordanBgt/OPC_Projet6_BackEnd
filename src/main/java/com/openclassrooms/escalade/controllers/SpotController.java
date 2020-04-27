@@ -13,14 +13,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/spots")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class SpotController {
 
     private final SpotService spotService;
@@ -45,23 +52,27 @@ public class SpotController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto getSpot(@PathVariable Long id) {
         return spotService.findById(id);
     }
 
     @PostMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto createSpot(@RequestBody SpotSaveDto spot) {
         return spotService.create(spot);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public SpotDto updateSpot(@RequestBody SpotDto spot) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #spot.userId == #userId")
+    public SpotDto updateSpot(@RequestBody SpotDto spot, @RequestParam Long userId) {
         return spotService.update(spot);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteSpot(@PathVariable Long id) {
         try {
             spotService.delete(id);
