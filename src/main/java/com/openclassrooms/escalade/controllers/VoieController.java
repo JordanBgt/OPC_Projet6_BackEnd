@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -57,7 +58,8 @@ public class VoieController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public VoieDto updateVoie(@RequestBody VoieDto voie) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #voie.userId == #userId")
+    public VoieDto updateVoie(@RequestBody VoieDto voie, @RequestParam Long userId) {
         return voieService.update(voie);
     }
 

@@ -1,16 +1,14 @@
 package com.openclassrooms.escalade.services.impl;
 
-import com.openclassrooms.escalade.dao.LongueurPredicateBuilder;
+import com.openclassrooms.escalade.dao.*;
 import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.dto.LongueurLightDto;
 import com.openclassrooms.escalade.dto.LongueurSaveDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.entities.Longueur;
+import com.openclassrooms.escalade.entities.User;
 import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.mapper.LongueurMapper;
-import com.openclassrooms.escalade.dao.CotationRepository;
-import com.openclassrooms.escalade.dao.LongueurRepository;
-import com.openclassrooms.escalade.dao.VoieRepository;
 import com.openclassrooms.escalade.model.LongueurSearch;
 import com.openclassrooms.escalade.services.LongueurService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +25,8 @@ public class LongueurServiceImpl implements LongueurService {
 
     private final LongueurRepository longueurRepository;
     private final LongueurMapper longueurMapper;
-    private final VoieRepository voieRepository;
     private final CotationRepository cotationRepository;
+    private final UserRepository userRepository;
 
     public Page<LongueurLightDto> findAll(LongueurSearch searchCriteria, Pageable page) {
         return longueurRepository.findAll(LongueurPredicateBuilder.buildSearch(searchCriteria), page).map(longueurMapper::toLongueurLightDto);
@@ -41,10 +39,12 @@ public class LongueurServiceImpl implements LongueurService {
     public LongueurDto create(LongueurSaveDto longueurSaveDto) {
         Cotation cotationMin = cotationRepository.findById(longueurSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(longueurSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+        User user = userRepository.findById(longueurSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Longueur longueur = Longueur.builder()
                 .cotationMin(cotationMin)
                 .cotationMax(cotationMax)
                 .name(longueurSaveDto.getName())
+                .user(user)
                 .build();
         return longueurMapper.toLongueurDto(longueurRepository.save(longueur));
     }

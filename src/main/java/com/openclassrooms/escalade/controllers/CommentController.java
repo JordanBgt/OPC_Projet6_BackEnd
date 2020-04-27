@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -51,12 +52,13 @@ public class CommentController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public CommentDto updateComment(@RequestBody CommentDto comment) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #comment.userId == #userId")
+    public CommentDto updateComment(@RequestBody CommentDto comment, @RequestParam Long userId) {
         return commentService.update(comment);
     }
 
     @DeleteMapping("/{id}")
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         try {
             commentService.delete(id);

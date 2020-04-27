@@ -15,15 +15,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/spots")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class SpotController {
 
     private final SpotService spotService;
@@ -62,7 +66,8 @@ public class SpotController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public SpotDto updateSpot(@RequestBody SpotDto spot) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #spot.userId == #userId")
+    public SpotDto updateSpot(@RequestBody SpotDto spot, @RequestParam Long userId) {
         return spotService.update(spot);
     }
 

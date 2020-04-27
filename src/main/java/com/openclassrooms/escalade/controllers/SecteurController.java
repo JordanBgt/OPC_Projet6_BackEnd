@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -55,7 +56,8 @@ public class SecteurController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public SecteurDto updateSecteur(@RequestBody SecteurDto secteur) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #secteur.userId == #userId")
+    public SecteurDto updateSecteur(@RequestBody SecteurDto secteur, @RequestParam Long userId) {
         return secteurService.update(secteur);
     }
 

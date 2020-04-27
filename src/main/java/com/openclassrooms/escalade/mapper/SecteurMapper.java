@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = VoieMapper.class)
 public interface SecteurMapper {
 
+    @Mapping(target = "userId", source = "user.id")
     SecteurDto toSecteurDto(Secteur secteur);
 
     SecteurLightDto toSecteurLightDto(Secteur secteur);

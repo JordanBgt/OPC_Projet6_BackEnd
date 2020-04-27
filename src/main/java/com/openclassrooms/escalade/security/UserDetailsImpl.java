@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
+    private static final long serialVersionUID = -2173686302207354705L;
+
     private Long id;
 
     private String username;

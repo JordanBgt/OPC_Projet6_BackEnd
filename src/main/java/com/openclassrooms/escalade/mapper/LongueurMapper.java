@@ -12,6 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = CotationMapper.class)
 public interface LongueurMapper {
 
+    @Mapping(target = "userId", source = "user.id")
     LongueurDto toLongueurDto(Longueur longueur);
 
     LongueurLightDto toLongueurLightDto(Longueur longueur);

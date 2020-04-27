@@ -16,6 +16,6 @@ public class CommentDto {
     private Long id;
     private LocalDateTime date;
     private String content;
-    private UserLightDto user;
+    private Long userId;
     private Long spotId;
 }

@@ -34,4 +34,7 @@ public class Longueur implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cotation_max_id")
     private Cotation cotationMax;
+
+    @ManyToOne
+    private User user;
 }

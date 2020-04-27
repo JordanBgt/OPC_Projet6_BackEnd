@@ -30,4 +30,7 @@ public class Secteur implements Serializable {
 
     @Lob
     private String description;
+
+    @ManyToOne
+    private User user;
 }

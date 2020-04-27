@@ -33,8 +33,7 @@ public class TopoServiceImpl implements TopoService {
     private final SpotRepository spotRepository;
 
     public TopoDto create(TopoSaveDto topoSaveDto){
-        //User user = userRepository.findById(topoSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new); //TODO : voir comment récupérer l'utilisateur
-        User user = userRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
+        User user = userRepository.findById(topoSaveDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMin = cotationRepository.findById(topoSaveDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(topoSaveDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         Topo topo = Topo.builder()

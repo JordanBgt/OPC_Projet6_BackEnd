@@ -15,4 +15,5 @@ public class LongueurSaveDto {
     private CotationDto cotationMax;
     private String name;
     private String description;
+    private Long userId;
 }
