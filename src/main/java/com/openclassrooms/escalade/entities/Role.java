@@ -29,9 +29,6 @@ public class Role implements Serializable {
     @Column(length = 20)
     private ERole name;
 
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-    private List<User> users;
-
     public Role(ERole name) {
         this.name = name;
     }
