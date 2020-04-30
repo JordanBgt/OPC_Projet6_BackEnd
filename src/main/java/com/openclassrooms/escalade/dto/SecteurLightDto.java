@@ -11,4 +11,5 @@ public class SecteurLightDto {
 
     private String name;
     private Long id;
+    private Long spotId;
 }

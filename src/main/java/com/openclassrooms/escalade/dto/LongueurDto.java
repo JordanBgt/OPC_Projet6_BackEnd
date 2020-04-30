@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,4 +17,5 @@ public class LongueurDto {
     private String name;
     private String description;
     private Long userId;
+    private Long voieId;
 }

@@ -19,7 +19,7 @@ public class Longueur implements Serializable {
     private static final long serialVersionUID = 878099787940406601L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -36,5 +36,10 @@ public class Longueur implements Serializable {
     private Cotation cotationMax;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "voie_id")
+    private Voie voie;
 }

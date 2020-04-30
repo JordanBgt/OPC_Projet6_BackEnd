@@ -14,7 +14,8 @@ public class VoiePredicateBuilder {
         return new BooleanBuilder()
                 .and(isName(voieSearch.getName()))
                 .and(isCotationMin(voieSearch.getCotationMinId()))
-                .and(isCotationMax(voieSearch.getCotationMaxId()));
+                .and(isCotationMax(voieSearch.getCotationMaxId()))
+                .and(isSecteurId(voieSearch.getSecteurId()));
     }
 
     private static BooleanExpression isName(String name) {
@@ -27,5 +28,9 @@ public class VoiePredicateBuilder {
 
     private static BooleanExpression isCotationMax(Long cotationMaxId) {
         return cotationMaxId != null ? voie.cotationMax.id.loe(cotationMaxId) : null;
+    }
+
+    private static BooleanExpression isSecteurId(Long secteurId) {
+        return secteurId != null ? voie.secteur.id.eq(secteurId) : null;
     }
 }

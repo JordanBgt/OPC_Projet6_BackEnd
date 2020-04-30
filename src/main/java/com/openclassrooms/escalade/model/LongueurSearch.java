@@ -12,4 +12,5 @@ public class LongueurSearch {
     private String name;
     private Long cotationMinId;
     private Long cotationMaxId;
+    private Long voieId;
 }

@@ -20,7 +20,6 @@ public class SpotDto {
     private boolean isOfficial;
     private List<TopoLightDto> topos;
     private List<PhotoDto> photos;
-    private List<SecteurLightDto> secteurs;
     private Long userId;
     private String name;
     private CotationDto cotationMin;

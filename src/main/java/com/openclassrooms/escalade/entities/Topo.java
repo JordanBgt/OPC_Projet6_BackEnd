@@ -21,7 +21,7 @@ public class Topo implements Serializable {
     private static final long serialVersionUID = -6148715300769658435L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -46,9 +46,11 @@ public class Topo implements Serializable {
     private List<Spot> spots;
 
     @ManyToOne
+    @JoinColumn(name = "creator_id")
     private User topoCreator;
 
     @ManyToOne
+    @JoinColumn(name = "tenant_id")
     private User topoTenant;
 
     @Column(name = "publication_date")

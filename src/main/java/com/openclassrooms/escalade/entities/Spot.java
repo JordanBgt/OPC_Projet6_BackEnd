@@ -20,7 +20,7 @@ public class Spot implements Serializable {
     private static final long serialVersionUID = -2259423736939841094L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String country;
@@ -48,9 +48,7 @@ public class Spot implements Serializable {
     @OneToMany
     private List<Photo> photos;
 
-    @OneToMany
-    private List<Secteur> secteurs;
-
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }

@@ -14,7 +14,8 @@ public class LongueurPredicateBuilder {
         return new BooleanBuilder()
                 .and(isName(longueurSearch.getName()))
                 .and(isCotationMin(longueurSearch.getCotationMinId()))
-                .and(isCotationMax(longueurSearch.getCotationMaxId()));
+                .and(isCotationMax(longueurSearch.getCotationMaxId()))
+                .and(isVoieId(longueurSearch.getVoieId()));
     }
 
     private static BooleanExpression isName(String name) {
@@ -27,5 +28,9 @@ public class LongueurPredicateBuilder {
 
     private static BooleanExpression isCotationMax(Long cotationMaxId) {
         return cotationMaxId != null ? longueur.cotationMax.id.loe(cotationMaxId) : null;
+    }
+
+    private static BooleanExpression isVoieId(Long voieId) {
+        return voieId != null ? longueur.voie.id.eq(voieId) : null;
     }
 }
