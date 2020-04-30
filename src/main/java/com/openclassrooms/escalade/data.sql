@@ -1,3 +1,23 @@
+##INSERTION ROLE##
+INSERT INTO escalade.role(name)
+VALUES
+('ROLE_ADMIN'),
+('ROLE_USER');
+
+##INSERTION USER##
+INSERT INTO escalade.user(email, password, username)
+VALUES
+('admin@email.com', 'admin', 'admin'),
+('user1@email.com', 'user1', 'user1'),
+('user2@email.com', 'user2', 'user2');
+
+##INSERTION USER_ROLE##
+INSERT INTO escalade.user_role(user_id, role_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 2);
+
 ##INSERTION PHOTO##
 INSERT INTO escalade.photo(id, name)
 VALUES
