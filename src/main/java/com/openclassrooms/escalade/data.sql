@@ -23,7 +23,10 @@ INSERT INTO escalade.photo(id, name)
 VALUES
 (1, 'gorges-jonte.jpg'),
 (2, 'guide-obiou.jpg'),
-(3, 'escalade-mayenne.jpg');
+(3, 'escalade-mayenne.jpg'),
+(4, 'biotone1.jpg'),
+(5, 'biotone2.jpg'),
+(6, 'biotone3.jpg');
 
 ##INSERTION COTATION##
 INSERT INTO escalade.cotation(id, label)
@@ -58,7 +61,7 @@ VALUES
 (28, '9a+');
 
 ##INSERTION TOPO##
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, creator_id, photo_id)
 VALUES (
            1,
            true,
@@ -72,7 +75,7 @@ VALUES (
            1,
            1
        );
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, creator_id, photo_id)
 VALUES (
            2,
            true,
@@ -86,7 +89,7 @@ VALUES (
            2,
            2
        );
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, creator_id, photo_id)
 VALUES (
            3,
            true,
@@ -201,20 +204,23 @@ VALUES
 (3, 7);
 
 ##INSERTION SECTEUR##
-INSERT INTO escalade.secteur(id, name)
+INSERT INTO escalade.secteur(id, name, spot_id)
 VALUES (
            1,
-           'Site Moulay : secteur 1'
+           'Site Moulay : secteur 1',
+           6
        );
-INSERT INTO escalade.secteur(id, name)
+INSERT INTO escalade.secteur(id, name, spot_id)
 VALUES (
            2,
-           'Site Moulay : secteur 2'
+           'Site Moulay : secteur 2',
+           6
        );
-INSERT INTO escalade.secteur(id, name)
+INSERT INTO escalade.secteur(id, name, spot_id)
 VALUES (
            3,
-           'Secteur du site de Changé'
+           'Secteur du site de Changé',
+           6
        );
 
 ##INSERTION VOIES##
@@ -234,17 +240,18 @@ VALUES (
        );
 
 ##INSERTION LONGUEUR##
-INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name)
+INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name, voie_id)
 VALUES (
            1,
            2,
            3,
-           'Voie de la marmite : longueur 1'
+           'Voie de la marmite : longueur 1',
+           1
        );
 
-##INSERTION SPOT_SECTEURS##
-INSERT INTO escalade.spot_secteurs(Spot_id, secteurs_id)
+##INSERTION SPOT_PHOTOS##
+INSERT INTO escalade.spot_photos(Spot_id, photos_id)
 VALUES
-(6, 1),
-(6, 2),
-(6, 3);
+(1, 4),
+(1, 5),
+(1, 6);
