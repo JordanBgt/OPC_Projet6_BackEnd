@@ -8,6 +8,7 @@ import com.openclassrooms.escalade.entities.Spot;
 import com.openclassrooms.escalade.entities.User;
 import com.openclassrooms.escalade.mapper.SpotMapper;
 import com.openclassrooms.escalade.model.SpotSearch;
+import com.openclassrooms.escalade.services.SecteurService;
 import com.openclassrooms.escalade.services.SpotService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class SpotServiceImpl implements SpotService {
     private final UserRepository userRepository;
     private final CotationRepository cotationRepository;
     private final SecteurRepository secteurRepository;
+    private final SecteurService secteurService;
 
     public Page<SpotLightDto> findAll (SpotSearch searchCriteria, Pageable page) {
         return spotRepository.findAll(SpotPredicateBuilder.buildSearch(searchCriteria), page).map(spotMapper::toSpotLightDto);
@@ -53,6 +56,12 @@ public class SpotServiceImpl implements SpotService {
     }
 
     public void delete(Long id) {
+        List<Long> secteursId = secteurRepository.findAllBySpotId(id);
+        if (secteursId != null) {
+            for (Long secteurId: secteursId) {
+                secteurService.delete(secteurId);
+            }
+        }
         Spot spot = spotRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         spotRepository.delete(spot);
     }

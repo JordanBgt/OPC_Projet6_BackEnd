@@ -6,12 +6,14 @@ import com.openclassrooms.escalade.dto.VoieLightDto;
 import com.openclassrooms.escalade.entities.*;
 import com.openclassrooms.escalade.mapper.VoieMapper;
 import com.openclassrooms.escalade.model.VoieSearch;
+import com.openclassrooms.escalade.services.LongueurService;
 import com.openclassrooms.escalade.services.VoieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,8 @@ public class VoieServiceImpl implements VoieService {
     private final CotationRepository cotationRepository;
     private final UserRepository userRepository;
     private final SecteurRepository secteurRepository;
+    private final LongueurRepository longueurRepository;
+    private final LongueurService longueurService;
 
     public Page<VoieLightDto> findAll(VoieSearch searchCriteria, Pageable page) {
         return voieRepository.findAll(VoiePredicateBuilder.buildSearch(searchCriteria), page).map(voieMapper::toVoieLightDto);
@@ -49,6 +53,12 @@ public class VoieServiceImpl implements VoieService {
     }
 
     public void delete(Long id) {
+        List<Long> longueursId = longueurRepository.findAllByVoieId(id);
+        if (longueursId != null) {
+            for (Long longueurId: longueursId) {
+                longueurService.delete(longueurId);
+            }
+        }
         Voie voie = voieRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         voieRepository.delete(voie);
     }
