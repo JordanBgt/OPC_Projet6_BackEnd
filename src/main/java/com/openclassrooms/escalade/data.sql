@@ -1,15 +1,15 @@
 ##INSERTION ROLE##
-INSERT INTO escalade.role(name)
+INSERT INTO escalade.role(id, name)
 VALUES
-('ROLE_ADMIN'),
-('ROLE_USER');
+(1,'ROLE_ADMIN'),
+(2, 'ROLE_USER');
 
 ##INSERTION USER##
-INSERT INTO escalade.user(email, password, username)
+INSERT INTO escalade.user(id, email, password, username)
 VALUES
-('admin@email.com', 'admin', 'admin'),
-('user1@email.com', 'user1', 'user1'),
-('user2@email.com', 'user2', 'user2');
+(1, 'admin@email.com', '$2a$10$Roncy1LUr8JCoRygEkuO6OHSddNY88u0RHQm4CsyRlBAC9SuBfB5K', 'admin'),
+(2, 'user1@email.com', '$2a$10$jj5p64AYQeJF4y4EFwlaEuPFYURYwc.w.FQEZx4289coW4f6zP5Gi', 'user1'),
+(3, 'user2@email.com', '$2a$10$pX3KK37jkocj6DXS5rCESe.EJ29b09xbPrggR7qgMgJ.20tQzucXa', 'user2');
 
 ##INSERTION USER_ROLE##
 INSERT INTO escalade.user_role(user_id, role_id)
@@ -26,7 +26,14 @@ VALUES
 (3, 'escalade-mayenne.jpg'),
 (4, 'biotone1.jpg'),
 (5, 'biotone2.jpg'),
-(6, 'biotone3.jpg');
+(6, 'biotone3.jpg'),
+(7, 'arete1.jpg'),
+(8, 'arete2.jpg'),
+(9, 'plume1.jpg'),
+(10, 'obiou1.jpg'),
+(11, 'obiou2.jpg'),
+(12, 'moulay1.jpg'),
+(13, 'moulay2.jpg');
 
 ##INSERTION COTATION##
 INSERT INTO escalade.cotation(id, label)
@@ -254,4 +261,11 @@ INSERT INTO escalade.spot_photos(Spot_id, photos_id)
 VALUES
 (1, 4),
 (1, 5),
-(1, 6);
+(1, 6),
+(3, 7),
+(3, 8),
+(2, 9),
+(4, 10),
+(5, 11),
+(6, 12),
+(7, 13);
