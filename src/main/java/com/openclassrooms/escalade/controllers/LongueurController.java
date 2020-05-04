@@ -9,9 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/longueurs")
@@ -60,7 +63,12 @@ public class LongueurController {
 
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    public void deleteLongueur(@PathVariable Long id) {
-        longueurService.delete(id);
+    public ResponseEntity<Void> deleteLongueur(@PathVariable Long id) {
+        try {
+            longueurService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
