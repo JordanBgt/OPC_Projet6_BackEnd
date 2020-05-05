@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,8 +12,8 @@ import java.util.List;
 public class SecteurDto {
 
     private String name;
-    private List<VoieDto> voies;
     private Long id;
     private String description;
     private Long userId;
+    private Long spotId;
 }

@@ -1,9 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
-import com.openclassrooms.escalade.dao.SecteurRepository;
 import com.openclassrooms.escalade.dto.SecteurDto;
 import com.openclassrooms.escalade.dto.SecteurLightDto;
-import com.openclassrooms.escalade.dto.SecteurSaveDTto;
 import com.openclassrooms.escalade.model.SecteurSearch;
 import com.openclassrooms.escalade.services.SecteurService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/secteurs")
@@ -30,12 +26,13 @@ public class SecteurController {
     @GetMapping
     @ResponseBody
     public Page<SecteurLightDto> getAllSecteurs(@RequestParam(required = false) String name,
+                                                @RequestParam(required = false) Long spotId,
                                                 @RequestParam(defaultValue = "0") Integer page,
                                                 @RequestParam(defaultValue = "20") Integer size,
                                                 @RequestParam(defaultValue = "name") String sortBy,
                                                 @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                                 @RequestParam(defaultValue = "false") boolean unpaged) {
-        SecteurSearch searchCriteria = new SecteurSearch(name);
+        SecteurSearch searchCriteria = new SecteurSearch(name, spotId);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return secteurService.findAll(searchCriteria, pageable);
     }
@@ -50,15 +47,15 @@ public class SecteurController {
     @PostMapping
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public SecteurDto createSecteur(@RequestBody SecteurSaveDTto secteur) {
-        return secteurService.create(secteur);
+    public SecteurDto createSecteur(@RequestBody SecteurDto secteur) {
+        return secteurService.createOrUpdate(secteur);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #secteur.userId == #userId")
     public SecteurDto updateSecteur(@RequestBody SecteurDto secteur, @RequestParam Long userId) {
-        return secteurService.update(secteur);
+        return secteurService.createOrUpdate(secteur);
     }
 
     @DeleteMapping("/{id}")

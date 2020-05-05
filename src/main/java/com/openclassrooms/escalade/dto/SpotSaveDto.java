@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SpotSaveDto {
 
+    private Long id;
     private String city;
     private String country;
     private String description;
@@ -18,4 +19,5 @@ public class SpotSaveDto {
     private String name;
     private CotationDto cotationMin;
     private CotationDto cotationMax;
+    private boolean isOfficial;
 }

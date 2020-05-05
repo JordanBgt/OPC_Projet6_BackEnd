@@ -10,4 +10,6 @@ import java.util.List;
 public interface CotationMapper {
     CotationDto toCotationDto(Cotation cotation);
     List<CotationDto> toListCotationDto(List<Cotation> cotations);
+
+    Cotation toCotation(CotationDto cotationDto);
 }

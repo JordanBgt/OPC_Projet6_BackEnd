@@ -1,9 +1,39 @@
+##INSERTION ROLE##
+INSERT INTO escalade.role(id, name)
+VALUES
+(1,'ROLE_ADMIN'),
+(2, 'ROLE_USER');
+
+##INSERTION USER##
+INSERT INTO escalade.user(id, email, password, username)
+VALUES
+(1, 'admin@email.com', '$2a$10$Roncy1LUr8JCoRygEkuO6OHSddNY88u0RHQm4CsyRlBAC9SuBfB5K', 'admin'),
+(2, 'user1@email.com', '$2a$10$jj5p64AYQeJF4y4EFwlaEuPFYURYwc.w.FQEZx4289coW4f6zP5Gi', 'user1'),
+(3, 'user2@email.com', '$2a$10$pX3KK37jkocj6DXS5rCESe.EJ29b09xbPrggR7qgMgJ.20tQzucXa', 'user2');
+
+##INSERTION USER_ROLE##
+INSERT INTO escalade.user_role(user_id, role_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 2);
+
 ##INSERTION PHOTO##
 INSERT INTO escalade.photo(id, name)
 VALUES
 (1, 'gorges-jonte.jpg'),
 (2, 'guide-obiou.jpg'),
-(3, 'escalade-mayenne.jpg');
+(3, 'escalade-mayenne.jpg'),
+(4, 'biotone1.jpg'),
+(5, 'biotone2.jpg'),
+(6, 'biotone3.jpg'),
+(7, 'arete1.jpg'),
+(8, 'arete2.jpg'),
+(9, 'plume1.jpg'),
+(10, 'obiou1.jpg'),
+(11, 'obiou2.jpg'),
+(12, 'moulay1.jpg'),
+(13, 'moulay2.jpg');
 
 ##INSERTION COTATION##
 INSERT INTO escalade.cotation(id, label)
@@ -38,7 +68,7 @@ VALUES
 (28, '9a+');
 
 ##INSERTION TOPO##
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, creator_id, photo_id)
 VALUES (
            1,
            true,
@@ -52,7 +82,7 @@ VALUES (
            1,
            1
        );
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, creator_id, photo_id)
 VALUES (
            2,
            true,
@@ -66,7 +96,7 @@ VALUES (
            2,
            2
        );
-INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, topoCreator_id, photo_id)
+INSERT INTO escalade.topo(id, available, cotation_min_id, cotation_max_id, country, description, name, publication_date, region, creator_id, photo_id)
 VALUES (
            3,
            true,
@@ -181,20 +211,23 @@ VALUES
 (3, 7);
 
 ##INSERTION SECTEUR##
-INSERT INTO escalade.secteur(id, name)
+INSERT INTO escalade.secteur(id, name, spot_id)
 VALUES (
            1,
-           'Site Moulay : secteur 1'
+           'Site Moulay : secteur 1',
+           6
        );
-INSERT INTO escalade.secteur(id, name)
+INSERT INTO escalade.secteur(id, name, spot_id)
 VALUES (
            2,
-           'Site Moulay : secteur 2'
+           'Site Moulay : secteur 2',
+           6
        );
-INSERT INTO escalade.secteur(id, name)
+INSERT INTO escalade.secteur(id, name, spot_id)
 VALUES (
            3,
-           'Secteur du site de Changé'
+           'Secteur du site de Changé',
+           6
        );
 
 ##INSERTION VOIES##
@@ -214,17 +247,25 @@ VALUES (
        );
 
 ##INSERTION LONGUEUR##
-INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name)
+INSERT INTO escalade.longueur(id, cotation_min_id, cotation_max_id, name, voie_id)
 VALUES (
            1,
            2,
            3,
-           'Voie de la marmite : longueur 1'
+           'Voie de la marmite : longueur 1',
+           1
        );
 
-##INSERTION SPOT_SECTEURS##
-INSERT INTO escalade.spot_secteurs(Spot_id, secteurs_id)
+##INSERTION SPOT_PHOTOS##
+INSERT INTO escalade.spot_photos(Spot_id, photos_id)
 VALUES
-(6, 1),
-(6, 2),
-(6, 3);
+(1, 4),
+(1, 5),
+(1, 6),
+(3, 7),
+(3, 8),
+(2, 9),
+(4, 10),
+(5, 11),
+(6, 12),
+(7, 13);

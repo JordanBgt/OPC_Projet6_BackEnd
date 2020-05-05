@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class Voie implements Serializable {
     private static final long serialVersionUID = -7599721237767396506L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -36,9 +35,11 @@ public class Voie implements Serializable {
     @JoinColumn(name = "cotation_max_id")
     private Cotation cotationMax;
 
-    @OneToMany
-    private List<Longueur> longueurs;
+    @ManyToOne
+    @JoinColumn(name = "secteur_id")
+    private Secteur secteur;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }

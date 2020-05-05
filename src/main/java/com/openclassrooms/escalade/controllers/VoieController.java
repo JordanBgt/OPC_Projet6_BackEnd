@@ -2,8 +2,6 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.dto.VoieLightDto;
-import com.openclassrooms.escalade.dto.VoieSaveDto;
-import com.openclassrooms.escalade.entities.Voie;
 import com.openclassrooms.escalade.model.VoieSearch;
 import com.openclassrooms.escalade.services.VoieService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/voies")
@@ -30,6 +26,7 @@ public class VoieController {
     @GetMapping
     @ResponseBody
     public Page<VoieLightDto> getAllVoies(@RequestParam(required = false) String name,
+                                          @RequestParam(required = false) Long secteurId,
                                           @RequestParam(required = false) Long cotationMin,
                                           @RequestParam(required = false) Long cotationMax,
                                           @RequestParam(defaultValue = "0") Integer page,
@@ -37,7 +34,7 @@ public class VoieController {
                                           @RequestParam(defaultValue = "name") String sortBy,
                                           @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                           @RequestParam(defaultValue = "false") boolean unpaged) {
-        VoieSearch searchCriteria = new VoieSearch(name, cotationMin, cotationMax);
+        VoieSearch searchCriteria = new VoieSearch(name, cotationMin, cotationMax, secteurId);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return voieService.findAll(searchCriteria, pageable);
     }
@@ -52,15 +49,15 @@ public class VoieController {
     @PostMapping
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public VoieDto createVoie(@RequestBody VoieSaveDto voie) {
-        return voieService.create(voie);
+    public VoieDto createVoie(@RequestBody VoieDto voie) {
+        return voieService.createOrUpdate(voie);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #voie.userId == #userId")
     public VoieDto updateVoie(@RequestBody VoieDto voie, @RequestParam Long userId) {
-        return voieService.update(voie);
+        return voieService.createOrUpdate(voie);
     }
 
     @DeleteMapping("/{id}")

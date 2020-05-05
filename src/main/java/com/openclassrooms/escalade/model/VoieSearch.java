@@ -12,4 +12,5 @@ public class VoieSearch {
     private String name;
     private Long cotationMinId;
     private Long cotationMaxId;
+    private Long secteurId;
 }

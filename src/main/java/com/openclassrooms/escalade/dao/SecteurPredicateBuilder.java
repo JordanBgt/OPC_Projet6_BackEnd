@@ -13,11 +13,16 @@ public class SecteurPredicateBuilder {
 
     public static Predicate buildSearch(SecteurSearch secteurSearch) {
         return new BooleanBuilder()
-                .and(isName(secteurSearch.getName()));
+                .and(isName(secteurSearch.getName()))
+                .and(isSpotId(secteurSearch.getSpotID()));
     }
 
     private static BooleanExpression isName(String name) {
         return name != null ? secteur.name.containsIgnoreCase(name) : null;
+    }
+
+    private static BooleanExpression isSpotId(Long spotId) {
+        return spotId != null ? secteur.spot.id.eq(spotId) : null;
     }
 
 }

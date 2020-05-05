@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,8 +14,8 @@ public class VoieDto {
     private CotationDto cotationMin;
     private CotationDto cotationMax;
     private Long id;
-    private List<LongueurDto> longueurs;
     private String name;
     private String description;
     private Long userId;
+    private Long secteurId;
 }

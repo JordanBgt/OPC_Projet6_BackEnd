@@ -9,10 +9,13 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {LongueurMapper.class, CotationMapper.class})
+@Mapper(componentModel = "spring", uses = {CotationMapper.class})
 public interface VoieMapper {
 
-    @Mapping(target = "userId", source = "user.id")
+    @Mappings({
+            @Mapping(target = "userId", source = "user.id"),
+            @Mapping(target = "secteurId", source = "secteur.id")
+    })
     VoieDto toVoieDto(Voie voie);
 
     VoieLightDto toVoieLightDto(Voie voie);
