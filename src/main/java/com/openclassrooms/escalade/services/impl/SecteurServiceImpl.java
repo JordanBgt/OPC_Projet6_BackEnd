@@ -43,6 +43,7 @@ public class SecteurServiceImpl implements SecteurService {
         User user = userRepository.findById(secteurDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Spot spot = spotRepository.findById(secteurDto.getSpotId()).orElseThrow(EntityNotFoundException::new);
         Secteur secteur = Secteur.builder()
+                .id(secteurDto.getId())
                 .user(user)
                 .name(secteurDto.getName())
                 .description(secteurDto.getDescription())

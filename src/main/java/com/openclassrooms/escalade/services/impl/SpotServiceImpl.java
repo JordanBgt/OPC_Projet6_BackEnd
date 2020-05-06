@@ -43,6 +43,7 @@ public class SpotServiceImpl implements SpotService {
         Cotation cotationMin = cotationRepository.findById(spotDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(spotDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         Spot spot = Spot.builder()
+                .id(spotDto.getId())
                 .name(spotDto.getName())
                 .city(spotDto.getCity())
                 .country(spotDto.getCountry())

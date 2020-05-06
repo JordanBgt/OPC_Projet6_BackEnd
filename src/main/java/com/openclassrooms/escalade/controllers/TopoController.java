@@ -2,7 +2,6 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
-import com.openclassrooms.escalade.dto.TopoSaveDto;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.TopoService;
 import lombok.RequiredArgsConstructor;
@@ -53,14 +52,14 @@ public class TopoController {
     @PostMapping
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public TopoDto createTopo(@RequestBody TopoSaveDto topo) {
-        return topoService.create(topo);
+    public TopoDto createTopo(@RequestBody TopoDto topo) {
+        return topoService.createOrUpdate(topo);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     public TopoDto updateTopo(@RequestBody TopoDto topo) {
-        return topoService.update(topo);
+        return topoService.createOrUpdate(topo);
     }
 
     @DeleteMapping("/{id}")
