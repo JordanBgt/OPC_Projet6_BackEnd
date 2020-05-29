@@ -56,6 +56,6 @@ public class Topo implements Serializable {
     @Column(name = "publication_date")
     private Date publicationDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Photo photo;
 }

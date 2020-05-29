@@ -22,6 +22,10 @@ public class Photo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String path;
+
     private String name;
+
+    private String extension;
 
 }

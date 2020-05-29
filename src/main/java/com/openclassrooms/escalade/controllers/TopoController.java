@@ -1,8 +1,11 @@
 package com.openclassrooms.escalade.controllers;
 
+import com.openclassrooms.escalade.dto.PhotoDto;
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
+import com.openclassrooms.escalade.entities.Photo;
 import com.openclassrooms.escalade.model.TopoSearch;
+import com.openclassrooms.escalade.services.FileStorageService;
 import com.openclassrooms.escalade.services.TopoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +16,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/topos")
@@ -24,6 +30,7 @@ import javax.persistence.EntityNotFoundException;
 public class TopoController {
 
     private final TopoService topoService;
+    private final FileStorageService fileStorageService;
 
     @GetMapping
     @ResponseBody
@@ -53,13 +60,22 @@ public class TopoController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto createTopo(@RequestBody TopoDto topo) {
-        return topoService.createOrUpdate(topo);
+        //return topoService.createOrUpdate(topo);
+        log.info("PHOTO ::::: " + topo.getPhoto());
+        return null;
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     public TopoDto updateTopo(@RequestBody TopoDto topo) {
         return topoService.createOrUpdate(topo);
+    }
+
+    @PostMapping("/{id}/photos")
+    public TopoDto createPhoto(@PathVariable Long id,
+                                @RequestParam MultipartFile file) {
+        log.info("Démarrage upload photo");
+        return this.topoService.addPhoto(id, file);
     }
 
     @DeleteMapping("/{id}")

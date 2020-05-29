@@ -45,7 +45,7 @@ public class Spot implements Serializable {
     @ManyToMany(mappedBy = "spots")
     private List<Topo> topos;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Photo> photos;
 
     @ManyToOne
