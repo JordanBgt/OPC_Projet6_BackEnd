@@ -12,7 +12,7 @@ import java.util.List;
 public interface PhotoMapper {
 
     @Mappings({
-            @Mapping(target = "file", defaultValue = "null")
+            @Mapping(target = "fileToBase64String", defaultValue = "null")
     })
     PhotoDto toPhotoDto(Photo photo);
     List<PhotoDto> toListPhotoDto(List<Photo> photos);

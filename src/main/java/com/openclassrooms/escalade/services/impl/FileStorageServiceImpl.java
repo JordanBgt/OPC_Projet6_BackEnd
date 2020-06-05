@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.services.FileStorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
+@Slf4j
 public class FileStorageServiceImpl implements FileStorageService {
 
     private final Path root = Paths.get("uploads");
@@ -41,7 +43,9 @@ public class FileStorageServiceImpl implements FileStorageService {
     public Resource load(String fileName) {
         try {
             Path file = root.resolve(fileName);
+            log.info("PATH FILE : " + file);
             Resource resource = new UrlResource(file.toUri());
+            log.info("RESOURCE : " + resource);
 
             if (resource.exists() || resource.isReadable()) {
                 return resource;

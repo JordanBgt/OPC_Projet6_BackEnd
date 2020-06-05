@@ -1,9 +1,7 @@
 package com.openclassrooms.escalade.controllers;
 
-import com.openclassrooms.escalade.dto.PhotoDto;
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
-import com.openclassrooms.escalade.entities.Photo;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.FileStorageService;
 import com.openclassrooms.escalade.services.TopoService;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.File;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/topos")
@@ -44,15 +40,19 @@ public class TopoController {
                                           @RequestParam(defaultValue = "name") String sortBy,
                                           @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                           @RequestParam(defaultValue = "false") boolean unpaged) {
+        log.info("Démarrage récupération de tous les topos");
         TopoSearch searchCriteria = new TopoSearch(country, name, isAvailable, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
-        return topoService.findAll(searchCriteria, pageable);
+        Page<TopoLightDto> results = topoService.findAll(searchCriteria, pageable);
+        log.info("RESULTS : " + results);
+        return results;
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto getTopo(@PathVariable Long id) {
+        log.info("Démarrage récupération du topo avec l'id " + id);
         return topoService.findById(id);
     }
 
@@ -60,14 +60,14 @@ public class TopoController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto createTopo(@RequestBody TopoDto topo) {
-        //return topoService.createOrUpdate(topo);
-        log.info("PHOTO ::::: " + topo.getPhoto());
+        log.info("Démarrage création d'un topo");
         return null;
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     public TopoDto updateTopo(@RequestBody TopoDto topo) {
+        log.info("Démarrage modification d'un topo");
         return topoService.createOrUpdate(topo);
     }
 
@@ -81,6 +81,7 @@ public class TopoController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteTopo(@PathVariable Long id) {
+        log.info("Démarrage suppréssion d'un topo");
         try {
             topoService.delete(id);
             return ResponseEntity.noContent().build();

@@ -11,14 +11,19 @@ import com.openclassrooms.escalade.services.FileStorageService;
 import com.openclassrooms.escalade.services.TopoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +63,13 @@ public class TopoServiceImpl implements TopoService {
     }
 
     public Page<TopoLightDto> findAll(TopoSearch searchCriteria, Pageable page){
-        return topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page).map(topoMapper::toTopoLightDto);
+        Page<TopoLightDto> results = topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page).map(topoMapper::toTopoLightDto);
+        results.forEach(topo -> {
+            if (topo.getPhoto() != null) {
+                topo.getPhoto().convertFileToBase64String(fileStorageService.load(topo.getPhoto().getName()));
+            }
+        });
+        return results;
     }
 
     public TopoDto findById(Long id){
@@ -68,8 +79,11 @@ public class TopoServiceImpl implements TopoService {
     @Override
     public TopoDto addPhoto(Long topoId, MultipartFile file) {
         Topo topo = topoRepository.findById(topoId).orElseThrow(EntityNotFoundException::new);
+        if (topo.getPhoto() == null) {
+            topo.setPhoto(new Photo());
+        }
         topo.getPhoto().setName(file.getOriginalFilename());
-        topo.getPhoto().setExtension(file.getContentType().substring(file.getContentType().indexOf('/')+1));
+        topo.getPhoto().setExtension(Objects.requireNonNull(file.getContentType()).substring(file.getContentType().indexOf('/')+1));
         try {
             fileStorageService.save(file);
             return topoMapper.toTopoDto(topoRepository.save(topo));
