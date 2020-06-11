@@ -3,7 +3,6 @@ package com.openclassrooms.escalade.controllers;
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
 import com.openclassrooms.escalade.model.TopoSearch;
-import com.openclassrooms.escalade.services.FileStorageService;
 import com.openclassrooms.escalade.services.TopoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,14 +63,18 @@ public class TopoController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public TopoDto updateTopo(@RequestBody TopoDto topo) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #topo.creatorId == #userId")
+    public TopoDto updateTopo(@RequestBody TopoDto topo, @RequestParam Long userId) {
         log.info("Démarrage modification d'un topo");
         return topoService.createOrUpdate(topo);
     }
 
     @PostMapping("/{id}/photos")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #topoCreatorId == #userId")
     public TopoDto createPhoto(@PathVariable Long id,
-                                @RequestParam MultipartFile file) {
+                               @RequestParam MultipartFile file,
+                               @RequestParam Long topoCreatorId,
+                               @RequestParam Long userId) {
         log.info("Démarrage upload photo");
         return this.topoService.addPhoto(id, file);
     }

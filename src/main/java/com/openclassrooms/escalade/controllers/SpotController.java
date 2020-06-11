@@ -71,8 +71,11 @@ public class SpotController {
     }
 
     @PostMapping("/{id}/photos")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #spotUserId == #userId")
     public SpotDto addPhoto(@PathVariable Long id,
-                            @RequestParam MultipartFile file) {
+                            @RequestParam MultipartFile file,
+                            @RequestParam Long spotUserId,
+                            @RequestParam Long userId) {
         log.info("Démarrage upload photo");
         return this.spotService.addPhoto(id, file);
     }
