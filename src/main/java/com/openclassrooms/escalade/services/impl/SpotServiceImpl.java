@@ -2,12 +2,10 @@ package com.openclassrooms.escalade.services.impl;
 
 import com.openclassrooms.escalade.dao.*;
 import com.openclassrooms.escalade.dto.*;
-import com.openclassrooms.escalade.entities.Cotation;
-import com.openclassrooms.escalade.entities.Secteur;
-import com.openclassrooms.escalade.entities.Spot;
-import com.openclassrooms.escalade.entities.User;
+import com.openclassrooms.escalade.entities.*;
 import com.openclassrooms.escalade.mapper.SpotMapper;
 import com.openclassrooms.escalade.model.SpotSearch;
+import com.openclassrooms.escalade.services.FileStorageService;
 import com.openclassrooms.escalade.services.SecteurService;
 import com.openclassrooms.escalade.services.SpotService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,13 +30,28 @@ public class SpotServiceImpl implements SpotService {
     private final CotationRepository cotationRepository;
     private final SecteurRepository secteurRepository;
     private final SecteurService secteurService;
+    private final FileStorageService fileStorageService;
 
     public Page<SpotLightDto> findAll (SpotSearch searchCriteria, Pageable page) {
-        return spotRepository.findAll(SpotPredicateBuilder.buildSearch(searchCriteria), page).map(spotMapper::toSpotLightDto);
+        Page<SpotLightDto> results = spotRepository.findAll(SpotPredicateBuilder.buildSearch(searchCriteria), page).map(spotMapper::toSpotLightDto);
+        results.forEach(spot -> {
+            if (spot.getPhotos() != null && spot.getPhotos().size() > 0) {
+                spot.getPhotos().forEach(photoDto -> {
+                    photoDto.convertFileToBase64String(fileStorageService.load(photoDto.getName()));
+                });
+            }
+        });
+        return results;
     }
 
     public SpotDto findById(Long id) {
-        return spotMapper.toSpotDto(spotRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+        SpotDto spot = spotMapper.toSpotDto(spotRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+        if (spot.getPhotos() != null && spot.getPhotos().size() > 0) {
+            spot.getPhotos().forEach(photo -> {
+                photo.convertFileToBase64String(fileStorageService.load(photo.getName()));
+            });
+        }
+        return spot;
     }
 
     public SpotDto createOrUpdate(SpotDto spotDto) {
@@ -54,6 +70,21 @@ public class SpotServiceImpl implements SpotService {
                 .isOfficial(spotDto.isOfficial())
                 .build();
         return spotMapper.toSpotDto(spotRepository.save(spot));
+    }
+
+    public SpotDto addPhoto(Long topoId, MultipartFile file) {
+        Spot spot = spotRepository.findById(topoId).orElseThrow(EntityNotFoundException::new);
+        Photo photo = Photo.builder()
+            .name(file.getOriginalFilename())
+            .extension(Objects.requireNonNull(file.getContentType()).substring(file.getContentType().indexOf('/')+1))
+            .build();
+        try {
+            fileStorageService.save(file);
+            spot.getPhotos().add(photo);
+            return spotMapper.toSpotDto(spotRepository.save(spot));
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public void delete(Long id) {

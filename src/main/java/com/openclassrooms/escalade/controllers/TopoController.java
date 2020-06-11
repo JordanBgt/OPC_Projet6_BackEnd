@@ -26,7 +26,6 @@ import javax.persistence.EntityNotFoundException;
 public class TopoController {
 
     private final TopoService topoService;
-    private final FileStorageService fileStorageService;
 
     @GetMapping
     @ResponseBody
@@ -43,9 +42,7 @@ public class TopoController {
         log.info("Démarrage récupération de tous les topos");
         TopoSearch searchCriteria = new TopoSearch(country, name, isAvailable, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
-        Page<TopoLightDto> results = topoService.findAll(searchCriteria, pageable);
-        log.info("RESULTS : " + results);
-        return results;
+        return topoService.findAll(searchCriteria, pageable);
     }
 
     @GetMapping("/{id}")
@@ -81,7 +78,7 @@ public class TopoController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteTopo(@PathVariable Long id) {
-        log.info("Démarrage suppréssion d'un topo");
+        log.info("Démarrage suppression d'un topo");
         try {
             topoService.delete(id);
             return ResponseEntity.noContent().build();
