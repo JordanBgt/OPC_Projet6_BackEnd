@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +32,7 @@ public class SpotServiceImpl implements SpotService {
     private final SecteurRepository secteurRepository;
     private final SecteurService secteurService;
     private final FileStorageService fileStorageService;
+    private final PhotoRepository photoRepository;
 
     public Page<SpotLightDto> findAll (SpotSearch searchCriteria, Pageable page) {
         Page<SpotLightDto> results = spotRepository.findAll(SpotPredicateBuilder.buildSearch(searchCriteria), page).map(spotMapper::toSpotLightDto);
@@ -47,9 +49,8 @@ public class SpotServiceImpl implements SpotService {
     public SpotDto findById(Long id) {
         SpotDto spot = spotMapper.toSpotDto(spotRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         if (spot.getPhotos() != null && spot.getPhotos().size() > 0) {
-            spot.getPhotos().forEach(photo -> {
-                photo.convertFileToBase64String(fileStorageService.load(photo.getName()));
-            });
+            spot.getPhotos().forEach(photo ->
+                    photo.convertFileToBase64String(fileStorageService.load(photo.getName())));
         }
         return spot;
     }
@@ -58,6 +59,11 @@ public class SpotServiceImpl implements SpotService {
         User user = userRepository.findById(spotDto.getUserId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMin = cotationRepository.findById(spotDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(spotDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
+        List<Photo> photos = new ArrayList<>();
+        if(spotDto.getPhotos().size() > 0) {
+            spotDto.getPhotos().forEach(photoDto -> photos.add(photoRepository.findById(photoDto.getId())
+                    .orElseThrow(EntityNotFoundException::new)));
+        }
         Spot spot = Spot.builder()
                 .id(spotDto.getId())
                 .name(spotDto.getName())
@@ -68,8 +74,14 @@ public class SpotServiceImpl implements SpotService {
                 .cotationMin(cotationMin)
                 .cotationMax(cotationMax)
                 .isOfficial(spotDto.isOfficial())
+                .photos(photos)
                 .build();
-        return spotMapper.toSpotDto(spotRepository.save(spot));
+        SpotDto result = spotMapper.toSpotDto(spotRepository.save(spot));
+        if (result.getPhotos() != null && result.getPhotos().size() > 0) {
+            result.getPhotos().forEach(photo ->
+                    photo.convertFileToBase64String(fileStorageService.load(photo.getName())));
+        }
+        return result;
     }
 
     public SpotDto addPhoto(Long topoId, MultipartFile file) {

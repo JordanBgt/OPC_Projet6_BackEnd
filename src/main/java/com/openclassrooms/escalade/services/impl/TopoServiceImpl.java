@@ -32,12 +32,17 @@ public class TopoServiceImpl implements TopoService {
     private final CotationRepository cotationRepository;
     private final SpotRepository spotRepository;
     private final FileStorageService fileStorageService;
+    private final PhotoRepository photoRepository;
 
     public TopoDto createOrUpdate(TopoDto topoDto){
         User user = userRepository.findById(topoDto.getCreatorId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMin = cotationRepository.findById(topoDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(topoDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         List<Spot> spots = new ArrayList<>();
+        Photo photo = null;
+        if (topoDto.getPhoto() != null) {
+            photo = photoRepository.findById(topoDto.getPhoto().getId()).orElseThrow(EntityNotFoundException::new);
+        }
         for (SpotDto spotDto : topoDto.getSpots()) {
             spots.add(this.spotRepository.findById(spotDto.getId()).orElseThrow(EntityNotFoundException::new));
         }
@@ -53,8 +58,13 @@ public class TopoServiceImpl implements TopoService {
                 .topoCreator(user)
                 .available(true)
                 .publicationDate(topoDto.getPublicationDate())
+                .photo(photo)
                 .build();
-        return topoMapper.toTopoDto(topoRepository.save(topo));
+        TopoDto result = topoMapper.toTopoDto(topoRepository.save(topo));
+        if (result.getPhoto() != null) {
+            result.getPhoto().convertFileToBase64String(fileStorageService.load(result.getPhoto().getName()));
+        }
+        return result;
     }
 
     public Page<TopoLightDto> findAll(TopoSearch searchCriteria, Pageable page){
