@@ -18,8 +18,8 @@ public class UserDto {
     private String password;
     private String email;
     private List<RoleDto> roles;
-    private List<TopoDto> toposCreated;
-    private List<TopoDto> toposRent;
-    private List<SpotDto> spotsCreated;
+    private List<TopoLightDto> toposCreated;
+    private List<TopoLightDto> toposRent;
+    private List<SpotLightDto> spotsCreated;
 
 }
