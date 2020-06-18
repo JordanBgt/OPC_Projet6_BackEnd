@@ -6,12 +6,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CommentMapper {
 
     @Mappings({
-            @Mapping(source = "spot.id", target = "spotId"),
-            @Mapping(source = "user.id", target = "userId")
+            @Mapping(source = "spot.id", target = "spotId")
     })
     CommentDto toCommentDto(Comment comment);
 }
