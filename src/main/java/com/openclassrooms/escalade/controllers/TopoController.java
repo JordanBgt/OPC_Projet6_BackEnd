@@ -2,8 +2,10 @@ package com.openclassrooms.escalade.controllers;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
+import com.openclassrooms.escalade.dto.TopoUserDto;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.TopoService;
+import com.openclassrooms.escalade.services.TopoUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,12 +28,12 @@ import javax.persistence.EntityNotFoundException;
 public class TopoController {
 
     private final TopoService topoService;
+    private final TopoUserService topoUserService;
 
     @GetMapping
     @ResponseBody
     public Page<TopoLightDto> getAllTopos(@RequestParam(required = false) String country,
                                           @RequestParam(required = false) String name,
-                                          @RequestParam(required = false) boolean isAvailable,
                                           @RequestParam(required = false) Long cotationMin,
                                           @RequestParam(required = false) Long cotationMax,
                                           @RequestParam(defaultValue = "0") Integer page,
@@ -40,7 +42,7 @@ public class TopoController {
                                           @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                           @RequestParam(defaultValue = "false") boolean unpaged) {
         log.info("Démarrage récupération de tous les topos");
-        TopoSearch searchCriteria = new TopoSearch(country, name, isAvailable, cotationMin, cotationMax);
+        TopoSearch searchCriteria = new TopoSearch(country, name, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return topoService.findAll(searchCriteria, pageable);
     }
@@ -89,5 +91,11 @@ public class TopoController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{id}/bookings")
+    public TopoUserDto bookTopo(@RequestBody TopoUserDto topoUserDto) {
+        log.info("Démarrage location d'un topo");
+        return topoUserService.updateTopoUser(topoUserDto);
     }
 }

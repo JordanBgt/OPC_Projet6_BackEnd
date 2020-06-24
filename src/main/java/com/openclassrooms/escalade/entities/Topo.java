@@ -36,9 +36,6 @@ public class Topo implements Serializable {
     @JoinColumn(name = "cotation_max_id")
     private Cotation cotationMax;
 
-    @Column(name = "available")
-    private boolean available;
-
     private String country;
     private String region;
 
@@ -49,13 +46,10 @@ public class Topo implements Serializable {
     @JoinColumn(name = "creator_id")
     private User topoCreator;
 
-    @ManyToOne
-    @JoinColumn(name = "tenant_id")
-    private User topoTenant;
-
     @Column(name = "publication_date")
     private Date publicationDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Photo photo;
+
 }

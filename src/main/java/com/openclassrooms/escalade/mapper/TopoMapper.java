@@ -14,7 +14,7 @@ public interface TopoMapper {
 
     @Mappings({
             @Mapping(source = "topoCreator.id", target = "creatorId"),
-            @Mapping(source = "topoTenant.id", target = "tenantId")
+            @Mapping(target = "topoUsers", defaultValue = "null")
     })
     TopoDto toTopoDto(Topo topo);
 

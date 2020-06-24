@@ -14,7 +14,6 @@ public class TopoPredicateBuilder {
         return new BooleanBuilder()
                 .and(isCountry(topoSearch.getCountry()))
                 .and(isName(topoSearch.getName()))
-                .and(isAvailable(topoSearch.isAvailable()))
                 .and(isCotationMin(topoSearch.getCotationMinId()))
                 .and(isCotationMax(topoSearch.getCotationMaxId()));
     }
@@ -25,10 +24,6 @@ public class TopoPredicateBuilder {
 
     private static BooleanExpression isName(String name) {
         return name != null ? topo.name.containsIgnoreCase(name) : null;
-    }
-
-    private static BooleanExpression isAvailable(boolean isAvailable){
-        return isAvailable ? topo.available.eq(true) : null;
     }
 
     private static BooleanExpression isCotationMin(Long cotationMin){

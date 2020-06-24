@@ -4,19 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserProfileDto {
 
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private List<RoleDto> roles;
-
+    private UserDto user;
+    private List<TopoLightDto> toposCreated;
+    private List<TopoUserDto> toposOwned;
+    private List<TopoLightDto> toposRent;
+    private List<SpotLightDto> spotsCreated;
 }

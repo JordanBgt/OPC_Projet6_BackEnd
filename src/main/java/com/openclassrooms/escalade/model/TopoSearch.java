@@ -13,7 +13,6 @@ public class TopoSearch {
 
     private String country;
     private String name;
-    private boolean available;
     private Long cotationMinId;
     private Long cotationMaxId;
 }
