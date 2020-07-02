@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 public class TopoDto {
 
-    private boolean available;
     private CotationDto cotationMin;
     private CotationDto cotationMax;
     private String country;
@@ -26,5 +26,9 @@ public class TopoDto {
     private String region;
     private List<SpotDto> spots;
     private Long creatorId;
-    private Long tenantId;
+    private List<TopoUserDto> topoUsers = new ArrayList<>();
+
+    public void addTopoUser(TopoUserDto topoUser) {
+        this.topoUsers.add(topoUser);
+    }
 }

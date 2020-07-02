@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -43,15 +40,6 @@ public class User {
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-    @OneToMany(mappedBy = "topoCreator")
-    private List<Topo> toposCreated;
-
-    @OneToMany(mappedBy = "topoTenant")
-    private List<Topo> toposRent;
-
-    @OneToMany(mappedBy = "user")
-    private List<Spot> spotsCreated;
 
     public User (String username, String email, String password) {
         this.username = username;

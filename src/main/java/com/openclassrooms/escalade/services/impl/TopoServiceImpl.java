@@ -6,6 +6,7 @@ import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
 import com.openclassrooms.escalade.entities.*;
 import com.openclassrooms.escalade.mapper.TopoMapper;
+import com.openclassrooms.escalade.mapper.TopoUserMapper;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.openclassrooms.escalade.services.FileStorageService;
 import com.openclassrooms.escalade.services.TopoService;
@@ -20,6 +21,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,8 @@ public class TopoServiceImpl implements TopoService {
     private final SpotRepository spotRepository;
     private final FileStorageService fileStorageService;
     private final PhotoRepository photoRepository;
+    private final TopoUserRepository topoUserRepository;
+    private final TopoUserMapper topoUserMapper;
 
     public TopoDto createOrUpdate(TopoDto topoDto){
         User user = userRepository.findById(topoDto.getCreatorId()).orElseThrow(EntityNotFoundException::new);
@@ -56,13 +60,24 @@ public class TopoServiceImpl implements TopoService {
                 .name(topoDto.getName())
                 .region(topoDto.getRegion())
                 .topoCreator(user)
-                .available(true)
                 .publicationDate(topoDto.getPublicationDate())
                 .photo(photo)
                 .build();
         TopoDto result = topoMapper.toTopoDto(topoRepository.save(topo));
         if (result.getPhoto() != null) {
             result.getPhoto().convertFileToBase64String(fileStorageService.load(result.getPhoto().getName()));
+        }
+        if (topoDto.getTopoUsers() != null && topoDto.getTopoUsers().size() > 0) {
+            topoUserRepository.findAllByTopoIdAndOwnerId(topo.getId(), topo.getTopoCreator().getId()).forEach(
+                    (topoUser -> result.getTopoUsers().add(topoUserMapper.toTopoUserDto(topoUser)))
+            );
+        } else {
+            TopoUser topoUser = TopoUser.builder()
+                    .available(true)
+                    .owner(topo.getTopoCreator())
+                    .topo(topo)
+                    .build();
+            result.getTopoUsers().add(topoUserMapper.toTopoUserDto(topoUserRepository.save(topoUser)));
         }
         return result;
     }
@@ -79,6 +94,8 @@ public class TopoServiceImpl implements TopoService {
 
     public TopoDto findById(Long id){
         TopoDto topo = topoMapper.toTopoDto(topoRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+        topo.setTopoUsers(topoUserRepository.findAllByTopoId(id).stream().map(topoUserMapper::toTopoUserDto)
+                .collect(Collectors.toList()));
         if (topo.getPhoto() != null) {
             topo.getPhoto().convertFileToBase64String(fileStorageService.load(topo.getPhoto().getName()));
         }

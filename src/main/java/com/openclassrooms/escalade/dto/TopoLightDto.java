@@ -15,7 +15,6 @@ public class TopoLightDto {
     private String region;
     private CotationDto cotationMin;
     private CotationDto cotationMax;
-    private boolean available;
     private PhotoDto photo;
 
 }

@@ -1,22 +1,19 @@
 package com.openclassrooms.escalade.dto;
 
+import com.openclassrooms.escalade.model.EBookingState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-
+public class TopoUserLightDto {
     private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private List<RoleDto> roles;
-
+    private Date bookingDate;
+    private EBookingState bookingState;
+    private TopoLightDto topo;
 }
