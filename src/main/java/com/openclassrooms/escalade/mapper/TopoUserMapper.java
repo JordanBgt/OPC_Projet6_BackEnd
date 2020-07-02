@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.TopoUserDto;
+import com.openclassrooms.escalade.dto.TopoUserLightDto;
 import com.openclassrooms.escalade.entities.TopoUser;
 import org.mapstruct.Mapper;
 
@@ -8,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface TopoUserMapper {
 
     TopoUserDto toTopoUserDto(TopoUser topoUser);
+    TopoUserLightDto toTopoUserLightDto(TopoUser topoUser);
 }

@@ -43,8 +43,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         List<TopoUserDto> toposOwned = topoUserRepository.findAllByOwnerId(userId).stream()
                 .map(topoUserMapper::toTopoUserDto).collect(Collectors.toList());
 
-        List<TopoLightDto> toposRent = topoUserRepository.findAllByTenantId(userId).stream()
-                .map(topoUser -> topoMapper.toTopoLightDto(topoUser.getTopo())).collect(Collectors.toList());
+        List<TopoUserLightDto> toposRent = topoUserRepository.findAllByTenantId(userId).stream()
+                .map(topoUserMapper::toTopoUserLightDto).collect(Collectors.toList());
 
         return UserProfileDto.builder()
                 .user(user)

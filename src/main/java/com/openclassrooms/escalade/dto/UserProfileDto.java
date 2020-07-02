@@ -15,6 +15,6 @@ public class UserProfileDto {
     private UserDto user;
     private List<TopoLightDto> toposCreated;
     private List<TopoUserDto> toposOwned;
-    private List<TopoLightDto> toposRent;
+    private List<TopoUserLightDto> toposRent;
     private List<SpotLightDto> spotsCreated;
 }
