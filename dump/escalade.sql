@@ -3,12 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jun 18, 2020 at 02:39 PM
+-- Generation Time: Jul 02, 2020 at 05:28 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.1.32
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -36,8 +38,13 @@ CREATE TABLE `comment` (
   `date` datetime DEFAULT NULL,
   `spot_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `comment`
+--
+
+TRUNCATE TABLE `comment`;
 --
 -- Dumping data for table `comment`
 --
@@ -55,8 +62,13 @@ DROP TABLE IF EXISTS `cotation`;
 CREATE TABLE `cotation` (
   `id` bigint(20) NOT NULL,
   `label` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `cotation`
+--
+
+TRUNCATE TABLE `cotation`;
 --
 -- Dumping data for table `cotation`
 --
@@ -106,8 +118,13 @@ CREATE TABLE `longueur` (
   `cotation_min_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `voie_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `longueur`
+--
+
+TRUNCATE TABLE `longueur`;
 --
 -- Dumping data for table `longueur`
 --
@@ -123,31 +140,34 @@ INSERT INTO `longueur` (`id`, `description`, `name`, `cotation_max_id`, `cotatio
 
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE `photo` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `path` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `extension` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` bigint(20) NOT NULL,
+  `extension` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `photo`
+--
+
+TRUNCATE TABLE `photo`;
 --
 -- Dumping data for table `photo`
 --
 
-INSERT INTO `photo` (`id`, `name`, `path`, `type`, `extension`) VALUES
-(15, 'Les gorges de la Jonte-photo.jpeg', NULL, NULL, 'jpeg'),
-(16, 'Guide de l\'Obiou-photo.jpeg', NULL, NULL, 'jpeg'),
-(17, 'Escalade en Mayenne-photo.jpeg', NULL, NULL, 'jpeg'),
-(20, 'La Jonte - Cirque des vases : Biotone-photo-1.jpeg', NULL, NULL, 'jpeg'),
-(21, 'La Jonte - Cirque des vases : Biotone-photo-2.jpeg', NULL, NULL, 'jpeg'),
-(23, 'La Jonte - Cirque des vases : Plume-photo-1.jpeg', NULL, NULL, 'jpeg'),
-(24, 'La Jonte - Cirque des vases : L\'arête-photo-1.jpeg', NULL, NULL, 'jpeg'),
-(25, 'La Jonte - Cirque des vases : L\'arête-photo-2.jpeg', NULL, NULL, 'jpeg'),
-(26, 'Site de Moulay-photo-1.jpeg', NULL, NULL, 'jpeg'),
-(28, 'La Jonte - Cirque des vases : Plume-photo-2.jpeg', NULL, NULL, 'jpeg'),
-(29, 'Obiou : Par le Petit Obiou et les Feuillets-photo-1.jpeg', NULL, NULL, 'jpeg'),
-(30, 'Obiou : Site Marie-Thérèse-photo-1.jpeg', NULL, NULL, 'jpeg'),
-(31, 'Site de Moulay 2-photo-1.jpeg', NULL, NULL, 'jpeg');
+INSERT INTO `photo` (`id`, `extension`, `name`) VALUES
+(15, 'jpeg', 'Les gorges de la Jonte-photo.jpeg'),
+(16, 'jpeg', 'Guide de l\'Obiou-photo.jpeg'),
+(17, 'jpeg', 'Escalade en Mayenne-photo.jpeg'),
+(20, 'jpeg', 'La Jonte - Cirque des vases : Biotone-photo-1.jpeg'),
+(21, 'jpeg', 'La Jonte - Cirque des vases : Biotone-photo-2.jpeg'),
+(23, 'jpeg', 'La Jonte - Cirque des vases : Plume-photo-1.jpeg'),
+(24, 'jpeg', 'La Jonte - Cirque des vases : L\'arête-photo-1.jpeg'),
+(25, 'jpeg', 'La Jonte - Cirque des vases : L\'arête-photo-2.jpeg'),
+(26, 'jpeg', 'Site de Moulay-photo-1.jpeg'),
+(28, 'jpeg', 'La Jonte - Cirque des vases : Plume-photo-2.jpeg'),
+(29, 'jpeg', 'Obiou : Par le Petit Obiou et les Feuillets-photo-1.jpeg'),
+(30, 'jpeg', 'Obiou : Site Marie-Thérèse-photo-1.jpeg'),
+(31, 'jpeg', 'Site de Moulay 2-photo-1.jpeg');
 
 -- --------------------------------------------------------
 
@@ -159,8 +179,13 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` bigint(20) NOT NULL,
   `name` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `role`
+--
+
+TRUNCATE TABLE `role`;
 --
 -- Dumping data for table `role`
 --
@@ -182,8 +207,13 @@ CREATE TABLE `secteur` (
   `name` varchar(255) DEFAULT NULL,
   `spot_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `secteur`
+--
+
+TRUNCATE TABLE `secteur`;
 --
 -- Dumping data for table `secteur`
 --
@@ -210,8 +240,13 @@ CREATE TABLE `spot` (
   `cotation_max_id` bigint(20) DEFAULT NULL,
   `cotation_min_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `spot`
+--
+
+TRUNCATE TABLE `spot`;
 --
 -- Dumping data for table `spot`
 --
@@ -234,9 +269,14 @@ INSERT INTO `spot` (`id`, `city`, `country`, `description`, `isOfficial`, `name`
 DROP TABLE IF EXISTS `spot_photos`;
 CREATE TABLE `spot_photos` (
   `Spot_id` bigint(20) NOT NULL,
-  `photos_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `photos_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `spot_photos`
+--
+
+TRUNCATE TABLE `spot_photos`;
 --
 -- Dumping data for table `spot_photos`
 --
@@ -262,7 +302,6 @@ INSERT INTO `spot_photos` (`Spot_id`, `photos_id`) VALUES
 DROP TABLE IF EXISTS `topo`;
 CREATE TABLE `topo` (
   `id` bigint(20) NOT NULL,
-  `available` bit(1) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
   `description` longtext,
   `name` varchar(255) DEFAULT NULL,
@@ -270,19 +309,23 @@ CREATE TABLE `topo` (
   `region` varchar(255) DEFAULT NULL,
   `cotation_max_id` bigint(20) DEFAULT NULL,
   `cotation_min_id` bigint(20) DEFAULT NULL,
-  `photo_id` int(11) DEFAULT NULL,
-  `creator_id` bigint(20) DEFAULT NULL,
-  `tenant_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `photo_id` bigint(20) DEFAULT NULL,
+  `creator_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `topo`
+--
+
+TRUNCATE TABLE `topo`;
 --
 -- Dumping data for table `topo`
 --
 
-INSERT INTO `topo` (`id`, `available`, `country`, `description`, `name`, `publication_date`, `region`, `cotation_max_id`, `cotation_min_id`, `photo_id`, `creator_id`, `tenant_id`) VALUES
-(1, b'1', 'France', 'L\'ouvrage présente les voies d\'escalade des Gorges de la Jonte, situées sur les grandes parois des communes du Rozier et de Saint-Pierre-des-Tripiers.', 'Les gorges de la Jonte', '2020-05-01 00:00:00', 'Lozère', 21, 9, 15, 1, NULL),
-(2, b'1', 'France', 'La Grande Tête de l\'Obiou, ou plus communément l\'Obiou, est un sommet situé dans les Préalpes françaises, à peu près à égale distance de Grenoble (Isère) et de Gap (Hautes-Alpes). Avec ses 2 789 mètres d\'altitude, c\'est le point culminant du massif du Dévoluy', 'Guide de l\'Obiou', '2020-05-01 00:00:00', 'Isère', 18, 3, 16, 2, NULL),
-(3, b'1', 'France', 'Ce topo regroupe les 6 sites de grimpe de Mayenne : Changé, Entrammes, Moulay; St-Berthevin, Saulges et Toyères.', 'Escalade en Mayenne', '2020-05-01 00:00:00', 'Pays de la Loire', 9, 2, 17, 1, NULL);
+INSERT INTO `topo` (`id`, `country`, `description`, `name`, `publication_date`, `region`, `cotation_max_id`, `cotation_min_id`, `photo_id`, `creator_id`) VALUES
+(1, 'France', 'L\'ouvrage présente les voies d\'escalade des Gorges de la Jonte, situées sur les grandes parois des communes du Rozier et de Saint-Pierre-des-Tripiers.', 'Les gorges de la Jonte', '2020-05-01 00:00:00', 'Lozère', 21, 9, 15, 1),
+(2, 'France', 'La Grande Tête de l\'Obiou, ou plus communément l\'Obiou, est un sommet situé dans les Préalpes françaises, à peu près à égale distance de Grenoble (Isère) et de Gap (Hautes-Alpes). Avec ses 2 789 mètres d\'altitude, c\'est le point culminant du massif du Dévoluy', 'Guide de l\'Obiou', '2020-05-01 00:00:00', 'Isère', 18, 3, 16, 2),
+(3, 'France', 'Ce topo regroupe les 6 sites de grimpe de Mayenne : Changé, Entrammes, Moulay; St-Berthevin, Saulges et Toyères.', 'Escalade en Mayenne', '2020-05-01 00:00:00', 'Pays de la Loire', 9, 2, 17, 1);
 
 -- --------------------------------------------------------
 
@@ -294,8 +337,13 @@ DROP TABLE IF EXISTS `topo_spots`;
 CREATE TABLE `topo_spots` (
   `topos_id` bigint(20) NOT NULL,
   `spots_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `topo_spots`
+--
+
+TRUNCATE TABLE `topo_spots`;
 --
 -- Dumping data for table `topo_spots`
 --
@@ -312,6 +360,37 @@ INSERT INTO `topo_spots` (`topos_id`, `spots_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `topo_user`
+--
+
+DROP TABLE IF EXISTS `topo_user`;
+CREATE TABLE `topo_user` (
+  `id` bigint(20) NOT NULL,
+  `available` bit(1) NOT NULL,
+  `booking_date` datetime DEFAULT NULL,
+  `booking_state` varchar(255) DEFAULT NULL,
+  `owner_id` bigint(20) DEFAULT NULL,
+  `tenant_id` bigint(20) DEFAULT NULL,
+  `topo_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Truncate table before insert `topo_user`
+--
+
+TRUNCATE TABLE `topo_user`;
+--
+-- Dumping data for table `topo_user`
+--
+
+INSERT INTO `topo_user` (`id`, `available`, `booking_date`, `booking_state`, `owner_id`, `tenant_id`, `topo_id`) VALUES
+(6, b'1', NULL, NULL, 1, NULL, 1),
+(7, b'1', NULL, NULL, 2, NULL, 2),
+(8, b'1', NULL, NULL, 1, NULL, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -321,8 +400,13 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `user`
+--
+
+TRUNCATE TABLE `user`;
 --
 -- Dumping data for table `user`
 --
@@ -345,8 +429,13 @@ DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `user_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `user_role`
+--
+
+TRUNCATE TABLE `user_role`;
 --
 -- Dumping data for table `user_role`
 --
@@ -375,8 +464,13 @@ CREATE TABLE `voie` (
   `cotation_min_id` bigint(20) DEFAULT NULL,
   `secteur_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncate table before insert `voie`
+--
+
+TRUNCATE TABLE `voie`;
 --
 -- Dumping data for table `voie`
 --
@@ -457,8 +551,7 @@ ALTER TABLE `topo`
   ADD KEY `FKcm7reglmm91ojv4e774oyv7gi` (`cotation_max_id`),
   ADD KEY `FK6dqit1ih37xcgi7ndi6dtgst8` (`cotation_min_id`),
   ADD KEY `FKki7p7wwl6yv7boebad42x924q` (`photo_id`),
-  ADD KEY `FK2ttc8ak5arbnjirjrto21en71` (`creator_id`),
-  ADD KEY `FK675ejsv85h09yiqkqa1nch8c2` (`tenant_id`);
+  ADD KEY `FK2ttc8ak5arbnjirjrto21en71` (`creator_id`);
 
 --
 -- Indexes for table `topo_spots`
@@ -466,6 +559,15 @@ ALTER TABLE `topo`
 ALTER TABLE `topo_spots`
   ADD KEY `FK353ekac7fa51onv5yr3sfvt19` (`spots_id`),
   ADD KEY `FK7l9fek4330tfu31nfbe6jppbo` (`topos_id`);
+
+--
+-- Indexes for table `topo_user`
+--
+ALTER TABLE `topo_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK5votdbcj4862s36d2dwcs7xgk` (`owner_id`),
+  ADD KEY `FKt370woq36hdiuhh70nsmeg52h` (`tenant_id`),
+  ADD KEY `FKis4c98wg09xtlr6ptmvvt6e6o` (`topo_id`);
 
 --
 -- Indexes for table `user`
@@ -518,7 +620,7 @@ ALTER TABLE `longueur`
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -530,7 +632,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `secteur`
 --
 ALTER TABLE `secteur`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `spot`
@@ -545,6 +647,12 @@ ALTER TABLE `topo`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `topo_user`
+--
+ALTER TABLE `topo_user`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -554,7 +662,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `voie`
 --
 ALTER TABLE `voie`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -603,7 +711,6 @@ ALTER TABLE `spot_photos`
 --
 ALTER TABLE `topo`
   ADD CONSTRAINT `FK2ttc8ak5arbnjirjrto21en71` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `FK675ejsv85h09yiqkqa1nch8c2` FOREIGN KEY (`tenant_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK6dqit1ih37xcgi7ndi6dtgst8` FOREIGN KEY (`cotation_min_id`) REFERENCES `cotation` (`id`),
   ADD CONSTRAINT `FKcm7reglmm91ojv4e774oyv7gi` FOREIGN KEY (`cotation_max_id`) REFERENCES `cotation` (`id`),
   ADD CONSTRAINT `FKki7p7wwl6yv7boebad42x924q` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`);
@@ -614,6 +721,14 @@ ALTER TABLE `topo`
 ALTER TABLE `topo_spots`
   ADD CONSTRAINT `FK353ekac7fa51onv5yr3sfvt19` FOREIGN KEY (`spots_id`) REFERENCES `spot` (`id`),
   ADD CONSTRAINT `FK7l9fek4330tfu31nfbe6jppbo` FOREIGN KEY (`topos_id`) REFERENCES `topo` (`id`);
+
+--
+-- Constraints for table `topo_user`
+--
+ALTER TABLE `topo_user`
+  ADD CONSTRAINT `FK5votdbcj4862s36d2dwcs7xgk` FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FKis4c98wg09xtlr6ptmvvt6e6o` FOREIGN KEY (`topo_id`) REFERENCES `topo` (`id`),
+  ADD CONSTRAINT `FKt370woq36hdiuhh70nsmeg52h` FOREIGN KEY (`tenant_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `user_role`
@@ -631,6 +746,7 @@ ALTER TABLE `voie`
   ADD CONSTRAINT `FKkln3kltxwiapc4av3l9mrdwib` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FKqlo061c6fgkuosv9chywpgn8t` FOREIGN KEY (`secteur_id`) REFERENCES `secteur` (`id`);
 SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
