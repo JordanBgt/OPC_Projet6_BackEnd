@@ -1,5 +1,6 @@
 package com.openclassrooms.escalade.services.impl;
 
+import com.openclassrooms.escalade.dao.TopoRepository;
 import com.openclassrooms.escalade.dao.TopoUserRepository;
 import com.openclassrooms.escalade.dao.UserRepository;
 import com.openclassrooms.escalade.dto.TopoUserDto;
@@ -22,6 +23,7 @@ public class TopoUserServiceImpl implements TopoUserService {
     private final TopoUserRepository topoUserRepository;
     private final UserRepository userRepository;
     private final TopoUserMapper topoUserMapper;
+    private final TopoRepository topoRepository;
 
     public TopoUserDto updateTopoUser(TopoUserDto topoUserDto) { //TODO : réfléchir à un autre algo
 
@@ -42,6 +44,7 @@ public class TopoUserServiceImpl implements TopoUserService {
                             .orElseThrow(EntityNotFoundException::new));
                     topoUser.setAvailable(false);
                     topoUser.setBookingState(topoUserDto.getBookingState());
+                    topoUser.setBookingDate(LocalDateTime.now());
                     break;
                 case REFUSED:
                 case CANCELED:
@@ -49,10 +52,21 @@ public class TopoUserServiceImpl implements TopoUserService {
                     topoUser.setTenant(null);
                     topoUser.setAvailable(true);
                     topoUser.setBookingState(null);
+                    topoUser.setBookingDate(null);
                     break;
             }
-            topoUser.setBookingDate(LocalDateTime.now());
+
         }
+        return topoUserMapper.toTopoUserDto(topoUserRepository.save(topoUser));
+    }
+
+    public TopoUserDto createTopoUser(TopoUserDto topoUserDto) {
+        TopoUser topoUser = new TopoUser();
+        topoUser.setOwner(userRepository.findById(topoUserDto.getOwner().getId())
+                .orElseThrow(EntityNotFoundException::new));
+        topoUser.setTopo(topoRepository.findById(topoUserDto.getTopo().getId())
+        .orElseThrow(EntityNotFoundException::new));
+        topoUser.setAvailable(true);
         return topoUserMapper.toTopoUserDto(topoUserRepository.save(topoUser));
     }
 }

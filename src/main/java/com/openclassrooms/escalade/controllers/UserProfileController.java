@@ -31,4 +31,11 @@ public class UserProfileController {
         log.info("Démarrage mise à jour de la réservation");
         return topoUserService.updateTopoUser(topoUserDto);
     }
+
+    @PostMapping("/topos")
+    @ResponseBody
+    public TopoUserDto addTopoUser(@RequestBody TopoUserDto topoUserDto) {
+        log.info("Démarrage ajout d'un topo à la liste des topos possédés");
+        return topoUserService.createTopoUser(topoUserDto);
+    }
 }
