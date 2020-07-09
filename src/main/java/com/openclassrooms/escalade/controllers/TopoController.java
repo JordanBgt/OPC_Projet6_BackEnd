@@ -60,7 +60,7 @@ public class TopoController {
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto createTopo(@RequestBody TopoDto topo) {
         log.info("Démarrage création d'un topo");
-        return null;
+        return topoService.createOrUpdate(topo);
     }
 
     @PutMapping("/{id}")

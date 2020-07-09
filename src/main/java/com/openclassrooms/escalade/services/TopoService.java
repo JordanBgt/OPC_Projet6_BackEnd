@@ -1,7 +1,6 @@
 package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dao.*;
-import com.openclassrooms.escalade.dto.SpotDto;
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
 import com.openclassrooms.escalade.entities.*;
@@ -45,8 +44,11 @@ public class TopoService {
         if (topoDto.getPhoto() != null) {
             photo = photoRepository.findById(topoDto.getPhoto().getId()).orElseThrow(EntityNotFoundException::new);
         }
-        for (SpotDto spotDto : topoDto.getSpots()) {
-            spots.add(this.spotRepository.findById(spotDto.getId()).orElseThrow(EntityNotFoundException::new));
+        if (topoDto.getSpots() != null && topoDto.getSpots().size() > 0) {
+            topoDto.getSpots().forEach(
+                    element -> spots
+                            .add(this.spotRepository.findById(element.getId())
+                                    .orElseThrow(EntityNotFoundException::new)));
         }
         Topo topo = Topo.builder()
                 .id(topoDto.getId())
@@ -115,7 +117,13 @@ public class TopoService {
 
     public void delete(Long id) {
         Topo topo = topoRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        this.fileStorageService.delete(topo.getPhoto().getName());
+        if (topo.getPhoto() != null) {
+            this.fileStorageService.delete(topo.getPhoto().getName());
+        }
+        List<TopoUser> topoUsers = topoUserRepository.findAllByTopoId(id);
+        if (topoUsers.size() > 0) {
+            topoUsers.forEach(topoUserRepository::delete);
+        }
         topoRepository.delete(topo);
     }
 

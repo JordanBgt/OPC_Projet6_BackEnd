@@ -100,7 +100,9 @@ public class SpotService {
             }
         }
         Spot spot = spotRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        spot.getPhotos().forEach(photo -> this.fileStorageService.delete(photo.getName()));
+        if (spot.getPhotos() != null && spot.getPhotos().size() > 0) {
+            spot.getPhotos().forEach(photo -> this.fileStorageService.delete(photo.getName()));
+        }
         spotRepository.delete(spot);
     }
 
