@@ -45,10 +45,7 @@ public class SpotService {
 
     public SpotDto findById(Long id) {
         SpotDto spot = spotMapper.toSpotDto(spotRepository.findById(id).orElseThrow(EntityNotFoundException::new));
-        if (spot.getPhotos() != null && spot.getPhotos().size() > 0) {
-            spot.getPhotos().forEach(photo ->
-                    photo.convertFileToBase64String(fileStorageService.load(photo.getName())));
-        }
+        this.getPhotosToBase64(spot);
         return spot;
     }
 
@@ -57,7 +54,7 @@ public class SpotService {
         Cotation cotationMin = cotationRepository.findById(spotDto.getCotationMin().getId()).orElseThrow(EntityNotFoundException::new);
         Cotation cotationMax = cotationRepository.findById(spotDto.getCotationMax().getId()).orElseThrow(EntityNotFoundException::new);
         List<Photo> photos = new ArrayList<>();
-        if(spotDto.getPhotos().size() > 0) {
+        if(spotDto.getPhotos() != null && spotDto.getPhotos().size() > 0) {
             spotDto.getPhotos().forEach(photoDto -> photos.add(photoRepository.findById(photoDto.getId())
                     .orElseThrow(EntityNotFoundException::new)));
         }
@@ -74,10 +71,7 @@ public class SpotService {
                 .photos(photos)
                 .build();
         SpotDto result = spotMapper.toSpotDto(spotRepository.save(spot));
-        if (result.getPhotos() != null && result.getPhotos().size() > 0) {
-            result.getPhotos().forEach(photo ->
-                    photo.convertFileToBase64String(fileStorageService.load(photo.getName())));
-        }
+        this.getPhotosToBase64(result);
         return result;
     }
 
@@ -90,7 +84,9 @@ public class SpotService {
         try {
             fileStorageService.save(file);
             spot.getPhotos().add(photo);
-            return spotMapper.toSpotDto(spotRepository.save(spot));
+            SpotDto result = spotMapper.toSpotDto(spotRepository.save(spot));
+            this.getPhotosToBase64(result);
+            return result;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -105,5 +101,12 @@ public class SpotService {
         }
         Spot spot = spotRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         spotRepository.delete(spot);
+    }
+
+    private void getPhotosToBase64(SpotDto spot) {
+        if (spot.getPhotos() != null && spot.getPhotos().size() > 0) {
+            spot.getPhotos().forEach(element ->
+                    element.convertFileToBase64String(fileStorageService.load(element.getName())));
+        }
     }
 }

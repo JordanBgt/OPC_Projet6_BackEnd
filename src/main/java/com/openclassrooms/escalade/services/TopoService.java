@@ -62,9 +62,7 @@ public class TopoService {
                 .photo(photo)
                 .build();
         TopoDto result = topoMapper.toTopoDto(topoRepository.save(topo));
-        if (result.getPhoto() != null) {
-            result.getPhoto().convertFileToBase64String(fileStorageService.load(result.getPhoto().getName()));
-        }
+        this.getPhotosToBase64(result);
         if (topoDto.getTopoUsers() != null && topoDto.getTopoUsers().size() > 0) {
             topoUserRepository.findAllByTopoIdAndOwnerId(topo.getId(), topo.getTopoCreator().getId()).forEach(
                     (topoUser -> result.getTopoUsers().add(topoUserMapper.toTopoUserDto(topoUser)))
@@ -94,9 +92,7 @@ public class TopoService {
         TopoDto topo = topoMapper.toTopoDto(topoRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         topo.setTopoUsers(topoUserRepository.findAllByTopoId(id).stream().map(topoUserMapper::toTopoUserDto)
                 .collect(Collectors.toList()));
-        if (topo.getPhoto() != null) {
-            topo.getPhoto().convertFileToBase64String(fileStorageService.load(topo.getPhoto().getName()));
-        }
+        this.getPhotosToBase64(topo);
         return topo;
     }
 
@@ -109,7 +105,9 @@ public class TopoService {
         topo.getPhoto().setExtension(Objects.requireNonNull(file.getContentType()).substring(file.getContentType().indexOf('/')+1));
         try {
             fileStorageService.save(file);
-            return topoMapper.toTopoDto(topoRepository.save(topo));
+            TopoDto result = topoMapper.toTopoDto(topoRepository.save(topo));
+            this.getPhotosToBase64(result);
+            return result;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -118,5 +116,11 @@ public class TopoService {
     public void delete(Long id) {
         Topo topo = topoRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         topoRepository.delete(topo);
+    }
+
+    private void getPhotosToBase64(TopoDto topo) {
+        if (topo.getPhoto() != null) {
+            topo.getPhoto().convertFileToBase64String(fileStorageService.load(topo.getPhoto().getName()));
+        }
     }
 }
