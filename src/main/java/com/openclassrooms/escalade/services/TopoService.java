@@ -115,6 +115,7 @@ public class TopoService {
 
     public void delete(Long id) {
         Topo topo = topoRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        this.fileStorageService.delete(topo.getPhoto().getName());
         topoRepository.delete(topo);
     }
 

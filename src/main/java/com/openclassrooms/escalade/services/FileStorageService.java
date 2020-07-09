@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -49,6 +50,15 @@ public class FileStorageService {
                 throw new RuntimeException("Could not read the file !");
             }
         } catch (MalformedURLException e) {
+            throw new RuntimeException("Error : " + e.getMessage());
+        }
+    }
+
+    public void delete(String fileName) {
+        Path file = root.resolve(fileName);
+        try {
+            FileSystemUtils.deleteRecursively(file);
+        } catch (IOException e) {
             throw new RuntimeException("Error : " + e.getMessage());
         }
     }
