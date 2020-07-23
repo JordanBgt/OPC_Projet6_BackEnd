@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 02, 2020 at 05:28 PM
+-- Generation Time: Jul 23, 2020 at 10:41 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.1.32
 
@@ -41,11 +41,6 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `comment`
---
-
-TRUNCATE TABLE `comment`;
---
 -- Dumping data for table `comment`
 --
 
@@ -64,11 +59,6 @@ CREATE TABLE `cotation` (
   `label` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `cotation`
---
-
-TRUNCATE TABLE `cotation`;
 --
 -- Dumping data for table `cotation`
 --
@@ -121,16 +111,11 @@ CREATE TABLE `longueur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `longueur`
---
-
-TRUNCATE TABLE `longueur`;
---
 -- Dumping data for table `longueur`
 --
 
 INSERT INTO `longueur` (`id`, `description`, `name`, `cotation_max_id`, `cotation_min_id`, `user_id`, `voie_id`) VALUES
-(1, NULL, 'Voie de la marmite : longueur 1', 3, 2, NULL, 1);
+(1, 'Première longueur de la voie de la marmite. \nVoie facile à appréhender, conseillée pour les débutants', 'Voie de la marmite : longueur 1', 3, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -145,11 +130,6 @@ CREATE TABLE `photo` (
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `photo`
---
-
-TRUNCATE TABLE `photo`;
 --
 -- Dumping data for table `photo`
 --
@@ -167,7 +147,10 @@ INSERT INTO `photo` (`id`, `extension`, `name`) VALUES
 (28, 'jpeg', 'La Jonte - Cirque des vases : Plume-photo-2.jpeg'),
 (29, 'jpeg', 'Obiou : Par le Petit Obiou et les Feuillets-photo-1.jpeg'),
 (30, 'jpeg', 'Obiou : Site Marie-Thérèse-photo-1.jpeg'),
-(31, 'jpeg', 'Site de Moulay 2-photo-1.jpeg');
+(31, 'jpeg', 'Site de Moulay 2-photo-1.jpeg'),
+(32, 'jpeg', 'La Roche Tuilière-photo-1.jpeg'),
+(33, 'jpeg', 'La Roche Tuilière-photo-2.jpeg'),
+(34, 'jpeg', 'La Roche Tuilière-photo-3.jpeg');
 
 -- --------------------------------------------------------
 
@@ -181,11 +164,6 @@ CREATE TABLE `role` (
   `name` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `role`
---
-
-TRUNCATE TABLE `role`;
 --
 -- Dumping data for table `role`
 --
@@ -210,18 +188,13 @@ CREATE TABLE `secteur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `secteur`
---
-
-TRUNCATE TABLE `secteur`;
---
 -- Dumping data for table `secteur`
 --
 
 INSERT INTO `secteur` (`id`, `description`, `name`, `spot_id`, `user_id`) VALUES
-(1, NULL, 'Site Moulay : secteur 1', 6, NULL),
-(2, NULL, 'Site Moulay : secteur 2', 6, NULL),
-(3, NULL, 'Secteur du site de Changé', 6, NULL);
+(1, 'Premier secteur du site du Moulay, composé de deux voies. \nTrès représentatif du site Moulay', 'Site Moulay : secteur 1', 6, 1),
+(2, 'Second secteur du site Moulay, composé de voies plus difficiles que celles du premier secteur. Attention aux débutants', 'Site Moulay : secteur 2', 6, 1),
+(3, 'Seul secteur su site de Changé. Il comprend plusieurs voies (en cours d\'ajout)', 'Secteur du site de Changé', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -243,11 +216,6 @@ CREATE TABLE `spot` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `spot`
---
-
-TRUNCATE TABLE `spot`;
---
 -- Dumping data for table `spot`
 --
 
@@ -258,7 +226,8 @@ INSERT INTO `spot` (`id`, `city`, `country`, `description`, `isOfficial`, `name`
 (4, 'Dévoluy', 'France', 'Le site se situe sur la facette E sommitale de l\'Obiou. L\'approche est conseillée par la voie Paul Arthaud et les variantes de l\'arête bordant le couloir Paul Arthaud en rive droite. On peut également réaliser cette voie depuis l\'accès par la voie normale. Enfin, C\'est aussi une manière élégante de rejoindre le sommet après l\'ascension du pilier NW.\r\n            L\'attaque de la voie Marie-Thérèse est située 20 m à droite d\'une petite tour (10 m de haut) au pied la facette sommitale E de l\'Obiou. Cette tour est aussi appelée le Campanile. La voie attaque dans un mur compact stratifié 50 m à gauche d\'un grand dièdre caractéristique rayant la facette E de haut en bas.', b'0', 'Obiou : Site Marie-Thérèse', 10, 5, 2),
 (5, 'Dévoluy', 'France', 'Du chalet des Baumes (Parking sur la route du col des Faïsses, emprunter la voie normale de l\'Obiou par un bon sentier, passer le pas du vallon, puis laisser le sentier à droite, et remonter le Pré du Chourum par des pentes d\'herbe très raides (quelques petits rochers délités) orientées N, qui donnent accès à une arête et la face E du Petit Obiou. Dans un terrain de strates raides, longer la base des falaises vers le S jusqu\'à trouver des marques bleues. Remonter alors le couloir cheminée, parfois par ses rives, parfois au fond. Au-dessus d\'un passage de III on trouve un clou pour assurer un second si nécessaire. Sortir à une antécime à l\'W du sommet.\r\n            Cet itinéraire contourne le Petit Obiou. La traversée du Petit Obiou est plus compliquée et nécessite un rappel.', b'0', 'Obiou : Par le Petit Obiou et les Feuillets', 2, 2, 2),
 (6, 'Moulay', 'France', 'Entre 25 et 50 voies réparties sur plusieurs falaises. Equipement sportif. Rocher : granite.', b'1', 'Site de Moulay', 10, 2, 1),
-(7, 'Changé', 'France', '10 à 15 voies. Equipement sportif. Rocher : calcaire', b'1', 'Site de Moulay 2', 3, 2, 1);
+(7, 'Changé', 'France', '10 à 15 voies. Equipement sportif. Rocher : calcaire', b'1', 'Site de Moulay 2', 3, 2, 1),
+(8, 'Rochefort-Montagne', 'France', 'Entre 10 et 15 voies. Nécessite un équipement sportif.\nHauteur max : environ 100m.\nType de prises : à plats.\nPour accéder au site : \nSe garer au parking du col de Guéry. Descendre 200m sur la route D80a en direction de Rochefort-Montagne. Quitter la route dans le virage en épingle à cheveu pour prendre la piste forestière sur la gauche. Au premier embranchement, continuer à descendre à droite. A environ 800m, on arrive devant une pancarte F.F.M.E. ; la falaise est en face, légèrement sur la droite en remontant.', b'0', 'La Roche Tuilière', 6, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -273,11 +242,6 @@ CREATE TABLE `spot_photos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `spot_photos`
---
-
-TRUNCATE TABLE `spot_photos`;
---
 -- Dumping data for table `spot_photos`
 --
 
@@ -291,7 +255,10 @@ INSERT INTO `spot_photos` (`Spot_id`, `photos_id`) VALUES
 (4, 30),
 (5, 29),
 (6, 26),
-(7, 31);
+(7, 31),
+(8, 32),
+(8, 33),
+(8, 34);
 
 -- --------------------------------------------------------
 
@@ -314,11 +281,6 @@ CREATE TABLE `topo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `topo`
---
-
-TRUNCATE TABLE `topo`;
---
 -- Dumping data for table `topo`
 --
 
@@ -339,11 +301,6 @@ CREATE TABLE `topo_spots` (
   `spots_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `topo_spots`
---
-
-TRUNCATE TABLE `topo_spots`;
 --
 -- Dumping data for table `topo_spots`
 --
@@ -375,11 +332,6 @@ CREATE TABLE `topo_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `topo_user`
---
-
-TRUNCATE TABLE `topo_user`;
---
 -- Dumping data for table `topo_user`
 --
 
@@ -402,11 +354,6 @@ CREATE TABLE `user` (
   `username` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `user`
---
-
-TRUNCATE TABLE `user`;
 --
 -- Dumping data for table `user`
 --
@@ -431,11 +378,6 @@ CREATE TABLE `user_role` (
   `role_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `user_role`
---
-
-TRUNCATE TABLE `user_role`;
 --
 -- Dumping data for table `user_role`
 --
@@ -467,17 +409,12 @@ CREATE TABLE `voie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `voie`
---
-
-TRUNCATE TABLE `voie`;
---
 -- Dumping data for table `voie`
 --
 
 INSERT INTO `voie` (`id`, `description`, `name`, `cotation_max_id`, `cotation_min_id`, `secteur_id`, `user_id`) VALUES
-(1, NULL, 'Voie de la marmite', 2, 2, NULL, NULL),
-(2, NULL, 'Voie de java', 6, 6, NULL, NULL);
+(1, 'Voie très facile, idéale pour qui souhaite s\'initier à l\'ecalade', 'Voie de la marmite', 2, 2, 1, 1),
+(2, 'Voie composée de plusieurs longueurs (en cous d\'ajout). Niveau facile. Attention toutefois, certaines compétences sont nécessaires afin d\'assurer la progression en toute sécurité sur des voies de plusieurs longueurs', 'Voie de java', 6, 6, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -620,7 +557,7 @@ ALTER TABLE `longueur`
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -638,7 +575,7 @@ ALTER TABLE `secteur`
 -- AUTO_INCREMENT for table `spot`
 --
 ALTER TABLE `spot`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `topo`
