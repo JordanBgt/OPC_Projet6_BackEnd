@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 23, 2020 at 10:41 AM
+-- Generation Time: Jul 27, 2020 at 10:18 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.1.32
 
@@ -135,22 +135,22 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `extension`, `name`) VALUES
-(15, 'jpeg', 'Les gorges de la Jonte-photo.jpeg'),
-(16, 'jpeg', 'Guide de l\'Obiou-photo.jpeg'),
-(17, 'jpeg', 'Escalade en Mayenne-photo.jpeg'),
-(20, 'jpeg', 'La Jonte - Cirque des vases : Biotone-photo-1.jpeg'),
-(21, 'jpeg', 'La Jonte - Cirque des vases : Biotone-photo-2.jpeg'),
-(23, 'jpeg', 'La Jonte - Cirque des vases : Plume-photo-1.jpeg'),
-(24, 'jpeg', 'La Jonte - Cirque des vases : L\'arête-photo-1.jpeg'),
-(25, 'jpeg', 'La Jonte - Cirque des vases : L\'arête-photo-2.jpeg'),
-(26, 'jpeg', 'Site de Moulay-photo-1.jpeg'),
-(28, 'jpeg', 'La Jonte - Cirque des vases : Plume-photo-2.jpeg'),
-(29, 'jpeg', 'Obiou : Par le Petit Obiou et les Feuillets-photo-1.jpeg'),
-(30, 'jpeg', 'Obiou : Site Marie-Thérèse-photo-1.jpeg'),
-(31, 'jpeg', 'Site de Moulay 2-photo-1.jpeg'),
-(32, 'jpeg', 'La Roche Tuilière-photo-1.jpeg'),
-(33, 'jpeg', 'La Roche Tuilière-photo-2.jpeg'),
-(34, 'jpeg', 'La Roche Tuilière-photo-3.jpeg');
+(35, 'jpeg', 'photo658c0391-d85b-4d4a-a542-5dcada20f145.jpeg'),
+(36, 'jpeg', 'photo37adf9a0-28d4-4dbe-b238-3bc102158f24.jpeg'),
+(37, 'jpeg', 'photoc74140d2-4a88-4426-a1d5-6a16be4a0fe9.jpeg'),
+(38, 'jpeg', 'photof620928e-67d0-4d06-b026-14d0a8034b0b.jpeg'),
+(39, 'jpeg', 'photob579193f-9037-49df-af98-356d1f29ef61.jpeg'),
+(40, 'jpeg', 'photodfa5bb03-9d3b-49a8-bfee-f479a6b23ad8.jpeg'),
+(41, 'jpeg', 'photo1fa73360-bbba-444a-a88f-10e4f4c2bd16.jpeg'),
+(42, 'jpeg', 'photo497d5082-f51c-46b5-82dc-7fe7d58fd1c3.jpeg'),
+(43, 'jpeg', 'photofd1dccd1-ae34-4c15-8edf-71012ff57d2a.jpeg'),
+(44, 'jpeg', 'photo06674a8e-9594-4ad0-b039-9e1ea1f468a9.jpeg'),
+(45, 'jpeg', 'photo0828debc-5ecd-4fbf-acba-5aab330ad6b4.jpeg'),
+(46, 'jpeg', 'photoe3dd50bb-47bb-4b99-bf4f-118a749e7028.jpeg'),
+(47, 'jpeg', 'photodc994f15-8955-4a4f-8955-b12cc08cdc7b.jpeg'),
+(48, 'jpeg', 'photod544158e-8bd0-4e0a-aeaa-bedbd74a038c.jpeg'),
+(49, 'jpeg', 'photo80df8116-edf2-4b41-a974-13aaff587478.jpeg'),
+(50, 'jpeg', 'photo7fab38d4-c1c7-4581-b05f-0c872105a5f6.jpeg');
 
 -- --------------------------------------------------------
 
@@ -246,19 +246,19 @@ CREATE TABLE `spot_photos` (
 --
 
 INSERT INTO `spot_photos` (`Spot_id`, `photos_id`) VALUES
-(1, 20),
-(1, 21),
-(2, 23),
-(2, 28),
-(3, 24),
-(3, 25),
-(4, 30),
-(5, 29),
-(6, 26),
-(7, 31),
-(8, 32),
-(8, 33),
-(8, 34);
+(1, 38),
+(1, 39),
+(1, 40),
+(2, 43),
+(3, 41),
+(3, 42),
+(4, 45),
+(5, 44),
+(6, 49),
+(7, 50),
+(8, 46),
+(8, 47),
+(8, 48);
 
 -- --------------------------------------------------------
 
@@ -285,9 +285,9 @@ CREATE TABLE `topo` (
 --
 
 INSERT INTO `topo` (`id`, `country`, `description`, `name`, `publication_date`, `region`, `cotation_max_id`, `cotation_min_id`, `photo_id`, `creator_id`) VALUES
-(1, 'France', 'L\'ouvrage présente les voies d\'escalade des Gorges de la Jonte, situées sur les grandes parois des communes du Rozier et de Saint-Pierre-des-Tripiers.', 'Les gorges de la Jonte', '2020-05-01 00:00:00', 'Lozère', 21, 9, 15, 1),
-(2, 'France', 'La Grande Tête de l\'Obiou, ou plus communément l\'Obiou, est un sommet situé dans les Préalpes françaises, à peu près à égale distance de Grenoble (Isère) et de Gap (Hautes-Alpes). Avec ses 2 789 mètres d\'altitude, c\'est le point culminant du massif du Dévoluy', 'Guide de l\'Obiou', '2020-05-01 00:00:00', 'Isère', 18, 3, 16, 2),
-(3, 'France', 'Ce topo regroupe les 6 sites de grimpe de Mayenne : Changé, Entrammes, Moulay; St-Berthevin, Saulges et Toyères.', 'Escalade en Mayenne', '2020-05-01 00:00:00', 'Pays de la Loire', 9, 2, 17, 1);
+(1, 'France', 'L\'ouvrage présente les voies d\'escalade des Gorges de la Jonte, situées sur les grandes parois des communes du Rozier et de Saint-Pierre-des-Tripiers.', 'Les gorges de la Jonte', '2020-05-01 00:00:00', 'Lozère', 21, 9, 37, 1),
+(2, 'France', 'La Grande Tête de l\'Obiou, ou plus communément l\'Obiou, est un sommet situé dans les Préalpes françaises, à peu près à égale distance de Grenoble (Isère) et de Gap (Hautes-Alpes). Avec ses 2 789 mètres d\'altitude, c\'est le point culminant du massif du Dévoluy', 'Guide de l\'Obiou', '2020-05-01 00:00:00', 'Isère', 18, 3, 36, 2),
+(3, 'France', 'Ce topo regroupe les 6 sites de grimpe de Mayenne : Changé, Entrammes, Moulay; St-Berthevin, Saulges et Toyères.', 'Escalade en Mayenne', '2020-05-01 00:00:00', 'Pays de la Loire', 9, 2, 35, 1);
 
 -- --------------------------------------------------------
 
@@ -557,7 +557,7 @@ ALTER TABLE `longueur`
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `role`

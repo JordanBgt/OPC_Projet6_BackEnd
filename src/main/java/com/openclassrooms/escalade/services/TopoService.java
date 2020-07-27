@@ -18,6 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,7 +82,8 @@ public class TopoService {
     }
 
     public Page<TopoLightDto> findAll(TopoSearch searchCriteria, Pageable page){
-        Page<TopoLightDto> results = topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page).map(topoMapper::toTopoLightDto);
+        Page<TopoLightDto> results = topoRepository.findAll(TopoPredicateBuilder.buildSearch(searchCriteria), page)
+                .map(topoMapper::toTopoLightDto);
         results.forEach(topo -> {
             if (topo.getPhoto() != null) {
                 topo.getPhoto().convertFileToBase64String(fileStorageService.load(topo.getPhoto().getName()));
@@ -100,13 +102,16 @@ public class TopoService {
 
     public TopoDto addPhoto(Long topoId, MultipartFile file) {
         Topo topo = topoRepository.findById(topoId).orElseThrow(EntityNotFoundException::new);
-        if (topo.getPhoto() == null) {
+        if (topo.getPhoto() != null) {
+            this.fileStorageService.delete(topo.getPhoto().getName());
+        } else {
             topo.setPhoto(new Photo());
         }
-        topo.getPhoto().setName(file.getOriginalFilename());
-        topo.getPhoto().setExtension(Objects.requireNonNull(file.getContentType()).substring(file.getContentType().indexOf('/')+1));
+        topo.getPhoto().setExtension(Objects.requireNonNull(file.getContentType())
+                .substring(file.getContentType().indexOf('/')+1));
+        topo.getPhoto().setName("photo" + UUID.randomUUID() + "." + topo.getPhoto().getExtension());
         try {
-            fileStorageService.save(file);
+            fileStorageService.save(file, topo.getPhoto().getName());
             TopoDto result = topoMapper.toTopoDto(topoRepository.save(topo));
             this.getPhotosToBase64(result);
             return result;

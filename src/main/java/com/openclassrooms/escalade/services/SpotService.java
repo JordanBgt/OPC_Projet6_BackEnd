@@ -16,6 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -77,12 +78,13 @@ public class SpotService {
 
     public SpotDto addPhoto(Long topoId, MultipartFile file) {
         Spot spot = spotRepository.findById(topoId).orElseThrow(EntityNotFoundException::new);
+        String extension = Objects.requireNonNull(file.getContentType()).substring(file.getContentType().indexOf('/')+1);
         Photo photo = Photo.builder()
-            .name(file.getOriginalFilename())
-            .extension(Objects.requireNonNull(file.getContentType()).substring(file.getContentType().indexOf('/')+1))
+            .name("photo" + UUID.randomUUID() + "." + extension)
+            .extension(extension)
             .build();
         try {
-            fileStorageService.save(file);
+            fileStorageService.save(file, photo.getName());
             spot.getPhotos().add(photo);
             SpotDto result = spotMapper.toSpotDto(spotRepository.save(spot));
             this.getPhotosToBase64(result);
