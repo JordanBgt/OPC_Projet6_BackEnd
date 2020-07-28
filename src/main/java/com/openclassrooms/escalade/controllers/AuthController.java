@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Controler to handle register and login requests
+ */
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/auth")
@@ -43,6 +46,15 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     * Method to authenticate a user and update SecurityContext
+     * @param loginRequest the login request which contains username and password
+     * @return ResponseEntity which contains JWTT and UserDetails
+     *
+     * @see LoginRequest
+     * @see AuthenticationManager#authenticate(Authentication)
+     * @see JwtUtils#generateJwtToken(Authentication)
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -62,6 +74,18 @@ public class AuthController {
                                                  roles));
     }
 
+    /**
+     * Method to register a new user : create it and save it to database
+     *
+     * @param signupRequest the signup request that contains the information needed to register a user
+     * @return MessageResponse which confirms the creation of the user
+     *
+     * @see SignupRequest
+     * @see UserRepository#existsByUsername(String)
+     * @see UserRepository#existsByEmail(String)
+     * @see PasswordEncoder#encode(CharSequence)
+     * @see MessageResponse
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
@@ -86,17 +110,14 @@ public class AuthController {
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin" :
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Erreur : rôle non trouvé !"));
-                        roles.add(adminRole);
-                        break;
-
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Erreur : rôle non trouvé !"));
-                        roles.add(userRole);
+                if ("admin".equals(role)) {
+                    Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Erreur : rôle non trouvé !"));
+                    roles.add(adminRole);
+                } else {
+                    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Erreur : rôle non trouvé !"));
+                    roles.add(userRole);
                 }
             });
         }

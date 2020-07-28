@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * A filter that will be executed once per request in order to parse and valide JWT
+ *
+ * @see OncePerRequestFilter
+ */
 @Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
 
@@ -24,6 +29,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Validate and parse JWT from the authorisation header, get UserDetails to create an Authentication object and
+     * set it in SecurityContext
+     *
+     * @param request Http request
+     * @param response Http response
+     * @param filterChain filter chain for which we want to run the filter
+     * @throws ServletException exception thrown by doFilter() method
+     * @throws IOException exception thrown by doFilter() method
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
@@ -48,6 +63,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Removing Bearer prefix from the authorization header to get JWT
+     *
+     * @param request http request
+     * @return JWT
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 

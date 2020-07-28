@@ -14,6 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * It provides HttpSecurity configurations
+ *
+ * @see WebSecurityConfigurerAdapter
+ * @see UserDetailsServiceImpl
+ * @see AuthEntryPointJwt
+ * @see AuthTokenFilter
+ */
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(
@@ -34,22 +42,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthTokenFilter();
     }
 
+    /**
+     * Use our implementation of UserDetailsService for configuring DaoAuthenticationProvider
+     *
+     * @param auth AuthenticationManagerBuilder
+     * @throws Exception exceptions thrown by AuthenticationManagerBuilder
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
+    /**
+     * AuthenticationManager used for authenticate users
+     *
+     * @return AuthenticationManager
+     * @throws Exception exceptions thrown by the AuthenticationManager
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * PasswordEncoder to encode password
+     *
+     * @return PasswordEncoder
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * To configure CORS and CSRF, when we want to require authentication or not, the auth filter, the error handler
+     *
+     * @param http HttpSecutiry
+     * @throws Exception exceptions thrown by HttpSecurity
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 

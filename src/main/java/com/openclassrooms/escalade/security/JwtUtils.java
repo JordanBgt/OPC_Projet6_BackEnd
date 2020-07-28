@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * JWT utility class to generate and validate JWT, and get username from JWT
+ */
 @Slf4j
 @Component
 public class JwtUtils {
@@ -18,6 +21,12 @@ public class JwtUtils {
     @Value("${escalade.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    /**
+     * Method to generate JWT from username, date, expiration date and secret
+     *
+     * @param authentication Authentication object to get username
+     * @return JWT
+     */
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -29,10 +38,21 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * To get username from JWT
+     *
+     * @param token JWT
+     * @return username
+     */
     public String getUsernameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Method to valide JWT
+     * @param authToken JWT
+     * @return boolean to know if the JWT is valid or not
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

@@ -10,6 +10,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * User's informations
+ *
+ * @see UserDetails
+ */
 public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = -2173686302207354705L;
@@ -34,6 +39,13 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * Method to build a UserDetailsImpl object from a User. We convert Set<Role> into List<GrantedAuthority>
+     * to facilitate the work with Spring Security and Authentication
+     *
+     * @param user User
+     * @return UserDetailsImpl
+     */
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());

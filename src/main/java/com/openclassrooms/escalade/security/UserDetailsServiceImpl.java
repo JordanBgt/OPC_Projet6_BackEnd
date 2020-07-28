@@ -10,12 +10,24 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+/**
+ * Implements UserDetailsService to fin a User by his username
+ *
+ * @see UserDetailsService
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Load a User by username
+     *
+     * @param username user's username
+     * @return UserDetails object
+     * @throws UsernameNotFoundException exception thrown if there is no match in the database for the given username
+     */
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
