@@ -1,4 +1,4 @@
-package com.openclassrooms.escalade.dao;
+package com.openclassrooms.escalade.dao.predicate;
 
 import com.openclassrooms.escalade.entities.QSecteur;
 import com.openclassrooms.escalade.model.SecteurSearch;
@@ -6,7 +6,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
-
+/**
+ * Class to build predicates for Secteur search
+ */
 public class SecteurPredicateBuilder {
 
     public static final QSecteur secteur = QSecteur.secteur;

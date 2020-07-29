@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * Repository to handle TopoUser DAO operations
+ */
 public interface TopoUserRepository extends JpaRepository<TopoUser, Long> {
     List<TopoUser> findAllByTopoIdAndOwnerId(Long topoId, Long ownerId);
     List<TopoUser> findAllByOwnerId(Long ownerId);

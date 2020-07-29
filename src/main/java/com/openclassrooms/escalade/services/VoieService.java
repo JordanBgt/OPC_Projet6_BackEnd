@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dao.*;
+import com.openclassrooms.escalade.dao.predicate.VoiePredicateBuilder;
 import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.dto.VoieLightDto;
 import com.openclassrooms.escalade.entities.*;

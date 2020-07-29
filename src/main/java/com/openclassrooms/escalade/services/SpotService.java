@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dao.*;
+import com.openclassrooms.escalade.dao.predicate.SpotPredicateBuilder;
 import com.openclassrooms.escalade.dto.*;
 import com.openclassrooms.escalade.entities.*;
 import com.openclassrooms.escalade.mapper.SpotMapper;

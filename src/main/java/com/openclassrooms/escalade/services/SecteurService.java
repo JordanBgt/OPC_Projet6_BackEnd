@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dao.*;
+import com.openclassrooms.escalade.dao.predicate.SecteurPredicateBuilder;
 import com.openclassrooms.escalade.dto.*;
 import com.openclassrooms.escalade.entities.Secteur;
 import com.openclassrooms.escalade.entities.Spot;

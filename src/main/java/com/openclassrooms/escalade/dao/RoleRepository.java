@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository to handle Role DAO operations
+ */
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Long> {
 

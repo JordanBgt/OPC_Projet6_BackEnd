@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository to handle User DAO operations
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 

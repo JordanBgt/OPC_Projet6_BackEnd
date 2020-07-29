@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository to handle Voie DAO operations
+ */
 @Repository
 public interface VoieRepository extends CrudRepository<Voie, Long>, QuerydslPredicateExecutor<Voie> {
     @Query(value = "SELECT id FROM voie WHERE secteur_id = ?1", nativeQuery = true)

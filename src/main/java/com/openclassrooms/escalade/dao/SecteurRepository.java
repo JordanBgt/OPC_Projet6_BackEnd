@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository to handle Secteur DAO operations
+ */
 @Repository
 public interface SecteurRepository extends CrudRepository<Secteur, Long>, QuerydslPredicateExecutor<Secteur> {
     @Query(value = "SELECT id FROM secteur WHERE spot_id = ?1", nativeQuery = true)

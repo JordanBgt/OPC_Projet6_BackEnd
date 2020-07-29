@@ -1,6 +1,7 @@
 package com.openclassrooms.escalade.services;
 
 import com.openclassrooms.escalade.dao.*;
+import com.openclassrooms.escalade.dao.predicate.LongueurPredicateBuilder;
 import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.dto.LongueurLightDto;
 import com.openclassrooms.escalade.entities.Cotation;

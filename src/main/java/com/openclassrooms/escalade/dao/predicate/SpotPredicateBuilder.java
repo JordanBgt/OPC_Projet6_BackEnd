@@ -1,4 +1,4 @@
-package com.openclassrooms.escalade.dao;
+package com.openclassrooms.escalade.dao.predicate;
 
 import com.openclassrooms.escalade.entities.QSpot;
 import com.openclassrooms.escalade.model.SpotSearch;
@@ -6,6 +6,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+/**
+ * Class to build predicates for Spot search
+ */
 public class SpotPredicateBuilder {
 
     public static final QSpot spot = QSpot.spot;
