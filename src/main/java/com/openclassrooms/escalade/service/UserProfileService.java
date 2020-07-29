@@ -16,6 +16,11 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service to manage UserProfile
+ *
+ * @see UserProfileDto
+ */
 @Service
 @RequiredArgsConstructor
 public class UserProfileService {
@@ -29,6 +34,19 @@ public class UserProfileService {
     private final TopoMapper topoMapper;
     private final TopoUserMapper topoUserMapper;
 
+    /**
+     * Method to get a UserProfile : get user's informations, spots and topos created by him, topos he booked, topos he owns
+     *
+     * @param userId id of the user for whom we want to get his profile
+     *
+     * @return UserProfileDto
+     *
+     * @see UserRepository#findById(Object)
+     * @see SpotRepository#findAllByUserId(Long)
+     * @see TopoRepository#findAllByTopoCreatorId(Long)
+     * @see TopoUserRepository#findAllByOwnerId(Long)
+     * @see TopoUserRepository#findAllByTenantId(Long)
+     */
     public UserProfileDto findUserProfile(Long userId) {
 
         UserDto user = userMapper.toUserDto(userRepository.findById(userId).orElseThrow(EntityNotFoundException::new));

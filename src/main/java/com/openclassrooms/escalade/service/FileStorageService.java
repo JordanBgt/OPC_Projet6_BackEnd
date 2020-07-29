@@ -1,6 +1,5 @@
 package com.openclassrooms.escalade.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -14,20 +13,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * Service to manage document storage
+ */
 @Service
-@Slf4j
 public class FileStorageService {
 
     private final Path root = Paths.get("uploads");
 
-    public void init() {
-        try {
-            Files.createDirectory(root);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload");
-        }
-    }
-
+    /**
+     * Method to save a file
+     *
+     * @param file MultipartFile to save
+     * @param fileName name of the file to save
+     *
+     * @see MultipartFile
+     * @see Files
+     */
     public void save(MultipartFile file, String fileName) {
         try {
             Files.copy(file.getInputStream(), this.root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
@@ -37,12 +39,19 @@ public class FileStorageService {
 
     }
 
+    /**
+     * Method to load a file
+     *
+     * @param fileName name of the file to load
+     *
+     * @return Resource which represents the file loaded
+     *
+     * @see Resource
+     */
     public Resource load(String fileName) {
         try {
             Path file = root.resolve(fileName);
-            log.info("PATH FILE : " + file);
             Resource resource = new UrlResource(file.toUri());
-            log.info("RESOURCE : " + resource);
 
             if (resource.exists() || resource.isReadable()) {
                 return resource;
@@ -54,6 +63,13 @@ public class FileStorageService {
         }
     }
 
+    /**
+     * Method to delete a file
+     *
+     * @param fileName name of the file to delete
+     *
+     * @see FileSystemUtils#deleteRecursively(Path)
+     */
     public void delete(String fileName) {
         Path file = root.resolve(fileName);
         try {

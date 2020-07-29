@@ -14,6 +14,13 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 
+/**
+ * Service to manage TopoUSer
+ *
+ * @see TopoUserDto
+ * @see TopoUserRepository
+ * @see TopoUserMapper
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -24,17 +31,29 @@ public class TopoUserService {
     private final TopoUserMapper topoUserMapper;
     private final TopoRepository topoRepository;
 
-    public TopoUserDto updateTopoUser(TopoUserDto topoUserDto) { //TODO : réfléchir à un autre algo
+    /**
+     * Method to update a topoUser
+     *
+     * @param topoUserDto topoUser updated to save
+     *
+     * @return TopoUserDto updated
+     *
+     * @see TopoUserRepository#save(Object)
+     * @see EntityNotFoundException
+     */
+    public TopoUserDto updateTopoUser(TopoUserDto topoUserDto) {
 
         TopoUser topoUser = topoUserRepository.findById(topoUserDto.getId()).orElseThrow(EntityNotFoundException::new);
 
-        // Si on a une réservation de faite mais que le statut n'a pas été mis à jour -> problème énum TS
+        // if we have a reservation made but the status has not been update (due to a problem with TS enum)
         if (topoUserDto.getBookingState() == null && topoUserDto.getTenant() != null) {
             topoUserDto.setBookingState(EBookingState.PENDING);
         }
 
+        // If no BookingState is provided, it means that the topo is not booked, it is therefore available by default
         if (topoUserDto.getBookingState() == null) {
             topoUser.setAvailable(topoUserDto.isAvailable());
+            // Else, if the BookingState is ACCEPTED or PENDING : the topoUser is unavailable. In other cases,  it is available
         } else {
             switch (topoUserDto.getBookingState()) {
                 case ACCEPTED:
@@ -45,9 +64,7 @@ public class TopoUserService {
                     topoUser.setBookingState(topoUserDto.getBookingState());
                     topoUser.setBookingDate(LocalDateTime.now());
                     break;
-                case REFUSED:
-                case CANCELED:
-                case FINISHED:
+                default: // if BookingState REFUSED, CANCELED, FINISHED
                     topoUser.setTenant(null);
                     topoUser.setAvailable(true);
                     topoUser.setBookingState(null);
@@ -59,6 +76,16 @@ public class TopoUserService {
         return topoUserMapper.toTopoUserDto(topoUserRepository.save(topoUser));
     }
 
+    /**
+     * Method to create a TopoUser : when a user indicates that he owns the topo and wants to make it available for rental
+     *
+     * @param topoUserDto TopoUser to save
+     *
+     * @return TopoUserDto saved
+     *
+     * @see TopoUserRepository#save(Object)
+     * @see EntityNotFoundException
+     */
     public TopoUserDto createTopoUser(TopoUserDto topoUserDto) {
         TopoUser topoUser = new TopoUser();
         topoUser.setOwner(userRepository.findById(topoUserDto.getOwner().getId())
