@@ -2,7 +2,7 @@ package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.LongueurDto;
 import com.openclassrooms.escalade.dto.LongueurLightDto;
-import com.openclassrooms.escalade.entities.Longueur;
+import com.openclassrooms.escalade.entity.Longueur;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

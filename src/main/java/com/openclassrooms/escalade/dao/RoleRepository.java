@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao;
 
-import com.openclassrooms.escalade.entities.Role;
+import com.openclassrooms.escalade.entity.Role;
 import com.openclassrooms.escalade.model.ERole;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

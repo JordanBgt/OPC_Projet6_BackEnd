@@ -1,7 +1,7 @@
 package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.PhotoDto;
-import com.openclassrooms.escalade.entities.Photo;
+import com.openclassrooms.escalade.entity.Photo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

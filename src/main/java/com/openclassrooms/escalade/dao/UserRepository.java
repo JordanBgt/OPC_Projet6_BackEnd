@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao;
 
-import com.openclassrooms.escalade.entities.User;
+import com.openclassrooms.escalade.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

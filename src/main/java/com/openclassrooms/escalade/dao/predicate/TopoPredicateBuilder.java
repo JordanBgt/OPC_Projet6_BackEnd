@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao.predicate;
 
-import com.openclassrooms.escalade.entities.QTopo;
+import com.openclassrooms.escalade.entity.QTopo;
 import com.openclassrooms.escalade.model.TopoSearch;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;

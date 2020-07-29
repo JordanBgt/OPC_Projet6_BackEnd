@@ -2,7 +2,7 @@ package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.VoieDto;
 import com.openclassrooms.escalade.dto.VoieLightDto;
-import com.openclassrooms.escalade.entities.Voie;
+import com.openclassrooms.escalade.entity.Voie;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

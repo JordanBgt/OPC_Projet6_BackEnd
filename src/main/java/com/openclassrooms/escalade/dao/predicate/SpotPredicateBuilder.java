@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao.predicate;
 
-import com.openclassrooms.escalade.entities.QSpot;
+import com.openclassrooms.escalade.entity.QSpot;
 import com.openclassrooms.escalade.model.SpotSearch;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;

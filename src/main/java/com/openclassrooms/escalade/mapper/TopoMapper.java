@@ -2,7 +2,7 @@ package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.TopoDto;
 import com.openclassrooms.escalade.dto.TopoLightDto;
-import com.openclassrooms.escalade.entities.Topo;
+import com.openclassrooms.escalade.entity.Topo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

@@ -1,7 +1,7 @@
 package com.openclassrooms.escalade.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.openclassrooms.escalade.entities.User;
+import com.openclassrooms.escalade.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao.predicate;
 
-import com.openclassrooms.escalade.entities.QLongueur;
+import com.openclassrooms.escalade.entity.QLongueur;
 import com.openclassrooms.escalade.model.LongueurSearch;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;

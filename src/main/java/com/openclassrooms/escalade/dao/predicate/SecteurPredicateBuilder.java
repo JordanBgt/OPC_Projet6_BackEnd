@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao.predicate;
 
-import com.openclassrooms.escalade.entities.QSecteur;
+import com.openclassrooms.escalade.entity.QSecteur;
 import com.openclassrooms.escalade.model.SecteurSearch;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;

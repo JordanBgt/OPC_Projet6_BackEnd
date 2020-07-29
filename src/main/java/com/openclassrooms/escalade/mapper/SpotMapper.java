@@ -2,7 +2,7 @@ package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.SpotDto;
 import com.openclassrooms.escalade.dto.SpotLightDto;
-import com.openclassrooms.escalade.entities.Spot;
+import com.openclassrooms.escalade.entity.Spot;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

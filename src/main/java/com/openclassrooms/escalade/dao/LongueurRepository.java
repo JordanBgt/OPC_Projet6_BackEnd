@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao;
 
-import com.openclassrooms.escalade.entities.Longueur;
+import com.openclassrooms.escalade.entity.Longueur;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;

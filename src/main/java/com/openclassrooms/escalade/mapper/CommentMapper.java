@@ -1,7 +1,7 @@
 package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.CommentDto;
-import com.openclassrooms.escalade.entities.Comment;
+import com.openclassrooms.escalade.entity.Comment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

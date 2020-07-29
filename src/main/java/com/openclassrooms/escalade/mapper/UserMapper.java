@@ -2,7 +2,7 @@ package com.openclassrooms.escalade.mapper;
 
 import com.openclassrooms.escalade.dto.UserDto;
 import com.openclassrooms.escalade.dto.UserLightDto;
-import com.openclassrooms.escalade.entities.User;
+import com.openclassrooms.escalade.entity.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;

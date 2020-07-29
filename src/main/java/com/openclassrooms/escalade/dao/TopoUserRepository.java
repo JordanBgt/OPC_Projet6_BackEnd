@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao;
 
-import com.openclassrooms.escalade.entities.TopoUser;
+import com.openclassrooms.escalade.entity.TopoUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

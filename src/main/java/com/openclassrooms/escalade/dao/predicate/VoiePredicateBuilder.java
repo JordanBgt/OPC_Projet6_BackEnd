@@ -1,6 +1,6 @@
 package com.openclassrooms.escalade.dao.predicate;
 
-import com.openclassrooms.escalade.entities.QVoie;
+import com.openclassrooms.escalade.entity.QVoie;
 import com.openclassrooms.escalade.model.VoieSearch;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
