@@ -38,7 +38,7 @@ public class SpotController {
 
     /**
      * Method to get a page of Spot
-     * URL : localhost:8080/api/spots
+     * URL : /api/spots
      *
      * @param name search criteria if the user want a page of spots whose name corresponds to the given name
      * @param country search criteria if the user want a page of spots whose country corresponds to the given country
@@ -56,6 +56,7 @@ public class SpotController {
      *
      * @return a page of SpotLightDto
      *
+     * @see SpotSearch
      * @see SpotService#findAll(SpotSearch, Pageable)
      */
     @GetMapping
@@ -71,7 +72,7 @@ public class SpotController {
                                           @RequestParam(defaultValue = "name") String sortBy,
                                           @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                           @RequestParam(defaultValue = "false") boolean unpaged) {
-        log.info("Démarrage récupération de tous les spots");
+        log.info("Start recovery of all spots");
         SpotSearch searchCriteria = new SpotSearch(name, country, city, isOfficial, cotationMin, cotationMax);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return spotService.findAll(searchCriteria, pageable);
@@ -79,7 +80,7 @@ public class SpotController {
 
     /**
      * Method to get a Spot
-     * URL : localhost:8080/api/spots/{id}
+     * URL : /api/spots/{id}
      * Only an admin or a connected user can request a Spot
      *
      * @param id id of the spot searched
@@ -92,13 +93,13 @@ public class SpotController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto getSpot(@PathVariable Long id) {
-        log.info("Démarrage récupération du spot avec l'id " + id);
+        log.info("Start spot recovery");
         return spotService.findById(id);
     }
 
     /**
      * Method to create a Spot
-     * URL : localhost:8080/api/spots
+     * URL : /api/spots
      * Only an admin or a connected user can create a Spot
      *
      * @param spot the spot to save
@@ -111,13 +112,13 @@ public class SpotController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto createSpot(@RequestBody SpotDto spot) {
-        log.info("Démarrage création d'un spot");
+        log.info("Start spot creation");
         return spotService.createOrUpdate(spot);
     }
 
     /**
      * Method to update a Spot
-     * URL : localhost:8080/api/spots/{id}
+     * URL : /api/spots/{id}
      * Only an admin or the user who created the spot can update it
      *
      * @param spot the spot updated to save
@@ -131,13 +132,13 @@ public class SpotController {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #spot.userId == #userId")
     public SpotDto updateSpot(@RequestBody SpotDto spot, @RequestParam Long userId) {
-        log.info("Démarrage modification d'un spot");
+        log.info("Start spot update");
         return spotService.createOrUpdate(spot);
     }
 
     /**
      * Method to add a photo to a spot
-     * URL : localhost:8080/api/spots/{id}/photos
+     * URL : /api/spots/{id}/photos
      * Only an admin or the user who created the spot can add a photo
      *
      * @param id id of the spot
@@ -155,13 +156,13 @@ public class SpotController {
                             @RequestParam MultipartFile file,
                             @RequestParam Long spotUserId,
                             @RequestParam Long userId) {
-        log.info("Démarrage upload photo");
+        log.info("Start photo upload");
         return this.spotService.addPhoto(id, file);
     }
 
     /**
      * Method to delete a Spot
-     * URL : localhost:8080/api/spots/{id}
+     * URL : /api/spots/{id}
      * Only an admin can delete a Spot
      *
      * @param id id of the spot to delete
@@ -174,7 +175,7 @@ public class SpotController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteSpot(@PathVariable Long id) {
-        log.info("Démarrage suppression d'un topo");
+        log.info("Start spot deletion");
         try {
             spotService.delete(id);
             return ResponseEntity.noContent().build();

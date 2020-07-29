@@ -4,6 +4,7 @@ import com.openclassrooms.escalade.dto.CotationDto;
 import com.openclassrooms.escalade.entities.Cotation;
 import com.openclassrooms.escalade.services.CotationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +20,14 @@ import java.util.List;
 @RequestMapping("api/cotations")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class CotationController {
 
     private final CotationService cotationService;
 
     /**
      * Method to get a list of all cotations
-     * URL : localhost:8080/api/cotations
+     * URL : /api/cotations
      *
      * @return a list of all cotations
      *
@@ -34,11 +36,13 @@ public class CotationController {
     @GetMapping
     @ResponseBody
     public List<CotationDto> getAllCotations() {
+        log.info("Start recovery of all cotations");
         return this.cotationService.findAll();
     }
 
     /**
      * Method to get one cotation by its id
+     * URL : /api/cotations/{id}
      *
      * @param id id of the cotation searched
      *
@@ -49,6 +53,7 @@ public class CotationController {
     @GetMapping("/{id}")
     @ResponseBody
     public CotationDto getCotation(@PathVariable Long id) {
+        log.info("Start cotation recovery");
         return this.cotationService.findById(id);
     }
 }

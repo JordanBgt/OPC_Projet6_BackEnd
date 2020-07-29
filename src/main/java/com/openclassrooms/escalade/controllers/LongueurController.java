@@ -6,6 +6,7 @@ import com.openclassrooms.escalade.entities.Longueur;
 import com.openclassrooms.escalade.model.LongueurSearch;
 import com.openclassrooms.escalade.services.LongueurService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,13 +31,14 @@ import javax.persistence.EntityNotFoundException;
 @RequestMapping("/api/longueurs")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class LongueurController {
 
     private final LongueurService longueurService;
 
     /**
      * Method that returns a page of Longueur
-     * URL : localhost:8080/api/longueurs
+     * URL : /api/longueurs
      *
      * @param name search criteria if the user want a page of longueurs whose name corresponds to the given name
      * @param voieId search criteria if the user want a page of longueurs that belong to the voie given
@@ -66,6 +68,7 @@ public class LongueurController {
                                                   @RequestParam(defaultValue = "name") String sortBy,
                                                   @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                                   @RequestParam(defaultValue = "false") boolean unpaged) {
+        log.info("Start recovery of all longueurs");
         LongueurSearch searchCriteria = new LongueurSearch(name, cotationMin, cotationMax, voieId);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return longueurService.findAll(searchCriteria, pageable);
@@ -73,7 +76,7 @@ public class LongueurController {
 
     /**
      * Method to get a Longueur
-     * URL : localhost:8080/api/longueurs/{id}
+     * URL : /api/longueurs/{id}
      * Only an admin or a connected user can request a Longueur
      *
      * @param id id of the longueur searched
@@ -86,13 +89,14 @@ public class LongueurController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public LongueurDto getLongueur(@PathVariable Long id) {
+        log.info("Start longueur recovery");
         return longueurService.findById(id);
     }
 
     /**
      * Method to create a Longueur
      * Only an admin or a conneted user can create a Longueur
-     * URL : localhost:8080/api/longueurs
+     * URL : /api/longueurs
      *
      * @param longueur the longueur to save
      *
@@ -104,12 +108,13 @@ public class LongueurController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public LongueurDto createLongueur(@RequestBody LongueurDto longueur) {
+        log.info("Start longueur creation");
         return longueurService.createOrUpdate(longueur);
     }
 
     /**
      * Method to update a Longueur
-     * URL : localhost:8080/api/longueurs/{id}
+     * URL : /api/longueurs/{id}
      * Only an admin or the user who created the longueur can update it
      *
      * @param longueur longueur updated to save
@@ -123,12 +128,13 @@ public class LongueurController {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #longueur.userId == #userId")
     public LongueurDto updateLongueur(@RequestBody LongueurDto longueur, @RequestParam Long userId) {
+        log.info("Start longueur update");
         return longueurService.createOrUpdate(longueur);
     }
 
     /**
      * Method to delete a Longueur
-     * URL : localhost:8080/api/longueurs/{id}
+     * URL : /api/longueurs/{id}
      * Only an admin can delete a Longueur
      *
      * @param id id of the longueur to delete
@@ -141,6 +147,7 @@ public class LongueurController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteLongueur(@PathVariable Long id) {
+        log.info("Start longueur deletion");
         try {
             longueurService.delete(id);
             return ResponseEntity.noContent().build();

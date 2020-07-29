@@ -7,6 +7,7 @@ import com.openclassrooms.escalade.security.JwtUtils;
 import com.openclassrooms.escalade.dao.RoleRepository;
 import com.openclassrooms.escalade.dao.UserRepository;
 import com.openclassrooms.escalade.security.UserDetailsImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/auth")
+@Slf4j
 public class AuthController {
 
     @Autowired
@@ -48,6 +50,8 @@ public class AuthController {
 
     /**
      * Method to authenticate a user and update SecurityContext
+     * URL : /api/auth/signin
+     *
      * @param loginRequest the login request which contains username and password
      * @return ResponseEntity which contains JWTT and UserDetails
      *
@@ -57,6 +61,7 @@ public class AuthController {
      */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        log.info("Start user authentication");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
@@ -76,6 +81,7 @@ public class AuthController {
 
     /**
      * Method to register a new user : create it and save it to database
+     * URL : /api/auth/signup
      *
      * @param signupRequest the signup request that contains the information needed to register a user
      * @return MessageResponse which confirms the creation of the user
@@ -88,6 +94,7 @@ public class AuthController {
      */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
+        log.info("Start user registration");
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Erreur : le pseudo est déjà utilisé !"));

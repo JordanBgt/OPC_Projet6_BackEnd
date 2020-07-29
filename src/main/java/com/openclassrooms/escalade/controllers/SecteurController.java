@@ -6,6 +6,7 @@ import com.openclassrooms.escalade.entities.Secteur;
 import com.openclassrooms.escalade.model.SecteurSearch;
 import com.openclassrooms.escalade.services.SecteurService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,13 +29,14 @@ import javax.persistence.EntityNotFoundException;
 @RequestMapping("/api/secteurs")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class SecteurController {
 
     private final SecteurService secteurService;
 
     /**
      * Method to get a page of Secteur
-     * URL : localhost:8080/api/secteurs
+     * URL : /api/secteurs
      *
      * @param name search criteria if the user want a page of secteurs whose name corresponds to the given name
      * @param spotId search criteria if the user want a page of secteurs that belong to the spot given
@@ -58,6 +60,7 @@ public class SecteurController {
                                                 @RequestParam(defaultValue = "name") String sortBy,
                                                 @RequestParam(defaultValue = "ASC") Sort.Direction direction,
                                                 @RequestParam(defaultValue = "false") boolean unpaged) {
+        log.info("Start recovery of all secteurs");
         SecteurSearch searchCriteria = new SecteurSearch(name, spotId);
         Pageable pageable = unpaged ? Pageable.unpaged() : PageRequest.of(page, size, direction, sortBy);
         return secteurService.findAll(searchCriteria, pageable);
@@ -65,7 +68,7 @@ public class SecteurController {
 
     /**
      * Method to get a Secteur
-     * URL : localhost:8080/api/secteurs/{id}
+     * URL : /api/secteurs/{id}
      * Only an admin or a connected user can request a secteur
      *
      * @param id id of the secteur searched
@@ -78,12 +81,13 @@ public class SecteurController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SecteurDto getSecteur(@PathVariable Long id) {
+        log.info("Start secteur recovery");
         return secteurService.findById(id);
     }
 
     /**
      * Method to create a Secteur
-     * URL : localhost:8080/api/secteurs
+     * URL : /api/secteurs
      * Only an admin or a connected user can create a Secteur
      *
      * @param secteur the secteur to save
@@ -96,12 +100,13 @@ public class SecteurController {
     @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SecteurDto createSecteur(@RequestBody SecteurDto secteur) {
+        log.info("Start secteur creation");
         return secteurService.createOrUpdate(secteur);
     }
 
     /**
      * Method to update a Secteur
-     * URL : localhost:8080/api/secteurs/{id}
+     * URL : /api/secteurs/{id}
      * Only an admin or the user who created the secteur can update it
      *
      * @param secteur the secteur updated to save
@@ -115,12 +120,13 @@ public class SecteurController {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #secteur.userId == #userId")
     public SecteurDto updateSecteur(@RequestBody SecteurDto secteur, @RequestParam Long userId) {
+        log.info("Start secteur update");
         return secteurService.createOrUpdate(secteur);
     }
 
     /**
      * Method to delete a Secteur
-     * URL : localhost:8080/api/secteurs/{id}
+     * URL : /api/secteurs/{id}
      * Only an admin can delete a Secteur
      *
      * @param id id of the secteur to delete
@@ -133,6 +139,7 @@ public class SecteurController {
     @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<Void> deleteSecteur(@PathVariable Long id) {
+        log.info("Start secteur deletion");
         try {
             secteurService.delete(id);
             return ResponseEntity.noContent().build();

@@ -6,8 +6,18 @@ import com.openclassrooms.escalade.services.TopoUserService;
 import com.openclassrooms.escalade.services.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controler to handler UserProfile. UserProfile contains informations about the user, the topos he created/owns/rents,
+ * and the spots that he created.
+ *
+ * @see UserProfileDto
+ * @see UserProfileService
+ * @see TopoUserService
+ */
 @RestController
 @RequestMapping("/api/profile")
 @CrossOrigin(origins = "*")
@@ -18,24 +28,60 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
     private final TopoUserService topoUserService;
 
+    /**
+     * Method to get a UserProfile
+     * URL : /api/profile
+     * Only an admin or a connected user can request his profile
+     *
+     * @param userId user's id
+     *
+     * @return UserProfilDto
+     *
+     * @see UserProfileService#findUserProfile(Long)
+     */
     @GetMapping
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public UserProfileDto getProfile(@RequestParam Long userId) {
-        log.info("Démarrage récupération du profile utilisateur");
+        log.info("Start of user profile recovery");
         return userProfileService.findUserProfile(userId);
     }
 
+    /**
+     * Method to update the booking state
+     * URL : /api/profile/bookings
+     * Only an admin or a connected user can update the booking state
+     *
+     * @param topoUserDto TopoUserDto updated with the informations of the user who wants to book the topo
+     *
+     * @return TopoUserDto updated
+     *
+     * @see TopoUserService#updateTopoUser(TopoUserDto)
+     */
     @PostMapping("/bookings")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoUserDto updateBooking(@RequestBody TopoUserDto topoUserDto) {
-        log.info("Démarrage mise à jour de la réservation");
+        log.info("Start updating the reservation");
         return topoUserService.updateTopoUser(topoUserDto);
     }
 
+    /**
+     * Method to add a topo to the topos that the user owned
+     * URL : /api/profile/topos
+     * Only an admin or a connected user can add a topo to the topos he owned
+     *
+     * @param topoUserDto TopoUserDto which contains information about the topo and the owner
+     *
+     * @return TopoUserDto created
+     *
+     * @see TopoUserService#createTopoUser(TopoUserDto)
+     */
     @PostMapping("/topos")
     @ResponseBody
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoUserDto addTopoUser(@RequestBody TopoUserDto topoUserDto) {
-        log.info("Démarrage ajout d'un topo à la liste des topos possédés");
+        log.info("Start creating topoUser");
         return topoUserService.createTopoUser(topoUserDto);
     }
 }
