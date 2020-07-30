@@ -39,21 +39,4 @@ public class CotationController {
         log.info("Start recovery of all cotations");
         return this.cotationService.findAll();
     }
-
-    /**
-     * Method to get one cotation by its id
-     * URL : /api/cotations/{id}
-     *
-     * @param id id of the cotation searched
-     *
-     * @return a cotation
-     *
-     * @see CotationService#findById(Long)
-     */
-    @GetMapping("/{id}")
-    @ResponseBody
-    public CotationDto getCotation(@PathVariable Long id) {
-        log.info("Start cotation recovery");
-        return this.cotationService.findById(id);
-    }
 }
