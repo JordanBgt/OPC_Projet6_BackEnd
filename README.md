@@ -54,8 +54,31 @@ La partie Back consiste en l'implémentation de web services pour requêter la b
 * Querydsl
 
 ## Déploiement
+
+### Déploiement en local
+
+* Clôner le projet
+* Lancer la commande `mvn clean install` à la racine du projet
+* Importer le dump de la base de données Mysql (répertoire "dump" à la racine du projet)
+* Modifier le fichier "src/resources/application.properties" pour changer le port de la base de données s'il est 
+différent
+* Lancer l'application avec la commande `mvn spring-boot:run`
+
+Si vous souhaitez packager l'application sous forme de jar et l'exécuter : 
+* Lancer la commande `mvn package -Pprod`
+* Le jar se trouvera ensuite dans le dossier "target" à la racine du projet
+* Pour exécuter le jar, lancer la commande `java -jar ` suivi du chemin vers le jar. 
+Exemple : `java -jar target/escalade-1.0.0.jar`
+
+### Déploiement sur un serveur
  *A VENIR*
 
 ## Lancement de l'application
     mvn spring-boot:run
 Application disponible à l'adresse suivante : [http://localhost:8080](http://localhost:8080)
+
+Deux utilisateurs sont déjà enregistrés : 
+* username : admin / password : admin => rôle Admin
+* username : user1 / password : user1 => rôle User
+
+/!\ Ne pas modifier le mot de passe dans la base de données car ils sont encodés avant d'être enregistrés dans la base

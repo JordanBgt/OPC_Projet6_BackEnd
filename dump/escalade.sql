@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 27, 2020 at 10:18 AM
+-- Generation Time: Jul 30, 2020 at 03:32 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.1.32
 
@@ -360,11 +360,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `username`) VALUES
 (1, 'admin@email.com', '$2a$10$Roncy1LUr8JCoRygEkuO6OHSddNY88u0RHQm4CsyRlBAC9SuBfB5K', 'admin'),
-(2, 'user1@email.com', '$2a$10$jj5p64AYQeJF4y4EFwlaEuPFYURYwc.w.FQEZx4289coW4f6zP5Gi', 'user1'),
-(3, 'user2@email.com', '$2a$10$pX3KK37jkocj6DXS5rCESe.EJ29b09xbPrggR7qgMgJ.20tQzucXa', 'user2'),
-(13, 'user@email.fr', '$2a$10$imteAaHb1mW7Dt/VYHHB9.0PNRzHoMcvKHvyM8HZmuUoicQxHv5Bu', 'user'),
-(14, 'admin2@email.com', '$2a$10$Roncy1LUr8JCoRygEkuO6OHSddNY88u0RHQm4CsyRlBAC9SuBfB5K', 'admin2'),
-(15, 'admin3@email.fr', '$2a$10$0aBwqT6DF7zfSxsXvrwzTuY4xis3u7fKlSQHOsAl/q6O1Gow4I4S2', 'admin3');
+(2, 'user1@email.com', '$2a$10$jj5p64AYQeJF4y4EFwlaEuPFYURYwc.w.FQEZx4289coW4f6zP5Gi', 'user1');
 
 -- --------------------------------------------------------
 
@@ -384,12 +380,7 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (1, 1),
-(13, 1),
-(2, 2),
-(3, 2),
-(13, 2),
-(14, 2),
-(15, 2);
+(2, 2);
 
 -- --------------------------------------------------------
 
