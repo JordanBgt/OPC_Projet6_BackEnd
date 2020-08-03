@@ -58,7 +58,6 @@ public class LongueurController {
      * @see LongueurService#findAll(LongueurSearch, Pageable)
      */
     @GetMapping
-    @ResponseBody
     public Page<LongueurLightDto> getAllLongueurs(@RequestParam(required = false) String name,
                                                   @RequestParam(required = false) Long voieId,
                                                   @RequestParam(required = false) Long cotationMin,
@@ -86,7 +85,6 @@ public class LongueurController {
      * @see LongueurService#findById(Long)
      */
     @GetMapping("/{id}")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public LongueurDto getLongueur(@PathVariable Long id) {
         log.info("Start longueur recovery");
@@ -105,7 +103,6 @@ public class LongueurController {
      * @see LongueurService#createOrUpdate(LongueurDto)
      */
     @PostMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public LongueurDto createLongueur(@RequestBody LongueurDto longueur) {
         log.info("Start longueur creation");
@@ -125,7 +122,6 @@ public class LongueurController {
      * @see LongueurService#createOrUpdate(LongueurDto)
      */
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #longueur.userId == #userId")
     public LongueurDto updateLongueur(@RequestBody LongueurDto longueur, @RequestParam Long userId) {
         log.info("Start longueur update");

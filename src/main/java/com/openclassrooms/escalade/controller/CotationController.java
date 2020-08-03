@@ -34,7 +34,6 @@ public class CotationController {
      * @see CotationService#findAll()
      */
     @GetMapping
-    @ResponseBody
     public List<CotationDto> getAllCotations() {
         log.info("Start recovery of all cotations");
         return this.cotationService.findAll();

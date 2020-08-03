@@ -52,7 +52,6 @@ public class SecteurController {
      * @see SecteurService#findAll(SecteurSearch, Pageable)
      */
     @GetMapping
-    @ResponseBody
     public Page<SecteurLightDto> getAllSecteurs(@RequestParam(required = false) String name,
                                                 @RequestParam(required = false) Long spotId,
                                                 @RequestParam(defaultValue = "0") Integer page,
@@ -78,7 +77,6 @@ public class SecteurController {
      * @see SecteurService#findById(Long)
      */
     @GetMapping("/{id}")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SecteurDto getSecteur(@PathVariable Long id) {
         log.info("Start secteur recovery");
@@ -97,7 +95,6 @@ public class SecteurController {
      * @see SecteurService#createOrUpdate(SecteurDto)
      */
     @PostMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SecteurDto createSecteur(@RequestBody SecteurDto secteur) {
         log.info("Start secteur creation");
@@ -117,7 +114,6 @@ public class SecteurController {
      * @see SecteurService#createOrUpdate(SecteurDto)
      */
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #secteur.userId == #userId")
     public SecteurDto updateSecteur(@RequestBody SecteurDto secteur, @RequestParam Long userId) {
         log.info("Start secteur update");

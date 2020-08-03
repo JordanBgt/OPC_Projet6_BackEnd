@@ -39,7 +39,6 @@ public class UserProfileController {
      * @see UserProfileService#findUserProfile(Long)
      */
     @GetMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public UserProfileDto getProfile(@RequestParam Long userId) {
         log.info("Start of user profile recovery");
@@ -58,7 +57,6 @@ public class UserProfileController {
      * @see TopoUserService#updateTopoUser(TopoUserDto)
      */
     @PostMapping("/bookings")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoUserDto updateBooking(@RequestBody TopoUserDto topoUserDto) {
         log.info("Start updating the reservation");
@@ -77,7 +75,6 @@ public class UserProfileController {
      * @see TopoUserService#createTopoUser(TopoUserDto)
      */
     @PostMapping("/topos")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoUserDto addTopoUser(@RequestBody TopoUserDto topoUserDto) {
         log.info("Start creating topoUser");

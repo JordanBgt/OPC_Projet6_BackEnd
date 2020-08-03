@@ -51,7 +51,6 @@ public class CommentController {
      * @see CommentService#findAllBySpotId(Long, Pageable)
      */
     @GetMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public Page<CommentDto> getAllCommentsBySpot(@RequestParam Long spotId,
                                                  @RequestParam(defaultValue = "0") Integer page,
@@ -76,7 +75,6 @@ public class CommentController {
      * @see CommentService#findById(Long)
      */
     @GetMapping("/{id}")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public CommentDto getComment(@PathVariable Long id) {
         log.info("Start comment recovery");
@@ -95,7 +93,6 @@ public class CommentController {
      * @see CommentService#create(CommentSaveDto)
      */
     @PostMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public CommentDto createComment(@RequestBody CommentSaveDto comment) {
         log.info("Starting creation of a comment");
@@ -115,7 +112,6 @@ public class CommentController {
      * @see CommentService#update(CommentDto)
      */
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #comment.userId == #userId")
     public CommentDto updateComment(@RequestBody CommentDto comment, @RequestParam Long userId) {
         log.info("Start comment update");

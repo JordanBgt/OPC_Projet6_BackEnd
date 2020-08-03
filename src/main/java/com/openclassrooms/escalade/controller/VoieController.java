@@ -56,7 +56,6 @@ public class VoieController {
      * @see VoieService#findAll(VoieSearch, Pageable)
      */
     @GetMapping
-    @ResponseBody
     public Page<VoieLightDto> getAllVoies(@RequestParam(required = false) String name,
                                           @RequestParam(required = false) Long secteurId,
                                           @RequestParam(required = false) Long cotationMin,
@@ -83,7 +82,6 @@ public class VoieController {
      * @see VoieService#findById(Long)
      */
     @GetMapping("/{id}")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public VoieDto getVoie(@PathVariable Long id) {
         log.info("Start voie recovery");
@@ -102,7 +100,6 @@ public class VoieController {
      * @see VoieService#createOrUpdate(VoieDto)
      */
     @PostMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public VoieDto createVoie(@RequestBody VoieDto voie) {
         log.info("Start voie creation");
@@ -123,7 +120,6 @@ public class VoieController {
      * @see VoieService#createOrUpdate(VoieDto)
      */
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #voie.userId == #userId")
     public VoieDto updateVoie(@RequestBody VoieDto voie, @RequestParam Long userId) {
         log.info("Start voie update");

@@ -62,7 +62,6 @@ public class TopoController {
      * @see TopoService#findAll(TopoSearch, Pageable)
      */
     @GetMapping
-    @ResponseBody
     public Page<TopoLightDto> getAllTopos(@RequestParam(required = false) String country,
                                           @RequestParam(required = false) String name,
                                           @RequestParam(required = false) Long cotationMin,
@@ -90,7 +89,6 @@ public class TopoController {
      * @see TopoService#findById(Long)
      */
     @GetMapping("/{id}")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto getTopo(@PathVariable Long id) {
         log.info("Start topo recovery");
@@ -109,7 +107,6 @@ public class TopoController {
      * @see TopoService#createOrUpdate(TopoDto)
      */
     @PostMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public TopoDto createTopo(@RequestBody TopoDto topo) {
         log.info("Start topo creation");
@@ -129,7 +126,6 @@ public class TopoController {
      * @see TopoService#createOrUpdate(TopoDto)
      */
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #topo.creatorId == #userId")
     public TopoDto updateTopo(@RequestBody TopoDto topo, @RequestParam Long userId) {
         log.info("Start topo update");

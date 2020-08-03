@@ -60,7 +60,6 @@ public class SpotController {
      * @see SpotService#findAll(SpotSearch, Pageable)
      */
     @GetMapping
-    @ResponseBody
     public Page<SpotLightDto> getAllSpots(@RequestParam(required = false) String name,
                                           @RequestParam(required = false) String country,
                                           @RequestParam(required = false) String city,
@@ -90,7 +89,6 @@ public class SpotController {
      * @see SpotService#findById(Long)
      */
     @GetMapping("/{id}")
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto getSpot(@PathVariable Long id) {
         log.info("Start spot recovery");
@@ -109,7 +107,6 @@ public class SpotController {
      * @see SpotService#createOrUpdate(SpotDto)
      */
     @PostMapping
-    @ResponseBody
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SpotDto createSpot(@RequestBody SpotDto spot) {
         log.info("Start spot creation");
@@ -129,7 +126,6 @@ public class SpotController {
      * @see SpotService#createOrUpdate(SpotDto)
      */
     @PutMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or #spot.userId == #userId")
     public SpotDto updateSpot(@RequestBody SpotDto spot, @RequestParam Long userId) {
         log.info("Start spot update");
