@@ -57,6 +57,12 @@ La partie Back consiste en l'implémentation de web services pour requêter la b
 
 ### Déploiement en local
 
+* Installer Java 11 :
+    - Télécharger le JDK de Java 11 : [Lien Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) / [Lien OpenJdk](http://jdk.java.net/archive/)
+    - Définir la variable d'environnement `JAVA_HOME` et ajouter les binaires du JDK au `PATH`
+* Installer Maven : 
+    - [Lien Maven](https://maven.apache.org/download.cgi)
+    - Définir la variable d'environnement `MAVEN_HOME` et ajouter les binaires de Maven au `PATJH`
 * Clôner le projet
 * Lancer la commande `mvn clean install` à la racine du projet
 * Importer le dump de la base de données Mysql (répertoire "dump" à la racine du projet)
