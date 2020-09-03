@@ -77,7 +77,12 @@ Si vous souhaitez packager l'application sous forme de jar et l'exécuter :
 Exemple : `java -jar target/escalade-1.0.0.jar`
 
 ### Déploiement sur un serveur
- *A VENIR*
+ 
+  * Modifier la balise `<packaging>` du pom pour avoir : `<packaging>war</packaging>`
+  * Executer la commande `mvn clean package`
+  * Installer Tomcat : [lien](https://tomcat.apache.org/download-90.cgi)
+  * Copier l'archive war de l'application depuis le dossier `target` dans le dossier `webapps` du répertoire Tomcat
+  * Lancer le serveur Tomcat
 
 ## Lancement de l'application
     mvn spring-boot:run
